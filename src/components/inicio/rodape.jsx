@@ -17,7 +17,7 @@ export default function Rodape() {
 
                 <div className="rodape-coluna">
                     <h3>Missionary Store Brasil</h3>
-                    <p>Produtos de qualidade para apoiar sua missão com conforto e estilo.</p>
+                    <p>Produtos de qualidade para apoiar<br /> sua missão  com conforto e estilo.</p>
                 </div>
 
                 <div className="rodape-coluna">
