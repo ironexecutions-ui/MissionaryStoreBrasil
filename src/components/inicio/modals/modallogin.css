@@ -205,3 +205,115 @@
         transform: translateY(0) scale(1);
     }
 }
+
+@media (max-width: 480px) {
+
+    .log-login-overlay {
+        padding: 12px;
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+
+    .log-login-box {
+        width: 100%;
+        max-width: 100%;
+        padding: 22px 18px;
+        border-radius: 12px;
+    }
+
+    .log-login-titulo {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .log-login-desc {
+        font-size: 14px;
+        margin-top: 14px;
+    }
+
+    .log-google-btn-area {
+        margin-top: 6px;
+        margin-bottom: 16px;
+    }
+
+    .log-termos-titulo {
+        font-size: 18px;
+    }
+
+    .log-termos-intro {
+        font-size: 14px;
+    }
+
+    .log-termos-lista li {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .log-btn-aceitar {
+        width: 100%;
+        font-size: 15px;
+        padding: 11px 14px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .log-login-box {
+        max-width: 380px;
+        padding: 26px 22px;
+    }
+
+    .log-login-titulo {
+        font-size: 24px;
+    }
+
+    .log-login-desc {
+        font-size: 14.5px;
+    }
+
+    .log-termos-titulo {
+        font-size: 20px;
+    }
+
+    .log-termos-lista li {
+        font-size: 13.5px;
+    }
+
+    .log-btn-aceitar {
+        font-size: 15.5px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .log-login-overlay {
+        padding: 24px;
+    }
+
+    .log-login-box {
+        max-width: 420px;
+        padding: 30px;
+    }
+
+    .log-login-titulo {
+        font-size: 26px;
+    }
+
+    .log-login-desc {
+        font-size: 15px;
+    }
+}
+
+@media (max-height: 600px) {
+
+    .log-login-overlay {
+        align-items: flex-start;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        overflow-y: auto;
+    }
+
+    .log-login-box {
+        margin-bottom: 30px;
+    }
+}
