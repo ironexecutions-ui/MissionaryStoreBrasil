@@ -106,10 +106,15 @@ export default function ModalCarrinho({ fechar }) {
 
         setLista(produtos);
 
-        if (primeiraCarga.current && produtos.length > 0) {
+        if (
+            primeiraCarga.current &&
+            produtos.length > 0 &&
+            window.innerWidth > 900
+        ) {
             setProdutoSelecionado(produtos[0]);
             primeiraCarga.current = false;
         }
+
 
         setLoading(false);
     }, [usuario.id]);

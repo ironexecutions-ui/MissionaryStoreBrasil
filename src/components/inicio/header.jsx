@@ -195,7 +195,7 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
                                     }}
                                     style={{ cursor: "pointer", }}
                                 >
-                                    {usuario.nome} {usuario.sobrenome}
+                                    {usuario.nome}
                                 </div>
 
                                 {mostrarAvisoEndereco && (
