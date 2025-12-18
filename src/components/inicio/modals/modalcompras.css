@@ -1,0 +1,860 @@
+.compras-container {
+    width: 95%;
+    min-height: 100vh;
+    background: #121721;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+
+    /* sensação de base sólida */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+    /* estabilidade em scroll */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Botão voltar */
+.btn-fechar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 8px 16px;
+    color: #d4af37;
+    border-radius: 6px;
+    cursor: pointer;
+
+    /* corpo físico */
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+    /* transição mais real */
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.35s ease,
+        transform 0.25s ease;
+
+    backface-visibility: hidden;
+}
+
+.btn-fechar:hover {
+    background: #d4af37;
+    color: #121721;
+
+    /* leve elevação */
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-fechar:active {
+    /* sensação de clique */
+    transform: translateY(0) scale(0.97);
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.45),
+        inset 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.titulo-geral {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 26px;
+    font-weight: bold;
+
+    /* presença e leitura */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.45);
+
+    /* suavização tipográfica */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* CARD */
+.pedido-card {
+    background: #1b212e;
+    border: 1px solid #2d3341;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 22px;
+
+    /* profundidade real em camadas */
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.35),
+        0 8px 18px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    /* estabilidade em animações */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.progress-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    margin-top: 5px;
+
+    /* estabilidade visual */
+    transform: translateZ(0);
+}
+
+.progress-item {
+    display: flex;
+    align-items: center;
+
+    /* evita micro tremidas */
+    backface-visibility: hidden;
+}
+
+.progress-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #444;
+    border: 2px solid #666;
+
+    /* profundidade sutil */
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.4),
+        0 1px 2px rgba(0, 0, 0, 0.35);
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.35s ease,
+        transform 0.25s ease;
+}
+
+.progress-dot.ativo {
+    background: #03910a;
+    border-color: #f1d98a;
+
+    /* destaque real de etapa concluída */
+    box-shadow:
+        0 0 6px rgba(212, 175, 55, 0.55),
+        0 0 14px rgba(212, 175, 55, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    /* leve presença */
+    transform: scale(1.05);
+}
+
+/* Linha padrão */
+.progress-line {
+    width: 80px;
+    height: 4px;
+    background: #444;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+
+    /* profundidade sutil */
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.45),
+        0 1px 2px rgba(0, 0, 0, 0.35);
+
+    transition:
+        background-color 0.4s ease,
+        box-shadow 0.35s ease;
+
+    backface-visibility: hidden;
+}
+
+/* Linha ativa fixa */
+.progress-line.ativa {
+    background: #4caf50;
+
+    /* energia estável */
+    box-shadow:
+        0 0 6px rgba(76, 175, 80, 0.55),
+        0 0 14px rgba(76, 175, 80, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Linha que anima ao alcançar a bolinha */
+.progress-line.animando::before {
+    content: "";
+    position: absolute;
+    left: -100%;
+    top: 0;
+    height: 100%;
+    width: 95%;
+    background: #4caf50;
+    border-radius: 6px;
+
+    /* movimento mais físico */
+    animation: linhaAvanca 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+
+    /* brilho em movimento */
+    box-shadow:
+        0 0 10px rgba(76, 175, 80, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.progress-line {
+    width: 200px !important;
+    height: 4px;
+    background: #555;
+    border-radius: 4px;
+
+    /* profundidade sutil */
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.45),
+        0 1px 2px rgba(0, 0, 0, 0.35);
+
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.35s ease;
+
+    backface-visibility: hidden;
+}
+
+.progress-line.ativa {
+    background: #4caf50;
+
+    /* energia controlada */
+    box-shadow:
+        0 0 6px rgba(76, 175, 80, 0.55),
+        0 0 12px rgba(76, 175, 80, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Produtos */
+.pedido-produtos {
+    margin-top: 15px;
+    border-top: 1px solid #2f3644;
+    padding-top: 15px;
+
+    /* separação visual limpa */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.pedido-produto-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: #222836;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    /* corpo do item */
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+
+    backface-visibility: hidden;
+}
+
+.pedido-produto-item:hover {
+    background: #293042;
+
+    /* elevação sutil */
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.pedido-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+
+    /* presença visual */
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    /* estabilidade */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.pedido-prod-nome {
+    font-size: 16px;
+    font-weight: 500;
+
+    /* leitura e hierarquia */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.35);
+
+    line-height: 1.25;
+}
+
+.pedido-prod-qt {
+    font-size: 13px;
+    opacity: .8;
+
+    /* suaviza contraste */
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.25);
+
+    line-height: 1.2;
+}
+
+/* Rastreamento */
+.rast-box {
+    background: #0f141e;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 8px;
+    border: 1px solid #303642;
+
+    /* profundidade controlada */
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    backface-visibility: hidden;
+}
+
+.rast-msg {
+    font-size: 13px;
+    opacity: .7;
+
+    /* leitura mais limpa */
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.35);
+
+    line-height: 1.3;
+}
+
+/* ===============================
+   BOTÃO "CHEGOU" – ELITE VERMELHO
+=============================== */
+
+.bbtn-chegou {
+    position: relative;
+
+    margin-top: 14px;
+    padding: 12px 18px;
+
+    background: linear-gradient(180deg,
+            #ff6b6b 0%,
+            #e53935 100%);
+
+    color: #1a0f0f;
+    border: none;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+
+    cursor: pointer;
+    user-select: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    /* corpo físico premium */
+
+    transition:
+        transform 0.22s cubic-bezier(.4, 0, .2, 1),
+        box-shadow 0.28s cubic-bezier(.4, 0, .2, 1),
+        background 0.25s ease,
+        filter 0.25s ease;
+
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* brilho interno controlado */
+.bbtn-chegou::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    pointer-events: none;
+
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.65),
+            rgba(255, 255, 255, 0.2) 45%,
+            rgba(0, 0, 0, 0.25));
+
+    opacity: 0.55;
+}
+
+/* ======================================================
+   HOVER
+====================================================== */
+
+.bbtn-chegou:hover {
+    background: linear-gradient(180deg,
+            #ff8585 0%,
+            #f44336 100%);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 12px rgba(244, 67, 54, 0.55),
+        0 22px 40px rgba(244, 67, 54, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ======================================================
+   CLIQUE
+====================================================== */
+
+.bbtn-chegou:active {
+    transform: translateY(1px) scale(0.965);
+
+    box-shadow:
+        0 4px 8px rgba(229, 57, 53, 0.45),
+        inset 0 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ======================================================
+   FOCO ACESSÍVEL
+====================================================== */
+
+.bbtn-chegou:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(244, 67, 54, 0.45),
+        0 16px 32px rgba(244, 67, 54, 0.6);
+}
+
+/* ======================================================
+   DESABILITADO
+====================================================== */
+
+.bbtn-chegou:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+
+    background: linear-gradient(180deg,
+            #c65a5a 0%,
+            #8e2f2f 100%);
+
+    box-shadow:
+        inset 0 3px 6px rgba(0, 0, 0, 0.45);
+
+    transform: none;
+}
+
+/* Entregues */
+.titulo-entregues {
+    margin-top: 35px;
+    font-size: 24px;
+    font-weight: bold;
+
+    /* hierarquia clara */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.45);
+
+    -webkit-font-smoothing: antialiased;
+}
+
+.entregue-item {
+    background: #0f141e;
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid #303642;
+    margin-bottom: 10px;
+
+    /* bloco sólido */
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    backface-visibility: hidden;
+}
+
+.progress-text {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #d4af37;
+    opacity: .9;
+    font-weight: 500;
+
+    /* leitura premium */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.45);
+
+    line-height: 1.3;
+}
+
+/* Linha que anima ao alcançar a bolinha */
+.progress-line.animando::before {
+    content: "";
+    position: absolute;
+    left: -100%;
+    top: 0;
+    height: 100%;
+    width: 95%;
+    background: #4caf50;
+    border-radius: 6px;
+
+    /* avanço mais orgânico */
+    animation: linhaAvanca 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+
+    /* brilho em movimento */
+    box-shadow:
+        0 0 8px rgba(76, 175, 80, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+@keyframes linhaAvanca {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+/* Loading */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    /* sensação de espera controlada */
+    gap: 12px;
+    text-align: center;
+
+    backface-visibility: hidden;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #d4af37;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+
+    /* rotação mais estável */
+    animation: spin 2s linear infinite;
+
+    /* presença visual */
+    box-shadow:
+        0 0 6px rgba(212, 175, 55, 0.45),
+        inset 0 0 4px rgba(255, 255, 255, 0.25);
+
+    backface-visibility: hidden;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.entregue-item p:hover {
+    color: #d4af37;
+    transform: translateX(4px);
+
+    /* transição mais natural */
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+
+    cursor: pointer;
+}
+
+/* Botão dourado principal */
+.btn-recebi-pedido {
+    background-color: #d4af37;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    cursor: pointer;
+
+    /* botão físico */
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.35s ease,
+        transform 0.25s ease;
+
+    backface-visibility: hidden;
+}
+
+.btn-recebi-pedido:hover {
+    background-color: #1a1a1a;
+    color: #d4af37;
+    border-color: #1a1a1a;
+
+    /* leve destaque */
+    transform: scale(1.05);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-recebi-pedido:active {
+    /* pressão real */
+    transform: scale(0.98);
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.45),
+        inset 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.btn-recebi-pedido:disabled {
+    background-color: #cccccc;
+    border-color: #999999;
+    color: #666666;
+    cursor: not-allowed;
+
+    /* estado morto */
+    box-shadow: none;
+    transform: none;
+}
+
+/* ===============================
+   RESPONSIVO COMPLETO – MODAL COMPRAS
+   REGRA GLOBAL: max-width 95%
+=============================== */
+
+/* ====== BASE DE SEGURANÇA ====== */
+@media (max-width: 9999px) {
+
+    .compras-container,
+    .pedido-card,
+    .pedido-produtos,
+    .pedido-produto-item,
+    .entregue-item,
+    .rast-box {
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+}
+
+/* ===============================
+   ATÉ 1200px
+=============================== */
+@media (max-width: 1200px) {
+
+    .compras-container {
+        padding: 18px;
+    }
+
+    .titulo-geral {
+        font-size: 24px;
+    }
+
+    .progress-line {
+        width: 140px !important;
+    }
+}
+
+/* ===============================
+   ATÉ 900px
+=============================== */
+@media (max-width: 900px) {
+
+    .compras-container {
+        padding: 16px;
+    }
+
+    .pedido-card {
+        padding: 18px;
+    }
+
+    .progress-box {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .progress-line {
+        width: 110px !important;
+    }
+
+    .pedido-produto-item {
+        align-items: center;
+    }
+
+    .pedido-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .pedido-prod-nome {
+        font-size: 15px;
+    }
+}
+
+/* ===============================
+   ATÉ 700px
+=============================== */
+@media (max-width: 700px) {
+
+    .compras-container {
+        padding: 14px;
+    }
+
+    .titulo-geral,
+    .titulo-entregues {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .pedido-card {
+        padding: 16px;
+    }
+
+    .pedido-produto-item {
+        gap: 10px;
+    }
+
+    .pedido-img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .rast-box {
+        padding: 10px;
+    }
+
+    .btn-chegou,
+    .btn-recebi-pedido {
+        width: 95%;
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 14.5px;
+    }
+}
+
+/* ===============================
+   ATÉ 500px
+=============================== */
+@media (max-width: 500px) {
+
+    .compras-container {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .titulo-geral {
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    .pedido-card {
+        padding: 14px;
+    }
+
+    .progress-box {
+        justify-content: center;
+    }
+
+    .progress-line {
+        width: 90px !important;
+    }
+
+    .pedido-produto-item {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .pedido-prod-nome {
+        font-size: 14px;
+    }
+
+    .pedido-prod-qt {
+        font-size: 12.5px;
+    }
+
+    .rast-msg {
+        font-size: 12.5px;
+    }
+}
+
+/* ===============================
+   ATÉ 380px
+=============================== */
+@media (max-width: 380px) {
+
+    .compras-container {
+        padding: 10px;
+    }
+
+    .titulo-geral,
+    .titulo-entregues {
+        font-size: 19px;
+    }
+
+    .progress-line {
+        width: 70px !important;
+    }
+
+    .pedido-img {
+        width: 52px;
+        height: 52px;
+    }
+
+    .pedido-prod-nome {
+        font-size: 13.5px;
+    }
+
+    .pedido-prod-qt {
+        font-size: 12px;
+    }
+
+    .progress-text {
+        font-size: 13px;
+        text-align: center;
+    }
+}
+
+/* ===============================
+   TELAS MUITO GRANDES
+=============================== */
+@media (min-width: 1600px) {
+
+    .compras-container {
+        max-width: 1400px;
+    }
+
+    .pedido-card {
+        max-width: 95%;
+    }
+
+    .progress-line {
+        width: 180px !important;
+    }
+}

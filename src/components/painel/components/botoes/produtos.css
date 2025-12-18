@@ -1,0 +1,575 @@
+.ppp-produtos-container {
+    width: 95%;
+    padding: 20px;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* título */
+.ppp-titulo {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* filtros */
+.ppp-filtros {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.ppp-filtros input {
+    background: #0e121a;
+    border: 1px solid #2b3240;
+    padding: 10px;
+    color: white;
+    border-radius: 6px;
+}
+
+/* botão adicionar */
+.ppp-btn-add {
+    background: #d4af37;
+    color: #121721;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* tabela */
+.ppp-tabela {
+    width: 95%;
+    border-collapse: collapse;
+    background: #121721;
+    border: 1px solid #2d3341;
+}
+
+.ppp-tabela th {
+    background: #1a2030;
+    padding: 12px;
+    border-bottom: 1px solid #333b4d;
+}
+
+.ppp-tabela td {
+    padding: 10px;
+    border-bottom: 1px solid #1f2533;
+}
+
+/* mini imagens */
+.ppp-imgs-mini {
+    display: flex;
+    gap: 6px;
+}
+
+.ppp-mini {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.ppp-mini-vazio {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px dashed #d4af37;
+}
+
+/* botao editar */
+.ppp-btn-editar {
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ppp-btn-editar:hover {
+    background: #d4af37;
+    color: #121721;
+}
+
+/* =========================
+   SCROLLBAR PERSONALIZADA DO FORMULÁRIO
+========================= */
+
+.ppp-form-box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.ppp-form-box::-webkit-scrollbar-track {
+    background: #0d1119;
+    border-radius: 10px;
+}
+
+.ppp-form-box::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+    border: 2px solid #0d1119;
+}
+
+.ppp-form-box::-webkit-scrollbar-thumb:hover {
+    background: #f1c75a;
+}
+
+.ppp-form-box {
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #0d1119;
+}
+
+.ppp-tabela-box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.ppp-tabela-box::-webkit-scrollbar-track {
+    background: #0d1119;
+    border-radius: 10px;
+}
+
+.ppp-tabela-box::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+    border: 2px solid #0d1119;
+}
+
+.ppp-tabela-box::-webkit-scrollbar-thumb:hover {
+    background: #f1c75a;
+}
+
+.ppp-tabela-box {
+    background: #121721;
+    border: 1px solid #2d3341;
+    border-radius: 12px;
+
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+
+    box-shadow: 0 0 22px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   GRID DAS MEDIDAS (PESO E DIMENSÕES)
+========================= */
+
+.ppp-medidas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+/* quando quiser usar 4 campos juntos */
+.ppp-medidas-grid.quatro {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 900px) {
+    .ppp-medidas-grid.quatro {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+
+    .ppp-medidas-grid,
+    .ppp-medidas-grid.quatro {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   DESTAQUE PARA PREÇO
+========================= */
+
+.ppp-input-preco {
+    font-weight: 600;
+    color: #d4af37;
+    border-color: #3a3f52;
+}
+
+.ppp-input-preco:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35);
+}
+
+/* =========================
+   SEPARADOR VISUAL ENTRE SEÇÕES
+========================= */
+
+.ppp-separador {
+    height: 1px;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(212, 175, 55, 0.6),
+            transparent);
+    margin: 22px 0;
+}
+
+/* =========================
+   AJUSTE FINO DOS INPUTS NUMÉRICOS
+========================= */
+
+.ppp-form-box input[type="number"] {
+    appearance: textfield;
+}
+
+.ppp-form-box input[type="number"]::-webkit-inner-spin-button,
+.ppp-form-box input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+@keyframes pppFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ppp-form-box input {
+    width: 90% !important;
+}
+
+.ppp-form-box textarea {
+    width: 90% !important;
+
+}
+
+/* botão voltar */
+.ppp-btn-voltar {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.ppp-btn-voltar:hover {
+    background: #d4af37;
+    color: #121721;
+}
+
+/* imagens do form */
+.ppp-imgs-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.ppp-img-slot {
+    width: 110px;
+    height: 110px;
+    position: relative;
+    border-radius: 10px;
+    border: 1px dashed #d4af37;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(212, 175, 55, 0.08);
+    cursor: pointer;
+}
+
+.ppp-img-num {
+    font-size: 12px;
+    color: #d4af37;
+    position: absolute;
+    top: 4px;
+    left: 6px;
+}
+
+.ppp-img-preview {
+    width: 95%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.ppp-img-vazia {
+    font-size: 12px;
+    text-align: center;
+    color: #d4af37;
+    padding: 6px;
+}
+
+/* inputs */
+.ppp-form-box input,
+.ppp-form-box textarea {
+    width: 95%;
+    background: #0e121a;
+    border: 1px solid #2b3240;
+    padding: 10px;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+/* características */
+.ppp-caracts {
+    display: flex;
+    gap: 8px;
+}
+
+.ppp-btn-add-lista {
+    background: #d4af37;
+    color: #121721;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* lista */
+.ppp-lista-caracts {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.ppp-lista-caracts li {
+    background: #1a2030;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    display: flex;
+    width: fit-content;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ppp-caract-del {
+    background: transparent;
+    border: none;
+    color: #d4af37;
+    cursor: pointer;
+}
+
+/* salvar */
+.ppp-btn-salvar {
+    background: #d4af37;
+    color: #121721;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 95%;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* =========================
+   FORMULÁRIO COMPLETO
+========================= */
+.ppp-form-box {
+    background: #121721;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #2d3341;
+
+    width: 95%;
+    max-width: 960px;
+
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+
+    margin: 0 auto;
+    color: white;
+
+    box-shadow: 0 0 22px rgba(0, 0, 0, 0.4);
+    animation: pppFade .2s ease;
+}
+
+
+/* botão voltar */
+.ppp-btn-voltar {
+    background: rgba(212, 175, 55, 0.18);
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-size: 14px;
+    transition: .25s;
+}
+
+.ppp-btn-voltar:hover {
+    background: #d4af37;
+    color: #121721;
+}
+
+/* título do form */
+.ppp-form-box h3 {
+    font-size: 22px;
+    margin-bottom: 18px;
+    color: #d4af37;
+}
+
+/* inputs gerais */
+.ppp-form-box input,
+.ppp-form-box textarea {
+    width: 95%;
+    background: #0d1119;
+    border: 1px solid #2b3240;
+    padding: 12px;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    transition: border .2s;
+}
+
+.ppp-form-box input:focus,
+.ppp-form-box textarea:focus {
+    border-color: #d4af37;
+}
+
+.ppp-form-box label {
+    margin-top: 10px;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: #c7c9d0;
+}
+
+/* =========================
+   BLOCO DE IMAGENS
+========================= */
+
+.ppp-imgs-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.ppp-img-slot {
+    width: 110px;
+    height: 110px;
+    border-radius: 10px;
+    border: 1px dashed #d4af37;
+    background: rgba(212, 175, 55, 0.08);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ppp-img-slot:hover {
+    background: rgba(212, 175, 55, 0.2);
+}
+
+.ppp-img-num {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-size: 12px;
+    color: #d4af37;
+}
+
+.ppp-img-preview {
+    width: 95%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.ppp-img-vazia {
+    font-size: 11px;
+    color: #d4af37;
+    text-align: center;
+    padding: 6px;
+}
+
+/* =========================
+   CARACTERÍSTICAS
+========================= */
+
+.ppp-caracts {
+    display: flex;
+    gap: 8px;
+}
+
+.ppp-btn-add-lista {
+    background: #d4af37;
+    color: #121721;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+}
+
+.ppp-lista-caracts {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.ppp-lista-caracts li {
+    background: #1a2030;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ppp-caract-del {
+    background: transparent;
+    border: none;
+    color: #d4af37;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* =========================
+   BOTÃO SALVAR
+========================= */
+
+.ppp-btn-salvar {
+    width: 95%;
+    background: #d4af37;
+    color: #121721;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.ppp-btn-salvar:hover {
+    background: #f1c75a;
+}
+
+.ppp-img-slot {
+    position: relative;
+}
+
+.ppp-img-delete {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.ppp-img-slot:hover .ppp-img-delete {
+    opacity: 1;
+}

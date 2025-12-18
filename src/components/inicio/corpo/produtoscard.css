@@ -1,0 +1,53 @@
+/* Container do card */
+.produto-card {
+    min-width: 170px;
+    background: #1e2430;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s ease;
+    border: 1px solid #2b3242;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efeito ao passar o mouse */
+.produto-card:hover {
+    transform: scale(1.03);
+    border-color: #d4af37;
+}
+
+/* Imagem principal */
+.produto-img {
+    width: 95%;
+    height: 150px;
+    object-fit: cover;
+    background: #161b25;
+}
+
+/* Área da informação */
+.produto-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Nome */
+.produto-nome {
+    font-size: 15px;
+    color: white;
+    margin: 0;
+    line-height: 1.2;
+    height: 36px;
+    overflow: hidden;
+}
+
+/* Preço */
+.produto-preco {
+    font-size: 17px;
+    font-weight: 600;
+    color: #d4af37;
+    margin: 0;
+}

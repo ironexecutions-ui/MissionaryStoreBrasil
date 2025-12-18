@@ -1,0 +1,761 @@
+/* ============================================
+   MODAL PERFIL PROFISSIONAL (ESCURO + DOURADO)
+============================================ */
+/* Fundo escurecido */
+.mp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 95%;
+    height: 100%;
+    background: rgba(10, 10, 15, 0.75);
+    backdrop-filter: blur(3px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+
+    z-index: 9999;
+
+    /* profundidade e foco */
+    box-shadow:
+        inset 0 0 120px rgba(0, 0, 0, 0.65),
+        inset 0 0 40px rgba(0, 0, 0, 0.45);
+
+    /* entrada mais suave e envolvente */
+    animation: mpFade 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    /* estabilidade visual */
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+/* ================================================
+   ALTURA MÁXIMA DO MODAL + SCROLL PERSONALIZADO
+================================================ */
+.mp-box {
+    width: 95%;
+    max-width: 520px;
+    background: #151a24;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 14px;
+    padding: 30px;
+
+    /* corpo sólido e premium */
+    box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.65),
+        0 0 24px rgba(212, 175, 55, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    max-height: 70vh;
+    overflow-y: auto;
+
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Scrollbar personalizada */
+.mp-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mp-box::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.mp-box::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #d4af37, #a88929);
+    border-radius: 10px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 0 6px rgba(212, 175, 55, 0.45);
+}
+
+.mp-box::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #f5d97c, #d4af37);
+}
+
+/* Título */
+.mp-titulo {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #d4af37;
+
+    /* autoridade visual */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.55),
+        0 0 14px rgba(212, 175, 55, 0.25);
+
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Botão fechar */
+.mp-btn-fechar {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #d4af37;
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+
+    backface-visibility: hidden;
+}
+
+.mp-btn-fechar:hover {
+    color: #ffe08a;
+    transform: scale(1.1);
+
+    text-shadow:
+        0 0 8px rgba(212, 175, 55, 0.55);
+}
+
+/* Cada linha */
+.mp-campo-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #1c2230;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    color: white;
+
+    /* sensação de cartão elevado */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 4px 12px rgba(0, 0, 0, 0.35);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
+}
+
+.mp-campo-linha:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* Botões editar e salvar */
+.mp-editar,
+.mp-salvar {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #d4af37;
+
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.mp-editar:hover,
+.mp-salvar:hover {
+    background: #d4af37;
+    color: #151515;
+
+    box-shadow:
+        0 0 12px rgba(212, 175, 55, 0.6),
+        0 4px 10px rgba(0, 0, 0, 0.45);
+
+    transform: translateY(-1px);
+}
+
+.mp-editar:active,
+.mp-salvar:active {
+    transform: scale(0.96);
+}
+
+/* Inputs */
+.mp-campo-linha input {
+    background: #0f131b;
+    color: white;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+
+    padding: 6px 10px;
+    border-radius: 6px;
+    outline: none;
+    width: 140px;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.mp-campo-linha input:focus {
+    border-color: #d4af37;
+    box-shadow:
+        0 0 0 2px rgba(212, 175, 55, 0.2),
+        inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Botão endereço */
+.mp-btn-endereco {
+    width: 95%;
+    margin-top: 10px;
+
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #d4af37;
+
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.mp-btn-endereco:hover {
+    background: #d4af37;
+    color: #121721;
+
+    box-shadow:
+        0 0 14px rgba(212, 175, 55, 0.6),
+        0 6px 18px rgba(0, 0, 0, 0.45);
+
+    transform: translateY(-1px);
+}
+
+.mp-btn-endereco:active {
+    transform: scale(0.97);
+}
+
+/* Caixa form endereço */
+.mp-endereco-form {
+    background: #1a202d;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    margin-top: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    /* profundidade suave */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 6px 16px rgba(0, 0, 0, 0.45);
+
+    animation: mpUp 0.25s ease;
+}
+
+/* Inputs e selects do endereço */
+.mp-endereco-form input,
+.mp-endereco-form select {
+    background: #0f141c;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: white;
+
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.mp-endereco-form input:focus,
+.mp-endereco-form select:focus {
+    border-color: #d4af37;
+    background: #121826;
+
+    box-shadow:
+        0 0 0 2px rgba(212, 175, 55, 0.25),
+        inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Campo de seleção com label */
+.mp-campo-select {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.mp-campo-select label {
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Botão salvar endereço */
+.mp-endereco-form .mp-salvar {
+    margin-top: 10px;
+    font-size: 15px;
+    padding: 10px 12px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Botão logout */
+.mp-btn-logout {
+    width: 95%;
+    margin-top: 25px;
+
+    background: rgba(255, 80, 80, 0.15);
+    border: 1px solid rgba(255, 80, 80, 0.4);
+    color: #ff6b6b;
+
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.mp-btn-logout:hover {
+    background: #ff6b6b;
+    color: white;
+
+    box-shadow:
+        0 0 14px rgba(255, 107, 107, 0.55),
+        0 6px 18px rgba(0, 0, 0, 0.5);
+
+    transform: translateY(-1px);
+}
+
+.mp-btn-logout:active {
+    transform: scale(0.96);
+}
+
+/* Animações */
+@keyframes mpFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes mpUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Labels gerais */
+.mp-box label,
+.mp-endereco-form label,
+.mp-campo-select label {
+    color: #d4af37;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+    letter-spacing: 0.4px;
+
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+    transition: color 0.25s ease;
+}
+
+/* Ajuste nos campos dentro de mp-campo-linha (nome e whatsapp) */
+.mp-campo-linha label {
+    min-width: 80px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+/* Inputs e selects com espaçamento ideal */
+.mp-endereco-form input,
+.mp-endereco-form select,
+.mp-campo-linha input {
+    margin-top: 4px;
+}
+
+/* Espaçamento entre cada bloco no endereço */
+.mp-endereco-form>label {
+    margin-top: 10px;
+}
+
+/* Label do select já tem seu próprio container */
+.mp-campo-select label {
+    margin-top: 8px;
+    margin-bottom: 6px;
+}
+
+/* Realce premium ao passar o mouse */
+.mp-box label:hover {
+    color: #f1d27c;
+}
+
+/* Botão painel */
+.mp-btn-painel {
+    margin-top: 15px;
+    width: 95%;
+    padding: 12px;
+
+    background: #1e2533;
+    border: 1px solid #2f3746;
+    color: #d4af37;
+
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.mp-btn-painel:hover {
+    background: #d4af37;
+    color: #121721;
+
+    box-shadow:
+        0 0 14px rgba(212, 175, 55, 0.55),
+        0 6px 18px rgba(0, 0, 0, 0.5);
+
+    transform: translateY(-1px);
+}
+
+.mp-btn-painel:active {
+    transform: scale(0.97);
+}
+
+/* Container do painel */
+.mp-painel-container {
+    margin-top: 25px;
+    background: #1b212e;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #2d3341;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 6px 16px rgba(0, 0, 0, 0.45);
+
+    animation: mpUp 0.25s ease;
+}
+
+/* Botão voltar */
+.mp-voltar {
+    background: none;
+    border: none;
+    color: #d4af37;
+    cursor: pointer;
+    font-size: 15px;
+    align-self: flex-start;
+
+    transition:
+        color 0.25s ease,
+        transform 0.15s ease;
+}
+
+.mp-voltar:hover {
+    color: #f1d27c;
+    transform: translateX(-2px);
+}
+
+.mp-painel-container input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #343b4b;
+    background: #0f141c;
+    color: white;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.mp-painel-container input:focus {
+    border-color: #d4af37;
+    background: #121826;
+
+    box-shadow:
+        0 0 0 2px rgba(212, 175, 55, 0.25),
+        inset 0 1px 2px rgba(0, 0, 0, 0.6);
+
+    outline: none;
+}
+
+/* Botão confirmar */
+.mp-confirmar {
+    padding: 12px;
+    background: #d4af37;
+    color: #121721;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.mp-confirmar:hover {
+    background: #f1d27c;
+
+    box-shadow:
+        0 0 14px rgba(212, 175, 55, 0.6),
+        0 6px 18px rgba(0, 0, 0, 0.5);
+
+    transform: translateY(-1px);
+}
+
+.mp-confirmar:active {
+    transform: scale(0.96);
+}
+
+/* Mensagem de erro */
+.mp-erro {
+    color: #ff5d5d;
+    font-size: 14px;
+
+    background: rgba(255, 93, 93, 0.08);
+    border: 1px solid rgba(255, 93, 93, 0.35);
+    border-radius: 6px;
+    padding: 8px 10px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    animation: mpFade 0.25s ease;
+}
+
+/* =================================================
+   RESPONSIVO COMPLETO – MODAL PERFIL
+   REGRA GLOBAL: max-width 95%
+================================================= */
+
+
+/* =================================================
+   ATÉ 1100px
+================================================= */
+@media (max-width: 1100px) {
+
+    .mp-box {
+        padding: 26px;
+    }
+
+    .mp-titulo {
+        font-size: 26px;
+    }
+}
+
+/* =================================================
+   ATÉ 900px
+================================================= */
+@media (max-width: 900px) {
+
+    .mp-box {
+        max-width: 95%;
+        padding: 24px;
+        max-height: 75vh;
+    }
+
+    .mp-campo-linha {
+        gap: 10px;
+    }
+
+    .mp-campo-linha span {
+        font-size: 15px;
+    }
+
+    .mp-campo-linha input {
+        width: 120px;
+    }
+}
+
+/* =================================================
+   ATÉ 700px
+================================================= */
+@media (max-width: 700px) {
+
+    .mp-overlay {
+        padding: 15px;
+        align-items: flex-start;
+    }
+
+    .mp-box {
+        padding: 22px;
+        margin-top: 20px;
+        max-height: 80vh;
+    }
+
+    .mp-titulo {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .mp-campo-linha {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .mp-campo-linha strong {
+        font-size: 14px;
+    }
+
+    .mp-campo-linha span {
+        font-size: 15px;
+    }
+
+    .mp-campo-linha input {
+        width: 85%;
+    }
+
+    .mp-editar,
+    .mp-salvar {
+        margin-left: 0;
+        margin-top: 6px;
+    }
+}
+
+/* =================================================
+   ATÉ 500px
+================================================= */
+@media (max-width: 500px) {
+
+    .mp-box {
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .mp-titulo {
+        font-size: 22px;
+    }
+
+    .mp-btn-fechar {
+        top: 10px;
+        right: 12px;
+        font-size: 18px;
+    }
+
+    .mp-btn-endereco,
+    .mp-btn-logout,
+    .mp-btn-painel {
+        font-size: 14.5px;
+        padding: 11px;
+    }
+
+    .mp-endereco-form {
+        padding: 16px;
+        gap: 10px;
+    }
+
+    .mp-endereco-form input,
+    .mp-endereco-form select {
+        padding: 9px;
+        font-size: 14px;
+    }
+}
+
+/* =================================================
+   ATÉ 380px
+================================================= */
+@media (max-width: 380px) {
+
+    .mp-box {
+        padding: 14px;
+    }
+
+    .mp-titulo {
+        font-size: 20px;
+    }
+
+    .mp-campo-linha {
+        padding: 10px 12px;
+    }
+
+    .mp-campo-linha span {
+        font-size: 14px;
+    }
+
+    .mp-editar,
+    .mp-salvar {
+        font-size: 13.5px;
+        padding: 5px 10px;
+    }
+
+    .mp-btn-endereco,
+    .mp-btn-logout,
+    .mp-btn-painel {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* =================================================
+   TELAS GRANDES
+================================================= */
+@media (min-width: 1600px) {
+
+    .mp-box {
+        max-width: 520px;
+    }
+}

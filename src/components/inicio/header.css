@@ -1,0 +1,873 @@
+/* HEADER PRINCIPAL */
+.header-box {
+    width: 96%;
+    background: #F09E06;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    margin: 12px;
+    border-radius: 10px !important;
+
+    /* Profundidade real */
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.18),
+        0 6px 18px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    position: sticky;
+    top: 0;
+    height: 18px;
+    z-index: 1000;
+
+    /* Movimento mais físico */
+    animation: fadeIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    /* Micro suavização ao rolar */
+    backdrop-filter: saturate(1.05);
+    transition:
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
+}
+
+/* Animação de entrada mais natural */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+        box-shadow:
+            0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow:
+            0 2px 6px rgba(0, 0, 0, 0.18),
+            0 6px 18px rgba(0, 0, 0, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+}
+
+.header-esq {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    /* Pequena estabilidade visual */
+    transform: translateZ(0);
+}
+
+.header-esq img {
+    width: 30px;
+
+    /* Sombra mais realista e menos “borrão” */
+    filter:
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25)) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+
+    /* Evita tremida em animações */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.header-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0;
+
+    /* Presença e leitura */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25);
+
+    /* Suavização tipográfica */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* CAMPO DE BUSCA */
+.header-centro {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    /* estabilidade visual */
+    transform: translateZ(0);
+}
+
+.header-input {
+    width: 60%;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: #2c3342;
+    color: white;
+    outline: none;
+    font-size: 0.6rem;
+
+    /* profundidade real */
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.18),
+        0 4px 10px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    /* transição mais física */
+    transition:
+        background-color 0.25s ease,
+        box-shadow 0.35s ease,
+        border-color 0.25s ease;
+
+    backface-visibility: hidden;
+}
+
+.header-input:focus {
+    border: 1px solid #fff;
+    background: #353d50;
+
+    /* foco com sensação de luz */
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.25),
+        0 4px 14px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.header-input::placeholder {
+    color: #d1d1d1;
+
+    /* leitura mais suave */
+    opacity: 0.85;
+}
+
+
+
+/* BOTÕES */
+.header-dir {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    /* estabilidade em animações */
+    transform: translateZ(0);
+}
+
+/* ======================================================
+   BOTÃO PRINCIPAL DO HEADER
+====================================================== */
+
+.header-btn {
+    position: relative;
+
+    background:
+        linear-gradient(180deg,
+            #2f374a 0%,
+            #242b3b 100%);
+
+    color: #f2f3f7;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    padding: 7px 15px;
+    border-radius: 14px;
+
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.45px;
+    margin-right: 0 !important;
+    /* corpo físico real */
+    box-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.35),
+        0 10px 22px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+
+    /* resposta premium */
+    transition:
+        transform 0.22s cubic-bezier(.4, 0, .2, 1),
+        box-shadow 0.28s cubic-bezier(.4, 0, .2, 1),
+        background 0.25s ease,
+        color 0.25s ease;
+
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* brilho sutil interno */
+.header-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    pointer-events: none;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.02) 45%,
+            rgba(0, 0, 0, 0.25));
+
+    opacity: 0.6;
+}
+
+/* ======================================================
+   HOVER
+====================================================== */
+
+.header-btn:hover {
+    background:
+        linear-gradient(180deg,
+            #39425a 0%,
+            #2b3347 100%);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.45),
+        0 18px 34px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ======================================================
+   CLIQUE
+====================================================== */
+
+.header-btn:active {
+    transform: translateY(1px) scale(0.965);
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.55),
+        inset 0 3px 6px rgba(0, 0, 0, 0.55);
+}
+
+/* ======================================================
+   ESTADO ATIVO (painel selecionado)
+====================================================== */
+
+.header-btn.ativo {
+    color: #121721;
+
+    background:
+        linear-gradient(180deg,
+            #f3d873 0%,
+            #d4af37 100%);
+
+    border-color: rgba(212, 175, 55, 0.95);
+
+    box-shadow:
+        0 10px 26px rgba(212, 175, 55, 0.45),
+        0 0 0 1px rgba(212, 175, 55, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+/* mantém ativo mesmo no hover */
+.header-btn.ativo:hover {
+    transform: translateY(-1px);
+}
+
+/* ======================================================
+   FOCO (acessibilidade premium)
+====================================================== */
+
+.header-btn:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.35),
+        0 10px 26px rgba(212, 175, 55, 0.45);
+}
+
+/* ======================================================
+   RESPONSIVO
+====================================================== */
+
+
+
+/* BOTÃO DO CARRINHO ESPECIAL */
+.header-btn svg {
+    transition:
+        filter 0.25s ease,
+        transform 0.25s ease;
+}
+
+.header-btn:hover svg {
+    filter:
+        drop-shadow(0 1px 2px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.45));
+
+    transform: translateY(-1px);
+}
+
+.header-ttl {
+    position: relative;
+
+    padding: 7px 15px;
+
+    background:
+        linear-gradient(180deg,
+            #2f374a 0%,
+            #232a3a 100%);
+
+    color: #f2f3f7;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+    font-size: 14.5px;
+    letter-spacing: 0.45px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    cursor: pointer;
+    user-select: none;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    box-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.35),
+        0 10px 22px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.22s cubic-bezier(.4, 0, .2, 1),
+        box-shadow 0.28s cubic-bezier(.4, 0, .2, 1),
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+/* brilho interno premium */
+.header-ttl::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    pointer-events: none;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.14),
+            rgba(255, 255, 255, 0.02) 45%,
+            rgba(0, 0, 0, 0.25));
+
+    opacity: 0.6;
+}
+
+/* hover nobre */
+.header-ttl:hover {
+    background:
+        linear-gradient(180deg,
+            #3b445c 0%,
+            #2b3347 100%);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.45),
+        0 18px 34px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* clique com sensação física */
+.header-ttl:active {
+    transform: translateY(1px) scale(0.965);
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.55),
+        inset 0 3px 6px rgba(0, 0, 0, 0.55);
+}
+
+/* foco acessível e elegante */
+.header-ttl:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.35),
+        0 12px 28px rgba(212, 175, 55, 0.45);
+}
+
+/* ======================================================
+   ESTADO DE ATENÇÃO, usado com .perfil-piscando
+====================================================== */
+
+.perfil-piscando {
+    animation: perfilGlow 1.4s ease-in-out infinite;
+    border-color: rgba(255, 90, 90, 0.65);
+}
+
+@keyframes perfilGlow {
+    0% {
+        box-shadow:
+            0 0 0 rgba(255, 90, 90, 0),
+            0 10px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    50% {
+        box-shadow:
+            0 0 18px rgba(255, 90, 90, 0.65),
+            0 16px 30px rgba(0, 0, 0, 0.65);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 rgba(255, 90, 90, 0),
+            0 10px 22px rgba(0, 0, 0, 0.55);
+    }
+}
+
+
+/* Quando estiver piscando por falta de CEP */
+.perfil-piscando {
+    animation: perfilAviso 1.4s infinite;
+    border: 1px solid rgba(212, 175, 55, 0.6);
+}
+
+@keyframes perfilAviso {
+    0% {
+        box-shadow:
+            0 0 0 rgba(212, 175, 55, 0.0),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    50% {
+        box-shadow:
+            0 0 12px rgba(212, 175, 55, 0.65),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 rgba(212, 175, 55, 0.0),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+}
+
+.modal-area {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 90px;
+    animation: fadeModal 0.25s ease;
+
+    z-index: 10000;
+}
+
+
+@keyframes fadeModal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Header padrão */
+.header-box {
+    width: 96%;
+    background: #1a1f2b;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    /* profundidade consistente */
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.35),
+        0 6px 16px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    /* transições mais físicas */
+    transition:
+        transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+        opacity 0.35s ease,
+        box-shadow 0.35s ease;
+
+    /* estabilidade visual */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+/* Esconde suavemente */
+.header-escondido {
+    transform: translateY(-120%);
+    opacity: 0;
+
+    /* desaceleração natural ao sair */
+    transition:
+        transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.35s ease;
+
+    pointer-events: none;
+}
+
+/* Mostra */
+.header-visivel {
+    transform: translateY(0);
+    opacity: 1;
+
+    /* entrada com leve antecipação */
+    transition:
+        transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+        opacity 0.35s ease;
+
+    pointer-events: auto;
+}
+
+/* Logo da bolinha */
+.bolinha-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+
+    /* nitidez e estabilidade */
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Bolinha compacta */
+.header-bolinha {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    width: 52px;
+    height: 52px;
+    background: #1a1f2b;
+    border-radius: 50%;
+
+    /* corpo e profundidade real */
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.35),
+        0 10px 22px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    border: 2px solid #d4af37;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    z-index: 1100;
+
+    /* resposta física */
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.35s ease,
+        background-color 0.25s ease;
+
+    animation: aparecerBolinha 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* Hover com elevação real */
+.header-bolinha:hover {
+    transform: scale(1.07) translateY(-1px);
+    background: #222837;
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.45),
+        0 14px 28px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Clique com sensação de pressão */
+.header-bolinha:active {
+    transform: scale(0.98);
+
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.45),
+        inset 0 3px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* Animação de entrada */
+@keyframes aparecerBolinha {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botão ativo no header */
+.header-btn.ativo {
+    background-color: #ffffff33;
+    border: 1px solid white;
+
+    /* destaque sem exagero */
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.carrinho-icone-wrapper {
+    position: relative;
+    display: inline-block;
+
+    /* estabilidade em animações */
+    transform: translateZ(0);
+}
+
+.carrinho-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: #e53935;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 1px;
+    height: 101x;
+    padding: 0 5px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+
+    /* destaque físico */
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.35),
+        0 6px 12px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    /* leitura */
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.45);
+
+    /* micro suavização */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.perfil-wrapper {
+    position: relative;
+    display: inline-block;
+
+    /* garante que tooltips e avisos fiquem estáveis */
+    transform: translateZ(0);
+}
+
+/* piscar suave continua igual */
+.perfil-piscando {
+    animation: piscarSuave 1.5s infinite;
+
+    /* suaviza o efeito visual */
+    will-change: opacity;
+}
+
+@keyframes piscarSuave {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* aviso flutuante abaixo, sem empurrar layout */
+.aviso-endereco {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 4px;
+
+    background: rgba(0, 0, 0, 0.85);
+    color: #d4af37;
+    font-size: 15px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+
+    pointer-events: none;
+    z-index: 20;
+
+    /* profundidade real */
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.45),
+        0 8px 16px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    /* leitura mais limpa */
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.6);
+
+    /* animação mais suave */
+    animation: fadeAviso 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    backface-visibility: hidden;
+    will-change: opacity, transform;
+}
+
+@keyframes fadeAviso {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/*
+RESPONSIVO APARTIR DAQUI
+*/
+
+
+/* ===============================
+   ATÉ 900px
+   Busca SEMPRE em linha própria
+=============================== */
+@media (max-width: 900px) {
+
+    .header-box {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        height: auto;
+        padding: 12px 16px;
+        row-gap: 10px;
+    }
+
+    /* Linha 1: logo + botões */
+    .header-esq,
+    .header-dir {
+        width: 50%;
+    }
+
+    .header-esq {
+        order: 1;
+        justify-content: flex-start;
+    }
+
+    .header-ttl {
+        font-size: 0.7rem;
+    }
+
+    .header-dir {
+        order: 2;
+
+        justify-content: flex-end;
+    }
+
+    /* Linha 2: buscador isolado */
+    .header-centro {
+        order: 3;
+        display: flex;
+        justify-content: center;
+        margin-top: 6px;
+    }
+
+    .header-input {
+        width: 600px;
+        max-width: 85%;
+        font-size: 0.7rem;
+        padding: 10px 14px;
+    }
+}
+
+/* ===============================
+   ATÉ 600px
+   Logo em cima
+   Botões em linha única
+   Busca embaixo
+=============================== */
+@media (max-width: 600px) {
+
+    .header-box {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .header-esq {
+        order: 1;
+        width: 95%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .header-titulo {
+        max-width: 95%;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .header-dir {
+        order: 2;
+        width: 95%;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .header-btn,
+    .header-ttl {
+        flex: 1 1 auto;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .header-centro {
+        order: 3;
+    }
+
+    .header-input {
+        width: 95%;
+        font-size: 0.75rem;
+    }
+}
+
+/* ===============================
+   ATÉ 420px
+   Tudo bem empilhado
+=============================== */
+@media (max-width: 420px) {
+
+    .header-dir {
+        margin-right: 5px;
+        gap: 8px;
+    }
+
+
+
+    .header-input {
+        font-size: 0.8rem;
+    }
+
+    .header-btn {
+        font-size: 0.55rem;
+    }
+
+    .header-ttl {
+        font-size: 0.65rem;
+    }
+}

@@ -1,0 +1,243 @@
+/* ===============================
+   CONTAINER GERAL
+=============================== */
+.env-corpo-painel {
+    width: 70%;
+    padding: 28px;
+    background: linear-gradient(180deg, #121721, #0f141d);
+    color: #ffffff;
+    overflow: auto;
+
+    border-radius: 14px;
+    border: 1px solid #2b3240;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.env-corpo-painel h2 {
+    margin-bottom: 18px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #d4af37;
+    line-height: 1.35;
+}
+
+/* ===============================
+   INPUT PADRÃO
+=============================== */
+.env-input-padrao {
+    width: 70%;
+    padding: 13px 16px;
+    margin-top: 14px;
+    border-radius: 10px;
+    border: 1px solid #2f3545;
+    background: #1b212e;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.env-input-padrao::placeholder {
+    color: #9aa0b3;
+}
+
+.env-input-padrao:focus {
+    border-color: #d4af37;
+    background: #1f2636;
+
+    box-shadow:
+        0 0 0 2px rgba(212, 175, 55, 0.18),
+        0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* ===============================
+   TEXTAREA
+=============================== */
+.env-textarea-padrao {
+    width: 70%;
+    min-height: 100px;
+    padding: 13px 16px;
+    margin-top: 14px;
+    border-radius: 10px;
+    border: 1px solid #2f3545;
+    background: #1b212e;
+    color: #ffffff;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.env-textarea-padrao::placeholder {
+    color: #9aa0b3;
+}
+
+.env-textarea-padrao:focus {
+    border-color: #d4af37;
+    background: #1f2636;
+
+    box-shadow:
+        0 0 0 2px rgba(212, 175, 55, 0.18),
+        0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* ===============================
+   LISTA DE PRODUTOS
+=============================== */
+.env-lista-produtos-envio {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.env-produto-envio {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 70%;
+    background: #1b212e;
+    border: 1px solid #2f3545;
+    border-radius: 12px;
+    padding: 12px 14px;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
+}
+
+.env-produto-envio:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+
+    box-shadow:
+        0 0 14px rgba(212, 175, 55, 0.35),
+        0 6px 16px rgba(0, 0, 0, 0.45);
+
+    transform: translateY(-2px);
+}
+
+.env-produto-envio img {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #333a4d;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.env-produto-envio span {
+    font-size: 14px;
+    color: #e9ecf1;
+    font-weight: 500;
+}
+
+/* ===============================
+   BOTÃO PRINCIPAL
+=============================== */
+.env-btn-acao {
+    width: 70%;
+    margin-top: 18px;
+    padding: 13px;
+    background: linear-gradient(180deg, #e1c45a, #c9a93b);
+    color: #121721;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 14px rgba(212, 175, 55, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.env-btn-acao:hover:not(:disabled) {
+    background: linear-gradient(180deg, #f0d271, #d4af37);
+    transform: translateY(-1px) scale(1.02);
+
+    box-shadow:
+        0 8px 20px rgba(212, 175, 55, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.env-btn-acao:disabled {
+    background: #6b5c2a;
+    color: #2e2e2e;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ===============================
+   CONFIRMAÇÃO SEM LINK
+=============================== */
+.env-confirmacao-envio {
+    margin-top: 22px;
+    background: linear-gradient(180deg, #141a25, #0f141d);
+    border: 1px solid #3a3f52;
+    padding: 18px;
+    width: 70%;
+    border-radius: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    box-shadow:
+        0 0 18px rgba(0, 0, 0, 0.55);
+}
+
+.env-confirmacao-envio p {
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.env-confirmacao-envio button {
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.25s ease;
+}
+
+.env-confirmacao-envio button:first-child {
+    background: #d4af37;
+    color: #121721;
+
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.45);
+}
+
+.env-confirmacao-envio button:first-child:hover {
+    transform: scale(1.03);
+}
+
+.env-confirmacao-envio button:last-child {
+    background: #2f3545;
+    color: #ffffff;
+}
+
+.env-confirmacao-envio button:last-child:hover {
+    background: #3b4154;
+}

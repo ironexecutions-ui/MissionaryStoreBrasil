@@ -1,0 +1,908 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+    /* MUITO maior que o header */
+}
+
+
+/* Efeito de entrada no overlay */
+@keyframes overlayFade {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(3px);
+    }
+}
+
+.modal-produto {
+    position: relative;
+    z-index: 10000;
+}
+
+/* Caixa principal do modal */
+.modal-produto {
+    background: #1e2430;
+    width: 90%;
+    max-width: 600px;
+    padding: 26px;
+    border-radius: 12px;
+    color: white;
+    position: relative;
+    box-shadow:
+        0 0 18px rgba(0, 0, 0, 0.45),
+        0 0 35px rgba(212, 175, 55, 0.05);
+    animation: popup 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+    overflow-y: auto;
+    max-height: 60vh;
+    transform-origin: center;
+}
+
+/* Animação suave ao abrir */
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: scale(0.88) translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Botão fechar */
+.btn-fechar {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    color: #e6c670;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px;
+    transition: 0.25s ease;
+    opacity: 0.85;
+}
+
+.btn-fechar:hover {
+    opacity: 1;
+    transform: scale(1.12);
+    text-shadow: 0 0 6px rgba(230, 198, 112, 0.4);
+}
+
+/* Área de imagens */
+.modal-imagens {
+    width: 95%;
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 6px;
+    scroll-behavior: smooth;
+}
+
+/* Barra de rolagem dourada */
+.modal-imagens::-webkit-scrollbar {
+    height: 8px;
+}
+
+.modal-imagens::-webkit-scrollbar-track {
+    background: #1a1f2b;
+    border-radius: 4px;
+}
+
+.modal-imagens::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #d4af37, #b9972e);
+    border-radius: 4px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
+.modal-imagens::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #e6c45a, #d4af37);
+}
+
+/* Imagem do produto */
+.imagem-item {
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #202633;
+    flex-shrink: 0;
+    transition: 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.imagem-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* Nome */
+.modal-nome {
+    font-size: 22px;
+    margin: 12px 0 8px 0;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+    animation: fadeInText 0.3s ease-out;
+}
+
+/* Preço */
+.modal-preco {
+    font-size: 20px;
+    color: #d4af37;
+    margin-bottom: 14px;
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(212, 175, 55, 0.2);
+}
+
+/* Descrição */
+.modal-desc {
+    opacity: 0.9;
+    font-size: 15px;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    animation: fadeInText 0.3s ease-out;
+}
+
+/* Características */
+.modal-caracts {
+    margin-bottom: 22px;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-left: 2px solid rgba(212, 175, 55, 0.2);
+    padding-left: 14px;
+}
+
+.modal-caracts li {
+    font-size: 14px;
+    opacity: 0.85;
+    position: relative;
+    padding-left: 6px;
+}
+
+.modal-caracts li::before {
+    position: absolute;
+    left: -10px;
+    color: #d4af37;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+/* Área dos botões */
+.modal-botoes {
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+/* ===============================
+   BOTÃO COMPRAR (PRINCIPAL PREMIUM)
+=============================== */
+
+.btn-comprar {
+    position: relative;
+
+    flex: 1;
+    padding: 16px 14px;
+
+    background:
+        linear-gradient(180deg,
+            #f2d36b 0%,
+            #d4af37 100%);
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: 15.5px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+
+    color: #1a1f2b;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    user-select: none;
+
+    /* corpo físico real */
+
+    transition:
+        transform 0.22s cubic-bezier(.4, 0, .2, 1),
+        box-shadow 0.28s cubic-bezier(.4, 0, .2, 1),
+        background 0.25s ease,
+        filter 0.25s ease;
+
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* brilho dourado interno */
+.btn-comprar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    pointer-events: none;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.55),
+            rgba(255, 255, 255, 0.15) 40%,
+            rgba(0, 0, 0, 0.2));
+
+    opacity: 0.55;
+}
+
+/* glow externo sutil */
+.btn-comprar::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 18px;
+    pointer-events: none;
+
+    background:
+        radial-gradient(circle,
+            rgba(212, 175, 55, 0.45),
+            transparent 65%);
+
+    opacity: 0.35;
+    filter: blur(12px);
+}
+
+/* ======================================================
+   HOVER – convite para clicar
+====================================================== */
+
+.btn-comprar:hover {
+    background:
+        linear-gradient(180deg,
+            #ffe07a 0%,
+            #e6c45a 100%);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 14px rgba(212, 175, 55, 0.55),
+        0 22px 44px rgba(212, 175, 55, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* ======================================================
+   CLIQUE – peso real
+====================================================== */
+
+.btn-comprar:active {
+    transform: translateY(1px) scale(0.965);
+
+    box-shadow:
+        0 4px 8px rgba(212, 175, 55, 0.45),
+        inset 0 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ======================================================
+   DESABILITADO – sem chamar ação
+====================================================== */
+
+.btn-comprar:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+
+    background:
+        linear-gradient(180deg,
+            #cbb45a 0%,
+            #a88f34 100%);
+
+    box-shadow:
+        inset 0 3px 6px rgba(0, 0, 0, 0.45);
+
+    transform: none;
+}
+
+
+/* ===============================
+   BOTÃO CARRINHO (SECUNDÁRIO PREMIUM)
+=============================== */
+
+.btn-carrinho {
+    position: relative;
+
+    flex: 1;
+    padding: 15px 14px;
+
+    background:
+        linear-gradient(180deg,
+            #3a4256 0%,
+            #2b3242 100%);
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.45px;
+
+    color: #f2f3f7;
+    cursor: pointer;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    user-select: none;
+
+    /* corpo físico real */
+    box-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.35),
+        0 10px 22px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.22s cubic-bezier(.4, 0, .2, 1),
+        box-shadow 0.28s cubic-bezier(.4, 0, .2, 1),
+        background 0.25s ease,
+        color 0.25s ease;
+
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* brilho interno elegante */
+.btn-carrinho::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    pointer-events: none;
+
+    background:
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.14),
+            rgba(255, 255, 255, 0.02) 45%,
+            rgba(0, 0, 0, 0.25));
+
+    opacity: 0.6;
+}
+
+/* hover forte mas controlado */
+.btn-carrinho:hover {
+    background:
+        linear-gradient(180deg,
+            #47506a 0%,
+            #343c51 100%);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 10px rgba(0, 0, 0, 0.45),
+        0 18px 34px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* clique com peso */
+.btn-carrinho:active {
+    transform: translateY(1px) scale(0.965);
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.55),
+        inset 0 3px 6px rgba(0, 0, 0, 0.55);
+}
+
+/* estado desabilitado respeitoso */
+.btn-carrinho:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+
+    background:
+        linear-gradient(180deg,
+            #2a3040 0%,
+            #1f2532 100%);
+
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.55);
+}
+
+/* foco acessível */
+.btn-carrinho:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.35),
+        0 10px 26px rgba(212, 175, 55, 0.45);
+}
+
+
+
+
+/* Caixa da quantidade */
+.quantidade-box {
+    margin-top: 10px;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    animation: fadeUp 0.3s ease-out;
+}
+
+/* Área dos botões de quantidade */
+.quantidade-controle {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+/* Botões pequenos */
+.q-btn {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: linear-gradient(180deg,
+            #e6c45a 0%,
+            #d4af37 100%);
+
+    color: #1e2430;
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+    box-shadow:
+        0 3px 8px rgba(212, 175, 55, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.q-btn:hover {
+    background: linear-gradient(180deg,
+            #f0d470 0%,
+            #e6c45a 100%);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(212, 175, 55, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.q-btn:active {
+    transform: translateY(0) scale(0.94);
+    box-shadow:
+        0 3px 8px rgba(212, 175, 55, 0.35),
+        inset 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Quantidade (número) */
+.quantidade-numero {
+    min-width: 40px;
+    padding: 6px 8px;
+
+    text-align: center;
+    font-size: 16.5px;
+    font-weight: 700;
+
+    background: linear-gradient(180deg,
+            #ffffff 0%,
+            #f3f3f3 100%);
+
+    color: #1e2430;
+
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.15),
+        0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Total */
+.total-preco {
+    font-size: 14px;
+    margin-top: 2px;
+    text-align: left;
+    color: #d4af37;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.2);
+}
+
+
+/* Animação leve ao surgir */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loader minimalista */
+.quantidade-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    animation: fadeLoader 0.25s ease-out;
+}
+
+.loader-line {
+    width: 28px;
+    height: 28px;
+    border: 3px solid transparent;
+    border-top: 3px solid #d4af37;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.35));
+}
+
+/* Loader fade */
+@keyframes fadeLoader {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Giro */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Botões desabilitados */
+.btn-comprar:disabled,
+.btn-carrinho:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(40%);
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+/* Scroll vertical dourado */
+.modal-produto::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modal-produto::-webkit-scrollbar-track {
+    background: #1a1f2b;
+    border-radius: 10px;
+}
+
+.modal-produto::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #d4af37, #b9972e);
+    border-radius: 10px;
+    border: 2px solid #1a1f2b;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
+.modal-produto::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #e6c45a, #d4af37);
+}
+
+
+/* ===============================
+   CARTA ANIMADA – MOVIMENTO NATURAL
+=============================== */
+
+.carta-animada {
+    position: fixed;
+
+    width: 120px;
+    height: 46px;
+
+    background: linear-gradient(180deg,
+            #f2d36b 0%,
+            #d4af37 100%);
+
+    color: #1a1f2b;
+    font-weight: 800;
+    font-size: 13.5px;
+    letter-spacing: 0.6px;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 5000;
+    pointer-events: none;
+    user-select: none;
+
+    box-shadow:
+        0 6px 10px rgba(212, 175, 55, 0.45),
+        0 18px 34px rgba(212, 175, 55, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+    animation: cartaSuave 0.75s ease-out forwards;
+}
+
+/* ===============================
+   ANIMAÇÃO SUAVE E NORMAL
+=============================== */
+
+@keyframes cartaSuave {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-120px);
+    }
+}
+
+
+.msg-login-info {
+    font-size: 14px;
+    color: #c7c9d0;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+body.modal-aberto {
+    overflow: hidden;
+}
+
+.barra-principal {
+    transition: transform 0.3s ease;
+}
+
+/* quando o modal estiver aberto */
+body.modal-aberto .barra-principal {
+    transform: translateY(12px);
+}
+
+/* ===============================
+   RESPONSIVO REAL – MODAL PRODUTO
+=============================== */
+
+/* ====== ATÉ 1100px ====== */
+@media (max-width: 1100px) {
+
+    .modal-produto {
+        max-width: 520px;
+        padding: 22px;
+        max-height: 65vh;
+    }
+
+    .imagem-item {
+        height: 140px;
+    }
+
+    .modal-nome {
+        font-size: 20px;
+    }
+
+    .modal-preco {
+        font-size: 18.5px;
+    }
+}
+
+/* ====== ATÉ 900px ====== */
+@media (max-width: 900px) {
+
+    .modal-overlay {
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    .modal-produto {
+        width: calc(100% - 32px);
+        max-width: none;
+        margin: 0 16px;
+        max-height: 70vh;
+    }
+
+    .modal-imagens {
+        gap: 10px;
+    }
+
+    .imagem-item {
+        height: 130px;
+    }
+
+    .modal-botoes {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-comprar,
+    .btn-carrinho {
+        width: 95%;
+    }
+}
+
+/* ====== ATÉ 700px ====== */
+@media (max-width: 700px) {
+
+    .modal-produto {
+        padding: 20px 18px;
+        max-height: 75vh;
+        border-radius: 10px;
+    }
+
+    .modal-nome {
+        font-size: 19px;
+    }
+
+    .modal-desc {
+        font-size: 14.5px;
+    }
+
+    .modal-caracts li {
+        font-size: 13.5px;
+    }
+
+    .quantidade-controle {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .q-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .quantidade-numero {
+        font-size: 15.5px;
+        min-width: 36px;
+    }
+}
+
+/* ====== ATÉ 500px ====== */
+@media (max-width: 500px) {
+
+    .modal-overlay {
+        padding-top: 60px;
+    }
+
+    .modal-produto {
+        width: calc(100% - 20px);
+        margin: 0 10px;
+        padding: 18px 14px;
+        max-height: 82vh;
+    }
+
+    .btn-fechar {
+        top: 10px;
+        right: 10px;
+        font-size: 13px;
+    }
+
+    .modal-imagens {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .imagem-item {
+        height: 120px;
+    }
+
+    .modal-nome {
+        font-size: 18px;
+    }
+
+    .modal-preco {
+        font-size: 17px;
+    }
+
+    .modal-desc {
+        font-size: 14px;
+    }
+
+    .modal-caracts {
+        gap: 5px;
+    }
+
+    .modal-botoes {
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .btn-comprar,
+    .btn-carrinho {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+}
+
+/* ====== ATÉ 380px ====== */
+@media (max-width: 380px) {
+
+    .modal-produto {
+        padding: 16px 12px;
+        max-height: 88vh;
+    }
+
+    .imagem-item {
+        height: 110px;
+    }
+
+    .modal-nome {
+        font-size: 17px;
+    }
+
+    .modal-preco {
+        font-size: 16px;
+    }
+
+    .q-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
+    }
+
+    .quantidade-numero {
+        font-size: 14.5px;
+    }
+
+    .msg-login-info {
+        font-size: 13.5px;
+    }
+}
+
+/* ====== TELAS MUITO GRANDES ====== */
+@media (min-width: 1600px) {
+
+    .modal-produto {
+        max-width: 680px;
+        max-height: 65vh;
+    }
+
+    .imagem-item {
+        height: 170px;
+    }
+
+    .modal-nome {
+        font-size: 23px;
+    }
+
+    .modal-preco {
+        font-size: 21px;
+    }
+}
