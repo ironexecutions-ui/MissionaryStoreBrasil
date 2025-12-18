@@ -3,6 +3,7 @@
     width: 100% !important;
     padding: 28px 32px;
     box-sizing: border-box;
+    margin: auto auto;
     background: linear-gradient(180deg,
             #00030c 0%,
             #12161f 60%,
