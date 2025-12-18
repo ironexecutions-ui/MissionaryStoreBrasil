@@ -573,3 +573,142 @@
 .ppp-img-slot:hover .ppp-img-delete {
     opacity: 1;
 }
+
+@media (max-width: 1200px) {
+    .ppp-produtos-container {
+        width: 98%;
+        padding: 18px;
+    }
+
+    .ppp-tabela {
+        width: 100%;
+    }
+
+    .ppp-form-box {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 900px) {
+    .ppp-filtros {
+        flex-wrap: wrap;
+    }
+
+    .ppp-filtros input {
+        flex: 1 1 100%;
+    }
+
+    .ppp-btn-add {
+        width: 100%;
+        text-align: center;
+    }
+
+    .ppp-tabela-box {
+        overflow-x: auto;
+    }
+
+    .ppp-tabela {
+        min-width: 820px;
+    }
+
+    .ppp-form-box {
+        padding: 18px;
+        max-height: calc(100vh - 140px);
+    }
+
+    .ppp-imgs-form {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .ppp-titulo {
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .ppp-produtos-container {
+        padding: 14px;
+    }
+
+    .ppp-tabela {
+        min-width: 760px;
+    }
+
+    .ppp-form-box {
+        width: 98%;
+        padding: 16px;
+    }
+
+    .ppp-form-box h3 {
+        text-align: center;
+    }
+
+    .ppp-btn-voltar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .ppp-btn-salvar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .ppp-produtos-container {
+        padding: 12px;
+    }
+
+    .ppp-titulo {
+        font-size: 20px;
+    }
+
+    .ppp-filtros {
+        gap: 10px;
+    }
+
+    .ppp-filtros input {
+        font-size: 14px;
+        padding: 9px;
+    }
+
+    .ppp-btn-add {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .ppp-img-slot {
+        width: 90px;
+        height: 90px;
+    }
+
+    .ppp-img-num {
+        font-size: 11px;
+    }
+
+    .ppp-form-box input,
+    .ppp-form-box textarea {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 380px) {
+    .ppp-titulo {
+        font-size: 18px;
+    }
+
+    .ppp-img-slot {
+        width: 82px;
+        height: 82px;
+    }
+
+    .ppp-btn-add,
+    .ppp-btn-salvar,
+    .ppp-btn-voltar {
+        font-size: 13px;
+    }
+
+    .ppp-form-box {
+        padding: 14px;
+    }
+}

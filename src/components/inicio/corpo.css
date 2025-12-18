@@ -1,9 +1,8 @@
 /* Área geral do corpo da página */
 .corpo-box {
-    width: 100% !important;
+    width: 105% !important;
     padding: 28px 32px;
     box-sizing: border-box;
-    margin: auto auto;
     background: linear-gradient(180deg,
             #00030c 0%,
             #12161f 60%,
@@ -12,6 +11,8 @@
     min-height: calc(100vh - 140px);
 
     display: flex;
+    border-top-left-radius: 30px;
+    border-end-start-radius: 30px;
     flex-direction: column;
     gap: 28px;
 
@@ -19,7 +20,19 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.03),
         inset 0 -1px 0 rgba(0, 0, 0, 0.4);
 
-    animation: corpoFadeIn 0.35s ease;
+    animation: corpoEntrarDireita 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes corpoEntrarDireita {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Entrada suave do conteúdo */

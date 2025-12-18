@@ -53,7 +53,7 @@ export default function ModalFiltro({ fechar, setProdutos }) {
                     onChange={e => setMax(e.target.value)}
                 />
 
-                <button className="btn-buscar" onClick={buscar}>
+                <button className="btnn-buscar" onClick={buscar}>
                     Buscar
                 </button>
 

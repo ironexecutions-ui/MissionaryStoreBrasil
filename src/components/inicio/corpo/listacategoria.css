@@ -2,9 +2,9 @@
    CONTAINER PRINCIPAL
 =============================== */
 .categorias-box {
-    width: 95%;
-    box-sizing: border-box;
+    width: 100% !important;
     display: flex;
+    border-radius: 30px !important;
     flex-direction: column;
     gap: 44px;
     background: transparent;
@@ -15,6 +15,7 @@
 =============================== */
 .categoria-grupo {
     display: flex;
+    border-radius: 40px;
     flex-direction: column;
     gap: 18px;
     position: relative;
@@ -69,7 +70,7 @@
 .categoria-titulo {
     font-size: 22px;
     font-weight: 600;
-    color: #e6c670;
+    color: #f1b83c !important;
     padding-left: 12px;
     letter-spacing: 0.5px;
     position: relative;

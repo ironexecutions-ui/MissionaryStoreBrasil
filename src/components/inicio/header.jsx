@@ -127,7 +127,7 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
             <header className={`header-box ${compacto ? "header-escondido" : "header-visivel"}`}>
 
                 <div className="header-esq">
-                    <img src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png" alt="" className="logo-m" />
+                    <img style={{ borderRadius: "40%" }} src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png" alt="" className="logo-m" />
                     <h2 className="header-titulo">Missionary Store Brasil</h2>
                 </div>
 

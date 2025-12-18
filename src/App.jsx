@@ -11,7 +11,7 @@ import Painel from "./components/painel/painel";
 import Escaneando from "../public/escaneando";
 import Preloader from "./preloader";
 import TelaLoading from "./loading";
-
+import PublicProdutos from "../public/tabela";
 import "./app.css";
 
 export default function App() {
@@ -133,7 +133,10 @@ export default function App() {
             </div>
           }
         />
-
+        <Route
+          path="/public"
+          element={<PublicProdutos />}
+        />
         <Route
           path="/escaneando/:codigo"
           element={<Escaneando />}

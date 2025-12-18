@@ -158,9 +158,7 @@ export default function Produtos() {
         const { error } = await supabase
             .storage
             .from("produtos")
-            .upload(nomeArquivo, file, {
-                upsert: false
-            });
+            .upload(nomeArquivo, file, { upsert: false });
 
         if (error) {
             alert("Erro ao enviar imagem");
@@ -176,7 +174,10 @@ export default function Produtos() {
         imgs[index] = data.publicUrl;
 
         setForm({ ...form, imagens: imgs });
+
+        inputFileRef.current.value = "";
     }
+
 
     async function salvar() {
         const resp = await fetch(`${API_URL}/produtos/salvar`, {
@@ -284,6 +285,10 @@ export default function Produtos() {
                             <div
                                 key={i}
                                 className="ppp-img-slot"
+                                onClick={() => {
+                                    inputFileRef.current.dataset.index = i;
+                                    inputFileRef.current.click();
+                                }}
                                 onDragOver={e => e.preventDefault()}
                                 onDrop={e => {
                                     e.preventDefault();
@@ -295,6 +300,7 @@ export default function Produtos() {
                                     enviarImagem({ target: { files: [file] } });
                                 }}
                             >
+
 
                                 <span className="ppp-img-num">{i + 1}</span>
                                 {img ? (
@@ -322,9 +328,12 @@ export default function Produtos() {
                     <input
                         ref={inputFileRef}
                         type="file"
+                        accept="image/*"
+                        capture="environment"
                         style={{ display: "none" }}
                         onChange={enviarImagem}
                     />
+
 
                     <label>Produto</label>
                     <input value={form.produto} onChange={e => setForm({ ...form, produto: e.target.value })} />

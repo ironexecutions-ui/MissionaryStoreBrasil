@@ -195,7 +195,7 @@ export default function ModalProduto({ produto, fechar }) {
         <div className="modal-overlay" onClick={fechar}>
             <div className="modal-produto" onClick={e => e.stopPropagation()}>
 
-                <button className="btn-fechar" onClick={fechar}>
+                <button className="btn-ffechar" onClick={fechar}>
                     fechar
                 </button>
                 <br />

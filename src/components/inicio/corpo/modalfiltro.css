@@ -58,7 +58,7 @@
     margin: 0 0 12px 0;
     font-size: 20px;
     font-weight: 600;
-    color: #e6c670;
+    color: #FC8400;
     letter-spacing: 0.4px;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
@@ -104,13 +104,13 @@
 /* =========================
    BOTÃO BUSCAR
 ========================= */
-.btn-buscar {
+.btnn-buscar {
     margin-top: 10px;
     padding: 13px;
     width: 95%;
     background: linear-gradient(180deg,
-            #e6c45a 0%,
-            #d4af37 100%);
+            #FC8400 0%,
+            #FC8400 100%);
     border: none;
     border-radius: 8px;
     font-size: 15px;
@@ -127,7 +127,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-.btn-buscar:hover {
+.btnn-buscar:hover {
     background: linear-gradient(180deg,
             #f0d06a 0%,
             #e6c45a 100%);
@@ -137,7 +137,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-.btn-buscar:active {
+.btnn-buscar:active {
     transform: translateY(0);
     box-shadow:
         0 6px 14px rgba(212, 175, 55, 0.3),

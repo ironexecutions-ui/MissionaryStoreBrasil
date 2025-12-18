@@ -1,9 +1,11 @@
 .compras-container {
-    width: 95%;
+    width: 100%;
     min-height: 100vh;
     background: #121721;
     color: white;
-    border-radius: 10px;
+    border-end-start-radius: 30px;
+    border-top-left-radius: 30px;
+
     padding: 20px;
     position: relative;
 
@@ -13,7 +15,21 @@
 
     /* estabilidade em scroll */
     backface-visibility: hidden;
+    animation: entrarDaDireitaSuave 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+
     transform: translateZ(0);
+}
+
+@keyframes entrarDaDireitaSuave {
+    from {
+        opacity: 0;
+        transform: translateX(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Botão voltar */

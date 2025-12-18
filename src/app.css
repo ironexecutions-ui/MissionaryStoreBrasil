@@ -1,7 +1,7 @@
 body {
   background-color: #FC8400;
-
 }
+
 
 /* ===============================
    BASE FLUIDA GLOBAL
@@ -19,11 +19,10 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 95%;
-  max-width: 1400px;
+  width: 100%;
+  max-width: 1500px !important;
   margin: 0 auto;
   padding: 16px;
-  box-sizing: border-box;
 }
 
 /* garante que modais ocupem bem a tela */

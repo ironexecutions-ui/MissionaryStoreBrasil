@@ -8,7 +8,7 @@
     align-items: center;
     padding: 14px 22px;
     margin: 12px;
-    border-radius: 10px !important;
+    border-end-start-radius: 20px !important;
 
     /* Profundidade real */
     box-shadow:
@@ -29,6 +29,18 @@
     transition:
         box-shadow 0.35s ease,
         transform 0.35s ease;
+}
+
+@keyframes entrarDaDireita {
+    from {
+        opacity: 0;
+        transform: translateX(18px) scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
 }
 
 /* Animação de entrada mais natural */
@@ -569,7 +581,7 @@
         box-shadow 0.35s ease,
         background-color 0.25s ease;
 
-    animation: aparecerBolinha 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+    animation: entrarDaDireita 0.38s cubic-bezier(0.22, 0.61, 0.36, 1);
 
     backface-visibility: hidden;
     will-change: transform;

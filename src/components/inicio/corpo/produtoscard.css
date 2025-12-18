@@ -3,10 +3,10 @@
     min-width: 170px;
     background: #1e2430;
     border-radius: 10px;
+    border: #FC8400 solid 1px;
     overflow: hidden;
     cursor: pointer;
     transition: 0.2s ease;
-    border: 1px solid #2b3242;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
     display: flex;
     flex-direction: column;
