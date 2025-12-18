@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ModalCarrinho from "./modals/ModalCarrinho";
+import ModalCarrinho from "./modals/modalcarrinho";
 import ModalCompras from "./modals/modalcompras";
 import { criarIconeCarrinho } from "./icones/carrinho";
 import ModalLogin from "./modals/modallogin";
