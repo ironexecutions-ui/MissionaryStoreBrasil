@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/inicio/header";
 import Corpo from "./components/inicio/corpo";
-import ModalCarrinho from "./components/inicio/modals/modacarrinho";
+import ModalCarrinho from "./components/inicio/modals/modalcarrinho";
 import ModalCompras from "./components/inicio/modals/modalcompras";
 import Rodape from "./components/inicio/rodape";
 import Painel from "./components/painel/painel";
