@@ -9,7 +9,13 @@ export default function PublicProdutos() {
     useEffect(() => {
         async function verificarPermissao() {
             try {
-                const resp = await fetch(`${API_URL}/perm/verificar`);
+                const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+
+                const resp = await fetch(`${API_URL}/perm/verificar`, {
+                    headers: {
+                        "x-user-email": usuario.email || ""
+                    }
+                });
 
                 if (!resp.ok) {
                     setAutorizado(false);
@@ -38,7 +44,7 @@ export default function PublicProdutos() {
             <div
                 style={{
                     padding: 40,
-                    color: "#000000ff",
+                    color: "#000",
                     fontSize: 18,
                     fontWeight: 600
                 }}
