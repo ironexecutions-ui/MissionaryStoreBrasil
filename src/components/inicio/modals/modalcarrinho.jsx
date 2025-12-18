@@ -170,11 +170,14 @@ export default function ModalCarrinho({ fechar }) {
 
             if (json.ok) {
                 const freteBase = Number(json.frete);
-                const adicional = Math.floor(subtotal / 10) * 1.5;
+
+                const adicional = Math.floor(freteBase / 10) * 1.5;
+
                 setFrete(freteBase + adicional);
             } else {
                 setFrete(0);
             }
+
 
             setCalculandoFrete(false);
         }

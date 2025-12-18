@@ -19,19 +19,29 @@ export default function Frete({
 
     const [endereco, setEndereco] = useState(null);
     const [loadingFrete, setLoadingFrete] = useState(false);
-    const adicional = Math.floor(subtotal / 10) * 1.5;
+    const [freteFinal, setFreteFinal] = useState(0);
 
     /* ===============================
        CALCULAR SUBTOTAL E TOTAL
     =============================== */
+    const TAXA_POR_10 = 1.5;
+
     useEffect(() => {
         const novoSubtotal = Number(preco) * quantidade;
 
-        const adicional = Math.floor(novoSubtotal / 10) * 1.5;
+        const freteBase = Number(frete || 0);
+        const adicional =
+            freteBase > 0
+                ? Math.max(1, Math.floor(freteBase / 10)) * TAXA_POR_10
+                : 0;
+
+        const freteCalculado = freteBase + adicional;
 
         setSubtotal(novoSubtotal);
-        setTotal(novoSubtotal + Number(frete || 0) + adicional);
+        setFreteFinal(freteCalculado);
+        setTotal(novoSubtotal + freteCalculado);
     }, [preco, quantidade, frete]);
+
 
     useEffect(() => {
         setCalculandoFrete?.(loadingFrete);
@@ -134,8 +144,13 @@ export default function Frete({
             <div className="frete-linha">
                 <span>Valor de entrega</span>
                 <strong>
-                    {loadingFrete ? "Calculando..." : `R$ ${frete.toFixed(2)}`}
+                    {loadingFrete
+                        ? "Calculando..."
+                        : `R$ ${freteFinal.toFixed(2)}`
+                    }
                 </strong>
+
+
             </div>
 
             <div className="frete-linha total">

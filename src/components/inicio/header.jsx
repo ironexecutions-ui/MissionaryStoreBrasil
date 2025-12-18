@@ -174,18 +174,6 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
                                 )}
                             </button>
 
-
-
-                            {/* Botão Minhas Compras */}
-                            <button
-                                style={{ marginRight: "20px" }}
-                                className={`header-btn ${painelAtivo === "compras" ? "ativo" : ""}`}
-                                onClick={() => {
-                                    setPainelAtivo(painelAtivo === "compras" ? "corpo" : "compras");
-                                }}
-                            >
-                                {painelAtivo === "compras" ? "Produtos" : "Minhas compras"}
-                            </button>
                             <div className="perfil-wrapper">
                                 <div
                                     className={`header-ttl ${(!usuario.cep || usuario.cep === "") ? "perfil-piscando" : ""}`}
@@ -204,6 +192,18 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
                                     </div>
                                 )}
                             </div>
+
+                            {/* Botão Minhas Compras */}
+                            <button
+                                style={{ marginRight: "20px" }}
+                                className={`header-btn ${painelAtivo === "compras" ? "ativo" : ""}`}
+                                onClick={() => {
+                                    setPainelAtivo(painelAtivo === "compras" ? "corpo" : "compras");
+                                }}
+                            >
+                                {painelAtivo === "compras" ? "Produtos" : "Minhas compras"}
+                            </button>
+
 
                         </>
                     )}

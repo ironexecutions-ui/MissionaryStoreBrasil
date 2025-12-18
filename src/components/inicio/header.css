@@ -693,7 +693,7 @@
 .aviso-endereco {
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 70%;
     transform: translateX(-65%);
     /* antes era -50% */
     margin-top: 0px;
