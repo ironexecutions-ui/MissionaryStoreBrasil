@@ -127,7 +127,7 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
             <header className={`header-box ${compacto ? "header-escondido" : "header-visivel"}`}>
 
                 <div className="header-esq">
-                    <img src="./m.png" alt="" className="logo-m" />
+                    <img src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png" alt="" className="logo-m" />
                     <h2 className="header-titulo">Missionary Store Brasil</h2>
                 </div>
 
@@ -222,7 +222,7 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
                         });
                     }}
                 >
-                    <img src="./m.png" className="bolinha-logo" />
+                    <img src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png" className="bolinha-logo" />
                 </div>
 
             )}
