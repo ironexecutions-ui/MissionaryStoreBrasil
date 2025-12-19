@@ -4,7 +4,7 @@
 .carrinho-container {
     width: 100%;
     height: fit-content;
-    background: #121721;
+    background: #ffffff;
     padding: 20px;
     border-top-left-radius: 20px;
     border-end-start-radius: 20px;
@@ -92,7 +92,7 @@
 
 .carrinho-vazio {
     padding: 20px;
-    color: #bbb;
+    color: #000000;
     font-size: 15px;
 }
 

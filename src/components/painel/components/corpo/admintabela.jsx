@@ -24,13 +24,31 @@ export default function AdminTabela({ tipo = "admin" }) {
     }
 
     async function trocarFuncao(id, novaFuncao) {
-        await fetch(`${API_URL}/admin/usuarios/funcao`, {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("Token não encontrado. Faça login novamente.");
+            return;
+        }
+
+        const resp = await fetch(`${API_URL}/admin/usuarios/funcao`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify({ id, funcao: novaFuncao })
         });
+
+        if (!resp.ok) {
+            const erro = await resp.json();
+            alert(erro.detail || "Erro ao alterar função");
+            return;
+        }
+
         carregar();
     }
+
 
     async function apagar(id) {
         if (!window.confirm("Tem certeza que deseja apagar este usuário?")) return;

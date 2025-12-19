@@ -269,6 +269,34 @@ export default function ModalCarrinho({ fechar }) {
     /* ===============================
        RENDER
     =============================== */
+    async function comprarTudoTeste() {
+
+        const resp = await fetch(`${API_URL}/pagamento/teste`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                usuario_id: usuario.id,
+                itens: lista.map(p => ({
+                    titulo: p.produto,
+                    quantidade: p.quantos,
+                    preco: Number(p.preco)
+                })),
+                frete
+            })
+        });
+
+        const json = await resp.json();
+
+        if (!json.ok) {
+            alert(json.erro || "Erro na compra de teste");
+            return;
+        }
+
+        alert("Compra de teste realizada com sucesso");
+
+        fechar(); // fecha modal
+    }
+
     return (
         <div className="carrinho-container">
 
@@ -366,6 +394,12 @@ export default function ModalCarrinho({ fechar }) {
                                 disabled={compraBloqueada}
                             >
                                 Comprar tudo
+                            </button>
+                            <button
+                                className="btn-comprar-tudo btn-teste"
+                                onClick={comprarTudoTeste}
+                            >
+                                Comprar (teste)
                             </button>
 
                         </div>

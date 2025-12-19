@@ -37,7 +37,7 @@
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 0.4px;
-    color: #ffffff;
+    color: #000000;
     text-shadow:
         0 2px 6px rgba(0, 0, 0, 0.65),
         0 0 14px rgba(255, 255, 255, 0.12);
@@ -47,7 +47,7 @@
     font-size: 15px;
     max-width: 440px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(5, 5, 5, 0.78);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -70,7 +70,7 @@
 .categoria-titulo {
     font-size: 22px;
     font-weight: 600;
-    color: #f1b83c !important;
+    color: #000000 !important;
     padding-left: 12px;
     letter-spacing: 0.5px;
     position: relative;
