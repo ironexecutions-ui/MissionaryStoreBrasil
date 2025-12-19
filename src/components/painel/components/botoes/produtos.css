@@ -712,3 +712,30 @@
         padding: 14px;
     }
 }
+
+/* =========================
+   DATALIST COM OVERFLOW ATIVO
+========================= */
+
+/* mantém o overflow do formulário */
+.ppp-form-box {
+    overflow-y: auto;
+    position: relative;
+}
+
+/* isola o input do datalist */
+.ppp-form-box input[list] {
+    position: relative;
+    z-index: 10000;
+
+    appearance: auto;
+    -webkit-appearance: auto;
+
+    width: auto;
+    min-width: 260px;
+}
+
+/* força o navegador a renderizar o popup fora do clipping */
+.ppp-form-box input[list]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
