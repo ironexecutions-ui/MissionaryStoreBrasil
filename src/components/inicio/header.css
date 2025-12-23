@@ -260,25 +260,54 @@
    ESTADO ATIVO (painel selecionado)
 ====================================================== */
 
-.header-btn.ativo {
-    color: #121721;
-
-    background:
-        linear-gradient(180deg,
-            #f3d873 0%,
-            #d4af37 100%);
-
-    border-color: rgba(212, 175, 55, 0.95);
-
-    box-shadow:
-        0 10px 26px rgba(212, 175, 55, 0.45),
-        0 0 0 1px rgba(212, 175, 55, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
-}
 
 /* mantém ativo mesmo no hover */
 .header-btn.ativo:hover {
     transform: translateY(-1px);
+}
+
+@keyframes chamarAtencaoVerde {
+    0% {
+        background-color: #1f7a4a;
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    40% {
+        background-color: #2ecc71;
+        filter: brightness(1.15);
+        transform: scale(1.13);
+    }
+
+    80% {
+        background-color: #1f7a4a;
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    100% {
+        background-color: #1f7a4a;
+        filter: brightness(1);
+        transform: scale(1);
+    }
+}
+
+.compras-piscando {
+    animation: chamarAtencaoVerde 1.4s ease-in-out infinite;
+
+    background-image: none !important;
+    background-color: #1f7a4a !important;
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    /* mantém profundidade neutra do botão */
+    box-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.35),
+        0 10px 22px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35);
 }
 
 /* ======================================================

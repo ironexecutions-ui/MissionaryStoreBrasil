@@ -94,7 +94,7 @@ export default function Enviando({ qrInicial = "" }) {
                     {lista.map((p, i) => (
                         <div key={i} className="env-produto-envio">
                             <img src={p.imagem_um} alt={p.produto} />
-                            <span>{p.produto}</span>
+                            <span style={{ fontSize: "1.9rem" }} >{p.produto}</span>
                         </div>
                     ))}
                 </div>
@@ -103,6 +103,7 @@ export default function Enviando({ qrInicial = "" }) {
             {lista.length > 0 && (
                 <>
                     <input
+                        style={{ color: "white" }}
                         type="text"
                         placeholder="Link de rastreamento"
                         value={link}

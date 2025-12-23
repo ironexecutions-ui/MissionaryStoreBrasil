@@ -25,6 +25,14 @@ export default function Pagos() {
     function abrirComanda(venda) {
         setComanda(venda);
     }
+    function tipoEntregaTexto(endereco) {
+        if (!endereco) return "";
+
+        if (endereco.startsWith("CTM")) return "CTM";
+        if (endereco.startsWith("Na loja")) return "RETIRADA NA LOJA";
+
+        return "ENTREGA";
+    }
 
     function imprimirComanda(venda) {
         const conteudo = `
@@ -91,6 +99,20 @@ export default function Pagos() {
         <h2>Missionary Store Brasil</h2>
 <h3>Protocolo: ${venda.venda_numero}</h3>
 
+<div style="
+    text-align:center;
+    margin:6px 0 10px 0;
+    font-weight:bold;
+    font-size:13px;
+">
+    ${venda.usuario.endereco.startsWith("CTM")
+                ? "CTM"
+                : venda.usuario.endereco.startsWith("Na loja")
+                    ? "RETIRADA NA LOJA"
+                    : "ENTREGA"
+            }
+</div>
+
 <div class="cliente">
     CNPJ: 62.712.093/0001-34<br/>
     Endereço: Rua Padre Antônio D'Angelo, 69<br/>
@@ -107,13 +129,15 @@ export default function Pagos() {
             Endereço: ${venda.usuario.endereco}
         </div>
 
-        ${venda.produtos.map(p => `
-            <div class="item">
-                ${p.nome}<br/>
-                Qtd ${p.quantos} x R$ ${p.preco.toFixed(2)}<br/>
-                Subtotal R$ ${p.subtotal.toFixed(2)}
-            </div>
-        `).join("")}
+   ${venda.produtos.map(p => `
+    <div class="item">
+        ${p.nome}<br/>
+        ${p.carateristica ? `<small>${p.carateristica}</small><br/>` : ""}
+        Qtd ${p.quantos} x R$ ${p.preco.toFixed(2)}<br/>
+        Subtotal R$ ${p.subtotal.toFixed(2)}
+    </div>
+`).join("")}
+
 
         <div class="frete">Frete R$ ${venda.frete.toFixed(2)}</div>
 
@@ -183,9 +207,17 @@ export default function Pagos() {
                                 <img src={p.imagem} alt="" className="pp-produto-img" />
                                 <div>
                                     <p>{p.nome}</p>
+
+                                    {p.carateristica && p.carateristica.trim() !== "" && (
+                                        <p className="pp-produto-caracteristica">
+                                            {p.carateristica}
+                                        </p>
+                                    )}
+
                                     <p>Qtd: {p.quantos}</p>
                                     <p>Preço: R$ {p.preco.toFixed(2)}</p>
                                 </div>
+
                             </div>
                         ))}
                     </div>
@@ -219,6 +251,10 @@ export default function Pagos() {
                         </div>
 
                         <h3>Protocolo: {comanda.venda_numero}</h3>
+
+                        <div className="pp-comanda-tipo">
+                            {tipoEntregaTexto(comanda.usuario.endereco)}
+                        </div>
                         <div className="pp-cliente-comanda">
                             <p><strong>Cliente</strong> {comanda.usuario.nome} {comanda.usuario.sobrenome}</p>
                             <p><strong>WhatsApp</strong> {comanda.usuario.whatsapp}</p>
@@ -230,8 +266,16 @@ export default function Pagos() {
                             {comanda.produtos.map((p, i) => (
                                 <div key={i} className="pp-comanda-item">
                                     <p>{p.nome}</p>
+
+                                    {p.carateristica && p.carateristica.trim() !== "" && (
+                                        <p className="pp-comanda-caracteristica">
+                                            {p.carateristica}
+                                        </p>
+                                    )}
+
                                     <p>{p.quantos} x R$ {p.preco.toFixed(2)}</p>
                                     <p>Subtotal R$ {p.subtotal.toFixed(2)}</p>
+
                                 </div>
                             ))}
                         </div>

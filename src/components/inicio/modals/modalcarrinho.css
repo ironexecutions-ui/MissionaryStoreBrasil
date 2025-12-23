@@ -66,7 +66,6 @@
 .carrinho-lista {
     width: 35%;
     overflow-y: auto;
-    border-right: 1px solid #2a2f3a;
     padding-right: 12px;
     height: fit-content;
 }
@@ -293,4 +292,99 @@
 
 .btn-comprar-tudo:disabled:hover {
     background: #7a6a2b;
+}
+
+.frete-entrega {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.frete-entrega label {
+    font-size: 14px;
+    color: #ddd;
+    font-weight: 500;
+}
+
+.frete-entrega select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background-color: #111;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.frete-entrega select:focus {
+    border-color: #f5c542;
+    box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.25);
+}
+
+.frete-entrega option {
+    background-color: #111;
+    color: #fff;
+}
+
+.frete-entrega option:disabled {
+    color: #777;
+}
+
+.frete-data {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.frete-data label {
+    font-size: 14px;
+    color: #ddd;
+    font-weight: 500;
+}
+
+.frete-data input[type="date"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background-color: #111;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.frete-data input[type="date"]:focus {
+    border-color: #f5c542;
+    box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.25);
+}
+
+/* ícone do calendário no Chrome */
+.frete-data input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.carrinho-caracteristica {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 2px;
+}
+
+.carrinho-alerta-caracteristica {
+    font-size: 12px;
+    color: #ff6b6b;
+    margin-top: 2px;
+}
+
+.aviso-global-caracteristica {
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-bottom: 10px;
 }

@@ -1,7 +1,14 @@
-import React from "react";
-import "./carrinhoproduto.css";
+import React, { useState } from "react";
+import "./produtoentregue.css";
+import { API_URL } from "../../../config";
 
 export default function ModalProdutoEntregue({ produto, fechar }) {
+
+    const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+
+    const [estrelas, setEstrelas] = useState(0);
+    const [comentario, setComentario] = useState("");
+    const [enviando, setEnviando] = useState(false);
 
     const imagens = [
         produto.imagem_um,
@@ -10,44 +17,92 @@ export default function ModalProdutoEntregue({ produto, fechar }) {
         produto.imagem_quatro
     ].filter(img => img);
 
+    async function enviarAvaliacao() {
+        if (
+            produto.produto_id == null ||
+            usuario.id == null ||
+            estrelas < 1
+        ) {
+            alert("Dados inválidos para avaliação");
+            return;
+        }
+
+        setEnviando(true);
+
+        const resp = await fetch(`${API_URL}/api/avaliacoes/enviar`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                produto_id: produto.produto_id,
+                usuario_id: usuario.id,
+                estrelas: estrelas,
+                comentario: comentario.trim() || null
+            })
+        });
+
+        setEnviando(false);
+
+        if (resp.ok) {
+            alert("Avaliação enviada com sucesso");
+            fechar();
+        } else {
+            const erro = await resp.json();
+            alert(JSON.stringify(erro));
+        }
+    }
+
+
     return (
-        <div className="modal-overlay" onClick={fechar}>
-            <div className="modal-produto" onClick={e => e.stopPropagation()}>
+        <div className="ww-produto-box">
 
-                <button className="btn-fechar" onClick={fechar}>
-                    fechar
-                </button>
+            <button className="ww-btn-fechar" onClick={fechar}>
+                fechar
+            </button>
 
-                <div className="modal-imagens">
-                    {imagens.map((img, i) => (
-                        <img key={i} src={img} className="imagem-item" />
+            <div className="ww-imagens">
+                {imagens.map((img, i) => (
+                    <img key={i} src={img} className="ww-imagem-item" />
+                ))}
+            </div>
+
+            <h2 className="ww-nome">{produto.produto}</h2>
+
+            <p className="ww-preco">
+                R$ {Number(produto.preco).toFixed(2)}
+            </p>
+
+            <div className="ww-avaliacao-box">
+                <p className="ww-avaliacao-titulo">Avalie este produto</p>
+
+                <div className="ww-estrelas">
+                    {[1, 2, 3, 4, 5].map(n => (
+                        <span
+                            key={n}
+                            onClick={() => setEstrelas(n)}
+                            className={n <= estrelas ? "ww-estrela ww-ativa" : "ww-estrela"}
+                        >
+                            ★
+                        </span>
                     ))}
                 </div>
 
-                <h2 className="modal-nome">{produto.produto}</h2>
+                <textarea
+                    className="ww-textarea"
+                    placeholder="Escreva um comentário (opcional)"
+                    value={comentario}
+                    onChange={e => setComentario(e.target.value)}
+                    rows={4}
+                />
 
-                <p className="modal-preco">R$ {Number(produto.preco).toFixed(2)}</p>
-
-                <p className="modal-desc">{produto.descricao}</p>
-
-                <ul className="modal-caracts">
-                    {(produto.caracteristicas || "")
-                        .split(";")
-                        .map((c, i) => <li key={i}>{c}</li>)}
-                </ul>
-
-                {/* QUANTIDADE SOMENTE VISUAL */}
-                <div className="quantidade-box">
-                    <p className="total-preco">
-                        Quantidade: <strong>{produto.quantos}</strong>
-                    </p>
-
-                    <p className="total-preco">
-                        Total: R$ {(Number(produto.preco) * produto.quantos).toFixed(2)}
-                    </p>
-                </div>
-
+                <button
+                    className="ww-btn-enviar"
+                    disabled={enviando || estrelas === 0}
+                    onClick={enviarAvaliacao}
+                >
+                    Enviar avaliação
+                </button>
             </div>
+
         </div>
     );
 }

@@ -15,6 +15,26 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
     const [abrirPerfil, setAbrirPerfil] = useState(false);
     const [qtdCarrinho, setQtdCarrinho] = useState(0);
     const [mostrarAvisoEndereco, setMostrarAvisoEndereco] = useState(false);
+    const [comprasPendentes, setComprasPendentes] = useState(false);
+    async function verificarComprasPendentes() {
+        if (!usuario?.id) {
+            setComprasPendentes(false);
+            return;
+        }
+
+        try {
+            const r = await fetch(`${API_URL}/processo/compras/pendentes`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ usuario_id: usuario.id })
+            });
+
+            const json = await r.json();
+            setComprasPendentes(!!json.tem_pendente);
+        } catch {
+            setComprasPendentes(false);
+        }
+    }
 
     const refCarrinho = useRef(null);
     async function carregarQtdCarrinho() {
@@ -34,6 +54,10 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
             setQtdCarrinho(json.total);
         }
     }
+    useEffect(() => {
+        verificarComprasPendentes();
+    }, [usuario, painelAtivo]);
+
     useEffect(() => {
         carregarQtdCarrinho();
     }, [usuario, painelAtivo]);
@@ -196,13 +220,17 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
                             {/* Botão Minhas Compras */}
                             <button
                                 style={{ marginRight: "20px" }}
-                                className={`header-btn ${painelAtivo === "compras" ? "ativo" : ""}`}
+                                className={`header-btn 
+        ${painelAtivo === "compras" ? "ativo" : ""}
+${comprasPendentes && painelAtivo !== "compras" ? "compras-piscando" : ""}
+    `}
                                 onClick={() => {
                                     setPainelAtivo(painelAtivo === "compras" ? "corpo" : "compras");
                                 }}
                             >
                                 {painelAtivo === "compras" ? "Produtos" : "Minhas compras"}
                             </button>
+
 
 
                         </>

@@ -5,14 +5,34 @@ import ProdutoModal from "./produtomodal";
 import ModalProdutoEntregue from "./produtoentregue";
 
 export default function ModalCompras({ fechar }) {
+    const [avaliacoes, setAvaliacoes] = useState([]);
 
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
     const [produtoEntregueModal, setProdutoEntregueModal] = useState(null);
+    const [avaliandoProdutoId, setAvaliandoProdutoId] = useState(null);
 
     const [carregandoInicial, setCarregandoInicial] = useState(true);
     const [pedidos, setPedidos] = useState([]);
     const [entregues, setEntregues] = useState([]);
     const [produtoModal, setProdutoModal] = useState(null);
+    useEffect(() => {
+        if (!entregues.length || !avaliacoes.length) return;
+
+        for (const entrega of entregues) {
+            if (!entrega.itens) continue;
+
+            for (const item of entrega.itens) {
+                const jaAvaliado = avaliacoes.find(
+                    a => a.produto_id === item.produto_id
+                );
+
+                if (!jaAvaliado) {
+                    setAvaliandoProdutoId(item.produto_id);
+                    return; // abre apenas o primeiro não avaliado
+                }
+            }
+        }
+    }, [entregues, avaliacoes]);
 
     // -----------------------------
     // Função única e oficial
@@ -41,6 +61,27 @@ export default function ModalCompras({ fechar }) {
                 setCarregandoInicial(false);
             }
         }
+    }
+    useEffect(() => {
+        carregarPedidos(true);
+
+        async function carregarAvaliacoes() {
+            try {
+                const resp = await fetch(
+                    `${API_URL}/api/avaliacoes/usuario/${usuario.id}`
+                );
+                const json = await resp.json();
+                setAvaliacoes(Array.isArray(json) ? json : []);
+
+            } catch (e) {
+                console.log("Erro ao carregar avaliações", e);
+            }
+        }
+
+        carregarAvaliacoes();
+    }, []);
+    function avaliacaoDoProduto(produtoId) {
+        return avaliacoes.find(a => a.produto_id === produtoId);
     }
 
     // Carrega somente 1 vez com loading
@@ -218,7 +259,7 @@ export default function ModalCompras({ fechar }) {
 
                                         <p>
                                             {dias === 0 && (
-                                                <>Pedido entregue <strong>hoje</strong></>
+                                                <> Pedido entregue <strong>hoje</strong></>
                                             )}
 
                                             {dias === 1 && (
@@ -234,18 +275,67 @@ export default function ModalCompras({ fechar }) {
                                         {/* LISTA DOS PRODUTOS ENTREGUES */}
                                         {e.itens && (
                                             <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                                                {e.itens.map((p, idx) => (
-                                                    <p
-                                                        key={idx}
-                                                        style={{ fontSize: "14px", cursor: "pointer" }}
-                                                        onClick={() => setProdutoEntregueModal(p)}
-                                                    >
-                                                        • {p.produto}
-                                                    </p>
+                                                {e.itens.map((p, idx) => {
 
-                                                ))}
+                                                    const avaliacao = avaliacaoDoProduto(p.produto_id);
+
+                                                    return (
+                                                        <div key={idx} style={{ marginBottom: "10px" }}>
+                                                            <p style={{ fontSize: "14px" }}>
+                                                                • {p.produto}
+                                                            </p>
+
+                                                            {/* JÁ AVALIADO */}
+                                                            {avaliacao ? (
+                                                                <div className="ww-avaliacao-existente">
+
+                                                                    <div className="ww-estrelas">
+                                                                        {[1, 2, 3, 4, 5].map(n => (
+                                                                            <span
+                                                                                key={n}
+                                                                                className={
+                                                                                    n <= avaliacao.estrelas
+                                                                                        ? "ww-estrela ww-ativa"
+                                                                                        : "ww-estrela"
+                                                                                }
+                                                                            >
+                                                                                ★
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
+
+                                                                    {avaliacao.comentario && (
+                                                                        <p className="ww-comentario">
+                                                                            “{avaliacao.comentario}”
+                                                                        </p>
+                                                                    )}
+
+                                                                </div>
+                                                            ) : (
+                                                                <>
+                                                                    {avaliandoProdutoId === p.produto_id ? (
+                                                                        <ModalProdutoEntregue
+                                                                            produto={p}
+                                                                            fechar={() => setAvaliandoProdutoId(null)}
+                                                                        />
+                                                                    ) : (
+                                                                        <button
+                                                                            className="btn-avaliar"
+                                                                            onClick={() => setAvaliandoProdutoId(p.produto_id)}
+                                                                        >
+                                                                            Avaliar produto
+                                                                        </button>
+                                                                    )}
+
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
+
                                             </div>
                                         )}
+
 
                                         {/* BOTÃO DE CANCELAMENTO (menos de 7 dias) */}
                                         {dias < 7 && (

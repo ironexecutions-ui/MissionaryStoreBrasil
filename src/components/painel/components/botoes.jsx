@@ -22,7 +22,11 @@ export default function Botoes({ onSelect }) {
             </button>
 
             <button onClick={() => onSelect("pesquisas")}>
-                Carrinhos ativos            </button>
+                Carrinhos ativos
+            </button>
+            <button onClick={() => onSelect("avaliacao")}>
+                Avaliações
+            </button>
 
         </aside>
     );

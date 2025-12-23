@@ -1,7 +1,6 @@
 import React from "react";
 import "./modalproduto.css";
 import { API_URL } from "../../../config";
-import Frete from "./frete";
 import ModalLogin from "../modals/modallogin";
 
 
@@ -103,9 +102,9 @@ export default function ModalProduto({ produto, fechar }) {
     async function adicionarCarrinho() {
         if (!usuario.id) return;
 
-        animarCarta(); // dispara a animação
+        animarCarta();
 
-        await fetch(`${API_URL}/processo/carrinho`, {
+        const resp = await fetch(`${API_URL}/processo/carrinho`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -113,6 +112,12 @@ export default function ModalProduto({ produto, fechar }) {
                 produto_id: produto.id
             })
         });
+
+        const json = await resp.json();
+
+        if (!json.ok) {
+            console.warn(json.msg);
+        }
     }
 
     function animarCarta() {
@@ -191,6 +196,10 @@ export default function ModalProduto({ produto, fechar }) {
         produto.imagem_quatro
     ].filter(img => img);
 
+    const caracteristicas = produto.caracteristicas
+        ? produto.caracteristicas.split(";").map(c => c.trim()).filter(Boolean)
+        : [];
+
     return (
         <div className="modal-overlay" onClick={fechar}>
             <div className="modal-produto" onClick={e => e.stopPropagation()}>
@@ -206,19 +215,6 @@ export default function ModalProduto({ produto, fechar }) {
                 </div>
 
                 <h2 className="modal-nome">{produto.produto}</h2>
-
-                <p className="modal-preco">R$ {Number(produto.preco).toFixed(2)}</p>
-
-                <p className="modal-desc">{produto.descricao}</p>
-
-                <ul className="modal-caracts">
-                    {produto.caracteristicas
-                        .split(";")
-                        .map((c, i) => (
-                            <li key={i}>{c}</li>
-                        ))
-                    }
-                </ul>
                 {estaLogado && (
                     <>
                         {loadingQuantos ? (
@@ -237,18 +233,18 @@ export default function ModalProduto({ produto, fechar }) {
                                     <button onClick={aumentar5} className="q-btn">+5</button>
                                 </div>
 
-                                <Frete
-                                    preco={produto.preco}
-                                    quantidade={quantos}
-                                    usuario={usuario}
-                                    produtoId={produto.id}
-                                    setCalculandoFrete={setCalculandoFrete}
-                                />
+
 
                             </div>
                         )}
                     </>
                 )}
+
+                <p className="modal-preco">R$ <strong style={{ fontSize: "1.5rem" }}> {Number(produto.preco).toFixed(2)} </strong>  por unidade </p>
+
+                <p className="modal-desc">{produto.descricao}</p>
+
+
 
 
                 {!estaLogado && (
@@ -257,24 +253,38 @@ export default function ModalProduto({ produto, fechar }) {
                         Após entrar, o produto <strong>{produto.produto}</strong> ficará salvo no seu carrinho.
                     </p>
                 )}
+                {caracteristicas.length > 0 && (
+                    <div className="modal-categorias">
+
+                        <p className="texto-categoria">
+                            Este produto está disponível nas seguintes variações:
+                        </p>
+
+                        <ul className="lista-caracteristicas">
+                            {caracteristicas.map((item, i) => (
+                                <li key={i}>{item}</li>
+                            ))}
+                        </ul>
+
+                    </div>
+                )}
+
 
                 <div className="modal-botoes">
-                    <button
-                        className="btn-comprar"
-                        onClick={comprarAgora}
-                        disabled={
-                            loadingQuantos ||
-                            calculandoFrete ||
-                            !produto.id
-                        }
-                    >
-                        {!estaLogado
-                            ? "Fazer login para comprar"
-                            : calculandoFrete
-                                ? "Calculando frete..."
-                                : "Comprar"
-                        }
-                    </button>
+
+                    {!estaLogado && (
+                        <button
+                            className="btn-comprar"
+                            onClick={comprarAgora}
+                            disabled={
+                                loadingQuantos ||
+                                calculandoFrete ||
+                                !produto.id
+                            }
+                        >
+                            Fazer login para comprar
+                        </button>
+                    )}
 
                     {estaLogado && (
                         <button
@@ -286,8 +296,8 @@ export default function ModalProduto({ produto, fechar }) {
                         </button>
                     )}
 
-
                 </div>
+
 
             </div>
             {abrirLogin && (

@@ -3,7 +3,12 @@ import { API_URL } from "../../../config";
 import "./carrinhoproduto.css";
 import QuantidadeControle from "./qtd";
 
-export default function CarrinhoProduto({ produto, atualizarQuantidadeLocal, fechar }) {
+export default function CarrinhoProduto({
+    produto,
+    atualizarQuantidadeLocal,
+    atualizarCaracteristicaLocal,
+    fechar
+}) {
 
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
@@ -54,6 +59,21 @@ export default function CarrinhoProduto({ produto, atualizarQuantidadeLocal, fec
         produto.imagem_tres,
         produto.imagem_quatro
     ].filter(img => img);
+    async function selecionarCaracteristica(caracteristica) {
+        await fetch(`${API_URL}/processo/caracteristica`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                processo_id: produto.processo_id,
+                usuario_id: usuario.id,
+                produto_id: produto.produto_id,
+                caracteristica
+            })
+        });
+
+        // Atualiza localmente para refletir o botão ativo
+        atualizarCaracteristicaLocal(produto.processo_id, caracteristica);
+    }
 
     return (
         <div className="carrinho-produto-box">
@@ -78,11 +98,28 @@ export default function CarrinhoProduto({ produto, atualizarQuantidadeLocal, fec
 
             <p className="carrinho-prod-desc">{produto.descricao}</p>
 
-            <ul className="carrinho-prod-caracts">
-                {(produto.caracteristicas || "")
-                    .split(";")
-                    .map((c, i) => <li key={i}>{c}</li>)}
-            </ul>
+            {produto.caracteristicas && produto.caracteristicas.trim() !== "" && (
+                <div className="carrinho-prod-caracts">
+                    {produto.caracteristicas
+                        .split(";")
+                        .map(c => c.trim())
+                        .filter(c => c !== "")
+                        .map((c, i) => (
+                            <button
+                                key={i}
+                                className={
+                                    produto.caracteristica_selecionada === c
+                                        ? "caract-btn ativa"
+                                        : "caract-btn"
+                                }
+                                onClick={() => selecionarCaracteristica(c)}
+                            >
+                                {c}
+                            </button>
+                        ))}
+                </div>
+            )}
+
 
             <div className="quantidade-box2">
 

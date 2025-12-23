@@ -345,3 +345,14 @@
         max-width: 95%;
     }
 }
+
+.pp-comanda-tipo {
+    margin: 8px auto 12px auto;
+    padding: 6px 16px;
+    width: fit-content;
+    border-radius: 16px;
+    font-weight: bold;
+    font-size: 13px;
+    background: #222;
+    color: #fff;
+}

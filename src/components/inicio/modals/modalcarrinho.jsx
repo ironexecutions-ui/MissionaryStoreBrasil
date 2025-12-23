@@ -187,6 +187,24 @@ export default function ModalCarrinho({ fechar }) {
     }, [lista, localEntrega, endereco]);
 
 
+    function dataMinima() {
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        return hoje.toISOString().split("T")[0];
+    }
+
+    function validarData(valor) {
+        const data = new Date(valor + "T00:00:00");
+        const diaSemana = data.getDay(); // 0 domingo | 6 sábado
+
+        if (diaSemana === 0 || diaSemana === 6) {
+            alert("Não é possível escolher sábado ou domingo");
+            setDataReceber("");
+            return;
+        }
+
+        setDataReceber(valor);
+    }
 
     /* ===============================
        REMOVER ITEM
@@ -200,10 +218,6 @@ export default function ModalCarrinho({ fechar }) {
 
         atualizarLista();
     }
-
-    /* ===============================
-       COMPRAR TUDO
-    =============================== */
     async function comprarTudo() {
 
         let recebe = 0;
@@ -215,36 +229,26 @@ export default function ModalCarrinho({ fechar }) {
             return;
         }
 
-        const itens = lista.map(p => ({
-            titulo: p.produto,
-            quantidade: p.quantos,
-            preco: Number(p.preco)
-        }));
-
-        const resp = await fetch(`${API_URL}/pagamento/mercadopago`, {
+        const resp = await fetch(`${API_URL}/checkout/finalizar`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                itens: lista.map(p => ({
-                    titulo: p.produto,
-                    quantidade: p.quantos,
-                    preco: Number(p.preco)
-                })),
-                frete: frete
+                usuario_id: usuario.id,
+                frete,
+                recebe,
+                modo: "real"
             })
         });
 
         const json = await resp.json();
 
         if (!json.ok || !json.link_pagamento) {
-            alert(json.erro || "Erro ao iniciar pagamento");
+            alert("Erro ao iniciar pagamento");
             return;
         }
 
         window.location.href = json.link_pagamento;
     }
-
-
 
 
 
@@ -260,42 +264,64 @@ export default function ModalCarrinho({ fechar }) {
             </div>
         );
     }
+    const produtosSemCaracteristica = lista.filter(
+        p =>
+            p.caracteristicas &&
+            p.caracteristicas.trim() !== "" &&
+            (!p.carateristica || p.carateristica.trim() === "")
+    );
+
     const compraBloqueada =
         lista.length === 0 ||
         !localEntrega ||
         calculandoFrete ||
+        produtosSemCaracteristica.length > 0 ||
         ((localEntrega === "1" || localEntrega === "2") && !dataReceber);
+    function atualizarCaracteristicaLocal(processo_id, caracteristica) {
+        setLista(prev =>
+            prev.map(item =>
+                item.processo_id === processo_id
+                    ? { ...item, carateristica: caracteristica }
+                    : item
+            )
+        );
+    }
 
-    /* ===============================
-       RENDER
-    =============================== */
+
     async function comprarTudoTeste() {
 
-        const resp = await fetch(`${API_URL}/pagamento/teste`, {
+        let recebe = 0;
+        if (localEntrega === "1") recebe = 1;
+        if (localEntrega === "2") recebe = 2;
+
+        if ((recebe === 1 || recebe === 2) && !dataReceber) {
+            alert("Selecione a data para retirada");
+            return;
+        }
+
+        const resp = await fetch(`${API_URL}/checkout/finalizar`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 usuario_id: usuario.id,
-                itens: lista.map(p => ({
-                    titulo: p.produto,
-                    quantidade: p.quantos,
-                    preco: Number(p.preco)
-                })),
-                frete
+                frete,
+                recebe,
+                modo: "teste"
             })
         });
 
         const json = await resp.json();
 
         if (!json.ok) {
-            alert(json.erro || "Erro na compra de teste");
+            alert("Erro na compra de teste");
             return;
         }
 
-        alert("Compra de teste realizada com sucesso");
-
-        fechar(); // fecha modal
+        alert(`Compra teste realizada.`);
+        fechar();
     }
+
+
 
     return (
         <div className="carrinho-container">
@@ -318,9 +344,25 @@ export default function ModalCarrinho({ fechar }) {
 
                             <div className="carrinho-info">
                                 <p>{item.produto}</p>
+
                                 <span>Qtd: {item.quantos}</span>
+
+                                {item.carateristica && item.carateristica.trim() !== "" && (
+                                    <span className="carrinho-caracteristica">
+                                        {item.carateristica}
+                                    </span>
+                                )}
+                                {item.caracteristicas &&
+                                    item.caracteristicas.trim() !== "" &&
+                                    (!item.carateristica || item.carateristica.trim() === "") && (
+                                        <span className="carrinho-alerta-caracteristica">
+                                            Escolha uma característica para continuar
+                                        </span>
+                                    )}
+
                                 <span>R$ {(item.preco * item.quantos).toFixed(2)}</span>
                             </div>
+
 
                             <button
                                 className="btn-remover"
@@ -345,13 +387,19 @@ export default function ModalCarrinho({ fechar }) {
                                 Valor de entrega: {calculandoFrete ? "Calculando..." : `R$ ${frete.toFixed(2)}`}
                             </p>
 
-                            <div className="frete-entrega">
 
-                                <label>Onde deseja receber?</label>
+                            <div className="frete-entrega">
+                                <label className="frete-label">
+                                    Onde deseja receber?
+                                </label>
 
                                 <select
+                                    className="frete-select"
                                     value={localEntrega}
-                                    onChange={e => setLocalEntrega(e.target.value)}
+                                    onChange={e => {
+                                        setLocalEntrega(e.target.value);
+                                        setDataReceber("");
+                                    }}
                                 >
                                     <option value="">Selecione</option>
 
@@ -361,7 +409,6 @@ export default function ModalCarrinho({ fechar }) {
                                             : "Seu endereço (cadastre um endereço)"}
                                     </option>
 
-
                                     <option value="1">
                                         Centro de Treinamento Missionário
                                     </option>
@@ -370,23 +417,33 @@ export default function ModalCarrinho({ fechar }) {
                                         Loja Missionary Store (ao lado do CTM)
                                     </option>
                                 </select>
-
                             </div>
 
                             {(localEntrega === "1" || localEntrega === "2") && (
                                 <div className="frete-data">
-                                    <label>Data para retirar</label>
-                                    <input
+                                    <label className="frete-label">
+                                        Data para retirar
+                                    </label>
+
+                                    <input style={{ width: "90%" }}
+                                        className="frete-input-date"
                                         type="date"
                                         value={dataReceber}
-                                        onChange={e => setDataReceber(e.target.value)}
+                                        min={dataMinima()}
+                                        onChange={e => validarData(e.target.value)}
                                     />
                                 </div>
                             )}
 
+
                             <p className="resumo-total">
                                 Total: R$ {total.toFixed(2)}
                             </p>
+                            {produtosSemCaracteristica.length > 0 && (
+                                <p className="aviso-global-caracteristica">
+                                    Alguns produtos precisam de uma característica selecionada
+                                </p>
+                            )}
 
                             <button
                                 className="btn-comprar-tudo"
@@ -412,7 +469,10 @@ export default function ModalCarrinho({ fechar }) {
                         <CarrinhoProduto
                             produto={produtoSelecionado}
                             atualizarQuantidadeLocal={atualizarQuantidadeLocal}
+                            atualizarCaracteristicaLocal={atualizarCaracteristicaLocal}
+                            fechar={() => setProdutoSelecionado(null)}
                         />
+
                     </div>
                 )}
             </div>

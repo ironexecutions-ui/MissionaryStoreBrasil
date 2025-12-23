@@ -13,6 +13,7 @@ import Grafico from "./botoes/grafico";
 import MaisMenos from "./botoes/maismenos";
 import Conexoes from "./botoes/conexoes";
 import Pesquisas from "./botoes/pesquisas";
+import Avaliacao from "./botoes/avalicao";
 
 import "./corpopainel.css";
 
@@ -35,6 +36,9 @@ export default function CorpoPainel({ telaHeader, telaBotao }) {
 
             case "pesquisas":
                 return <Pesquisas />;
+
+            case "avaliacao":
+                return <Avaliacao />;
 
             default:
                 break;
