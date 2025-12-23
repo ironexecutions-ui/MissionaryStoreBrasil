@@ -1,6 +1,7 @@
 .ppp-produtos-container {
     width: 95%;
     padding: 20px;
+    max-height: 80vh;
     color: white;
     font-family: "Montserrat", sans-serif;
 }
@@ -52,7 +53,6 @@
 
 .ppp-tabela td {
     padding: 10px;
-    border-bottom: 1px solid #1f2533;
 }
 
 /* mini imagens */
