@@ -452,12 +452,7 @@ export default function ModalCarrinho({ fechar }) {
                             >
                                 Comprar tudo
                             </button>
-                            <button
-                                className="btn-comprar-tudo btn-teste"
-                                onClick={comprarTudoTeste}
-                            >
-                                Comprar (teste)
-                            </button>
+
 
                         </div>
                     )}
