@@ -7,8 +7,10 @@ export default function CarrinhoProduto({
     produto,
     atualizarQuantidadeLocal,
     atualizarCaracteristicaLocal,
-    fechar
+    fechar,
+    largura
 }) {
+
 
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
@@ -59,6 +61,8 @@ export default function CarrinhoProduto({
         produto.imagem_tres,
         produto.imagem_quatro
     ].filter(img => img);
+
+
     async function selecionarCaracteristica(caracteristica) {
         await fetch(`${API_URL}/processo/caracteristica`, {
             method: "POST",
@@ -71,9 +75,15 @@ export default function CarrinhoProduto({
             })
         });
 
-        // Atualiza localmente para refletir o botão ativo
+        // Atualiza localmente
         atualizarCaracteristicaLocal(produto.processo_id, caracteristica);
+
+        // 🔥 MOBILE: fecha o modal automaticamente
+        if (largura <= 900 && fechar) {
+            fechar();
+        }
     }
+
 
     return (
         <div className="carrinho-produto-box">
@@ -97,28 +107,29 @@ export default function CarrinhoProduto({
             </p>
 
             <p className="carrinho-prod-desc">{produto.descricao}</p>
+            <div className="rrrr" >  <p>Escolha qual tipo de {produto.produto} para continuar </p>
+                {produto.caracteristicas && produto.caracteristicas.trim() !== "" && (
+                    <div className="carrinho-prod-caracts">
+                        {produto.caracteristicas
+                            .split(";")
+                            .map(c => c.trim())
+                            .filter(c => c !== "")
+                            .map((c, i) => (
+                                <button
+                                    key={i}
+                                    className={
+                                        produto.caracteristica_selecionada === c
+                                            ? "caract-btn ativa"
+                                            : "caract-btn"
+                                    }
+                                    onClick={() => selecionarCaracteristica(c)}
+                                >
+                                    {c}
+                                </button>
+                            ))}
+                    </div>
+                )} </div>
 
-            {produto.caracteristicas && produto.caracteristicas.trim() !== "" && (
-                <div className="carrinho-prod-caracts">
-                    {produto.caracteristicas
-                        .split(";")
-                        .map(c => c.trim())
-                        .filter(c => c !== "")
-                        .map((c, i) => (
-                            <button
-                                key={i}
-                                className={
-                                    produto.caracteristica_selecionada === c
-                                        ? "caract-btn ativa"
-                                        : "caract-btn"
-                                }
-                                onClick={() => selecionarCaracteristica(c)}
-                            >
-                                {c}
-                            </button>
-                        ))}
-                </div>
-            )}
 
 
             <div className="quantidade-box2">

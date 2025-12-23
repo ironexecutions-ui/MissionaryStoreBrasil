@@ -478,11 +478,14 @@ export default function ModalCarrinho({ fechar }) {
                         <CarrinhoProduto
                             produto={produtoSelecionado}
                             atualizarQuantidadeLocal={atualizarQuantidadeLocal}
+                            atualizarCaracteristicaLocal={atualizarCaracteristicaLocal}
                             fechar={() => setProdutoSelecionado(null)}
+                            largura={largura}
                         />
                     </div>
                 </div>
             )}
+
         </div>
     );
 }
