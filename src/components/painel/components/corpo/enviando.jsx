@@ -79,7 +79,7 @@ export default function Enviando({ qrInicial = "" }) {
 
     return (
         <main className="env-corpo-painel">
-            <h2>Esta pagina so é usada ao ler o QRcode dos produtos que serao enviados a entregadora</h2>
+            <h2>Esta pagina so é usada ao ler o QRcode dos produtos que serão enviados a entregadora </h2>
 
             <input
                 type="text"

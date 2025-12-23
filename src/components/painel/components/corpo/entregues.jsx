@@ -71,8 +71,18 @@ export default function Entregues() {
                         {venda.produtos.map((p, i) => (
                             <div key={i} className="produto-item">
                                 <img src={p.imagem_um} alt={p.produto} />
-                                <span>{p.produto}</span>
+
+                                <div className="produto-texto">
+                                    <span>{p.produto}</span>
+
+                                    {typeof p.carateristica === "string" && p.carateristica.trim() && (
+                                        <small className="produto-caracteristica">
+                                            {p.carateristica}
+                                        </small>
+                                    )}
+                                </div>
                             </div>
+
                         ))}
                     </div>
 
