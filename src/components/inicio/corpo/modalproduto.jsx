@@ -14,6 +14,7 @@ export default function ModalProduto({ produto, fechar }) {
     const [calculandoFrete, setCalculandoFrete] = React.useState(false);
     const [opcaoSelecionada, setOpcaoSelecionada] = React.useState("");
     const [abrirLogin, setAbrirLogin] = React.useState(false);
+    const [imagemAberta, setImagemAberta] = React.useState(null);
 
 
     // Carregar quantidade real do banco quando abrir o modal
@@ -210,9 +211,15 @@ export default function ModalProduto({ produto, fechar }) {
                 <br />
                 <div className="modal-imagens">
                     {imagens.map((img, i) => (
-                        <img key={i} src={img} className="imagem-item" />
+                        <img
+                            key={i}
+                            src={img}
+                            className="imagem-item"
+                            onClick={() => setImagemAberta(img)}
+                        />
                     ))}
                 </div>
+
 
                 <h2 className="modal-nome">{produto.produto}</h2>
                 {estaLogado && (
@@ -302,6 +309,25 @@ export default function ModalProduto({ produto, fechar }) {
             </div>
             {abrirLogin && (
                 <ModalLogin fechar={() => setAbrirLogin(false)} />
+            )}
+            {imagemAberta && (
+                <div className="imagem-overlay" onClick={() => setImagemAberta(null)}>
+                    <img
+                        src={imagemAberta}
+                        className="imagem-ampliada"
+                        onClick={e => e.stopPropagation()}
+                    />
+                    <button
+                        className="fechar-imagem"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setImagemAberta(null);
+                        }}
+                    >
+                        ✕
+                    </button>
+
+                </div>
             )}
 
         </div>

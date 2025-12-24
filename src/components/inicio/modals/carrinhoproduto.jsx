@@ -16,6 +16,7 @@ export default function CarrinhoProduto({
 
     const [quantos, setQuantos] = useState(produto.quantos);
     const [loadingQuantos, setLoadingQuantos] = useState(false);
+    const [imagemAberta, setImagemAberta] = useState(null);
 
     // RESETAR QUANTIDADE ao trocar de produto
     useEffect(() => {
@@ -96,9 +97,15 @@ export default function CarrinhoProduto({
 
             <div className="carrinho-prod-imgs">
                 {imagens.map((img, i) => (
-                    <img key={i} src={img} className="carrinho-prod-img" />
+                    <img
+                        key={i}
+                        src={img}
+                        className="carrinho-prod-img"
+                        onClick={() => setImagemAberta(img)}
+                    />
                 ))}
             </div>
+
 
             <h2 className="carrinho-prod-nome">{produto.produto}</h2>
 
@@ -149,6 +156,28 @@ export default function CarrinhoProduto({
                 </p>
 
             </div>
+            {imagemAberta && (
+                <div
+                    className="imagem-overlay"
+                    onClick={() => setImagemAberta(null)}
+                >
+                    <img
+                        src={imagemAberta}
+                        className="imagem-ampliada"
+                        onClick={e => e.stopPropagation()}
+                    />
+
+                    <button
+                        className="fechar-imagem"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setImagemAberta(null);
+                        }}
+                    >
+                        ✕
+                    </button>
+                </div>
+            )}
 
         </div>
     );
