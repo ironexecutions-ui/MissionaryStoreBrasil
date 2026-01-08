@@ -206,14 +206,30 @@ export default function Produtos() {
                     <div className="ppp-filtros">
                         <input
                             placeholder="Filtrar por nome"
+                            list="filtro-produtos"
                             value={filtroNome}
                             onChange={e => setFiltroNome(e.target.value)}
                         />
+
+                        <datalist id="filtro-produtos">
+                            {produtos.map(p => (
+                                <option key={p.id} value={p.produto} />
+                            ))}
+                        </datalist>
+
                         <input
                             placeholder="Filtrar por categoria"
+                            list="filtro-categorias"
                             value={filtroCategoria}
                             onChange={e => setFiltroCategoria(e.target.value)}
                         />
+
+                        <datalist id="filtro-categorias">
+                            {categorias.map((cat, i) => (
+                                <option key={i} value={cat} />
+                            ))}
+                        </datalist>
+
                         <button className="ppp-btn-add" onClick={abrirNovo}>
                             + Adicionar Produto
                         </button>
