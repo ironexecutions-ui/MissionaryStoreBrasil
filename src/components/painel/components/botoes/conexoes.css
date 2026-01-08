@@ -6,10 +6,12 @@
     padding: 28px;
     width: 95%;
     max-height: 100%;
+    border-radius: 20px;
     overflow: auto;
-    color: #e9ecf1;
+    color: #fcfcfc;
     font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     box-sizing: border-box;
+    background-color: #c7c9d0;
 }
 
 /* ======================================================
@@ -55,7 +57,7 @@
 .con-titulo {
     font-size: 28px;
     font-weight: 600;
-    color: #d4af37;
+    color: #070707;
     margin-bottom: 26px;
     margin-top: 2px;
     letter-spacing: 0.4px;

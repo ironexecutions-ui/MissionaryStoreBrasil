@@ -252,7 +252,7 @@ export default function Produtos() {
                                             <td>{p.categoria}</td>
                                             <td>{p.descricao}</td>
                                             <td>{parseCaracteristicas(p.caracteristicas).join(", ")}</td>
-                                            <td style={{ display: "flex", gap: "8px" }}>
+                                            <td className="ppp-acoes">
                                                 <button className="ppp-btn-editar" onClick={() => editar(p)}>
                                                     Editar
                                                 </button>
@@ -380,7 +380,7 @@ export default function Produtos() {
                             +
                         </button>
                     </div>
-
+                    <br /><br /><br /><br /><br /><br /><br /><br />
                     <ul className="ppp-lista-caracts">
                         {form.caracteristicas.map((c, i) => (
                             <li key={i}>
@@ -395,11 +395,9 @@ export default function Produtos() {
                     <button className="ppp-btn-salvar" onClick={salvar}>
                         Salvar
                     </button>
-                    <br /><br /><br /><br />
-                    <br />
+
                 </div>
             )}
-            <br /><br /><br /><br /><br /><br /><br /><br /><br />
         </main>
     );
 }

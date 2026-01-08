@@ -56,6 +56,13 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
         categorias[p.categoria].push(p);
     });
 
+    /* ORDENAR DENTRO DE CADA CATEGORIA */
+    Object.keys(categorias).forEach(cat => {
+        categorias[cat].sort(
+            (a, b) => (b.total_usos || 0) - (a.total_usos || 0)
+        );
+    });
+
     const nenhumaCategoria =
         interesse.length === 0 && Object.keys(categorias).length === 0;
 

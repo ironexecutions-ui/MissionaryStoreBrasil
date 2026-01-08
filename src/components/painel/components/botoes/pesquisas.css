@@ -8,11 +8,11 @@
     max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-
+    border-radius: 30px;
     background: radial-gradient(circle at top,
-            #141a26 0%,
-            #0b0f17 55%,
-            #080b12 100%);
+            #ffffff 0%,
+            #dfdfdf 55%,
+            #9c9c9c 100%);
 
     color: #e9ecf1;
     font-family: "Montserrat", sans-serif;
@@ -54,7 +54,7 @@
 .car-titulo {
     font-size: 32px;
     font-weight: 700;
-    color: #d4af37;
+    color: #000000;
     margin-bottom: 34px;
     letter-spacing: 0.8px;
 

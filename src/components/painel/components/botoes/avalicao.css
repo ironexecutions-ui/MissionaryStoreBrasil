@@ -8,7 +8,8 @@
     gap: 32px;
     padding: 24px;
     width: 90%;
-    background-color: #000000;
+    border-radius: 30px;
+    background-color: #ffffff;
     color: #1f2933;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 

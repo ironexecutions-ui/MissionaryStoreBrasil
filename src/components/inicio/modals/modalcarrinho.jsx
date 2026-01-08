@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import "./modalcarrinho.css";
 import { API_URL } from "../../../config";
 import CarrinhoProduto from "./carrinhoproduto";
+import PagamentoCheckout from "./pagamento";
 
 export default function ModalCarrinho({ fechar }) {
 
@@ -10,6 +11,7 @@ export default function ModalCarrinho({ fechar }) {
     const [dataReceber, setDataReceber] = useState("");
     const [endereco, setEndereco] = useState(null);
     const [calculandoFrete, setCalculandoFrete] = useState(false);
+    const [processandoCompra, setProcessandoCompra] = useState(false);
 
     const [lista, setLista] = useState([]);
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
@@ -19,6 +21,8 @@ export default function ModalCarrinho({ fechar }) {
     const [frete, setFrete] = useState(0);
     const [subtotal, setSubtotal] = useState(0);
     const [total, setTotal] = useState(0);
+    const [telaPagamento, setTelaPagamento] = useState(false);
+    const [dadosPagamento, setDadosPagamento] = useState(null);
 
     const primeiraCarga = useRef(true);
 
@@ -218,7 +222,11 @@ export default function ModalCarrinho({ fechar }) {
 
         atualizarLista();
     }
+
+
     async function comprarTudo() {
+        if (processandoCompra) return;
+        setProcessandoCompra(true);
 
         let recebe = 0;
         if (localEntrega === "1") recebe = 1;
@@ -226,6 +234,7 @@ export default function ModalCarrinho({ fechar }) {
 
         if ((recebe === 1 || recebe === 2) && !dataReceber) {
             alert("Selecione a data para retirada");
+            setProcessandoCompra(false);
             return;
         }
 
@@ -236,18 +245,31 @@ export default function ModalCarrinho({ fechar }) {
                 usuario_id: usuario.id,
                 frete,
                 recebe,
+                data_receber: dataReceber || null,
                 modo: "real"
             })
+
         });
 
         const json = await resp.json();
 
-        if (!json.ok || !json.link_pagamento) {
-            alert("Erro ao iniciar pagamento");
+        console.log("CHECKOUT RESPONSE", json);
+
+        if (!resp.ok || !json.ok || !json.enviado_id) {
+            console.log("ERRO CHECKOUT:", json);
+            alert(json?.detail || "Erro ao iniciar pagamento");
+            setProcessandoCompra(false);
             return;
         }
 
-        window.location.href = json.link_pagamento;
+        setDadosPagamento({
+            enviado_id: json.enviado_id,
+            total
+        });
+
+        setTelaPagamento(true);
+        setProcessandoCompra(false);
+
     }
 
 
@@ -321,6 +343,24 @@ export default function ModalCarrinho({ fechar }) {
         fechar();
     }
 
+    if (
+        telaPagamento &&
+        dadosPagamento &&
+        dadosPagamento.enviado_id > 0
+    ) {
+        return (
+            <PagamentoCheckout
+                enviadoId={dadosPagamento.enviado_id}
+                total={dadosPagamento.total}
+                usuario={usuario}
+                voltar={() => {
+                    setTelaPagamento(false);
+                    setDadosPagamento(null);
+                }}
+            />
+
+        );
+    }
 
 
     return (
@@ -448,10 +488,11 @@ export default function ModalCarrinho({ fechar }) {
                             <button
                                 className="btn-comprar-tudo"
                                 onClick={comprarTudo}
-                                disabled={compraBloqueada}
+                                disabled={compraBloqueada || processandoCompra}
                             >
-                                Comprar tudo
+                                {processandoCompra ? "Processando..." : "Comprar tudo"}
                             </button>
+
 
 
                         </div>

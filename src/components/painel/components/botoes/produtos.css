@@ -1,469 +1,254 @@
+/* ======================================================
+   CONTAINER PRINCIPAL
+====================================================== */
+
 .ppp-produtos-container {
-    width: 95%;
-    padding: 20px;
-    max-height: 80vh;
-    color: white;
-    font-family: "Montserrat", sans-serif;
+    padding: 30px;
+    background: #f1f5f9;
+    width: 100%;
+    max-width: 80%;
+    height: 94vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #020617;
 }
 
-/* título */
+/* ======================================================
+   TÍTULO
+====================================================== */
+
 .ppp-titulo {
-    font-size: 24px;
+    font-size: 26px;
+    font-weight: 800;
     margin-bottom: 20px;
+    color: #020617;
 }
 
-/* filtros */
+/* ======================================================
+   FILTROS
+====================================================== */
+
 .ppp-filtros {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 .ppp-filtros input {
-    background: #0e121a;
-    border: 1px solid #2b3240;
-    padding: 10px;
-    color: white;
+    padding: 10px 12px;
+    border: 1px solid #cbd5f5;
     border-radius: 6px;
+    font-size: 14px;
+    width: 220px;
+    background: #ffffff;
 }
 
-/* botão adicionar */
+.ppp-filtros input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
 .ppp-btn-add {
-    background: #d4af37;
-    color: #121721;
-    padding: 10px 16px;
-    border-radius: 6px;
+    margin-left: auto;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: bold;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
-/* tabela */
-.ppp-tabela {
+.ppp-btn-add:hover {
+    background: linear-gradient(135deg, #020617, #020617);
+}
+
+/* ======================================================
+   TABELA
+====================================================== */
+
+.ppp-tabela-box {
+    background: #020617;
     width: 95%;
+    max-width: 100%;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(94vh - 180px);
+}
+
+.ppp-tabela {
+    width: 102% !important;
+    min-width: 600px;
     border-collapse: collapse;
-    background: #121721;
-    border: 1px solid #2d3341;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+
+.ppp-tabela thead tr {
+    background: linear-gradient(90deg, #020617, #0f172a);
 }
 
 .ppp-tabela th {
-    background: #1a2030;
-    padding: 12px;
-    border-bottom: 1px solid #333b4d;
+    padding: 14px 12px;
+    color: #ffffff;
+    margin-top: 0px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #1e293b;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    background: #01115a;
+    z-index: 2;
 }
 
 .ppp-tabela td {
-    padding: 10px;
+    padding: 12px;
+    vertical-align: top;
 }
 
-/* mini imagens */
+.ppp-tabela tbody tr:hover {
+    background: #020617;
+}
+
+/* ======================================================
+   IMAGENS MINIATURAS
+====================================================== */
+
 .ppp-imgs-mini {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 44px);
+    grid-template-rows: repeat(2, 44px);
     gap: 6px;
 }
 
+.ppp-imgs-mini {
+    display: grid;
+    grid-template-columns: repeat(2, 44px);
+    grid-template-rows: repeat(2, 44px);
+    gap: 6px;
+}
+
+
+
 .ppp-mini {
-    width: 40px;
-    height: 40px;
-    border-radius: 6px;
+    width: 44px;
+    height: 44px;
     object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #1e293b;
 }
 
 .ppp-mini-vazio {
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px dashed #d4af37;
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    border: 1px dashed #334155;
+    background: #020617;
 }
 
-/* botao editar */
+/* ======================================================
+   BOTÕES DA TABELA
+====================================================== */
+
 .ppp-btn-editar {
     padding: 6px 12px;
+    border: 1px solid #2563eb;
     background: transparent;
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    border-radius: 5px;
+    color: #93c5fd;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .ppp-btn-editar:hover {
-    background: #d4af37;
-    color: #121721;
+    background: #2563eb;
+    color: #ffffff;
 }
 
-/* =========================
-   SCROLLBAR PERSONALIZADA DO FORMULÁRIO
-========================= */
-
-.ppp-form-box::-webkit-scrollbar {
-    width: 10px;
-}
-
-.ppp-form-box::-webkit-scrollbar-track {
-    background: #0d1119;
-    border-radius: 10px;
-}
-
-.ppp-form-box::-webkit-scrollbar-thumb {
-    background: #d4af37;
-    border-radius: 10px;
-    border: 2px solid #0d1119;
-}
-
-.ppp-form-box::-webkit-scrollbar-thumb:hover {
-    background: #f1c75a;
-}
+/* ======================================================
+   FORMULÁRIO
+====================================================== */
 
 .ppp-form-box {
-    scrollbar-width: thin;
-    scrollbar-color: #d4af37 #0d1119;
-}
-
-.ppp-tabela-box::-webkit-scrollbar {
-    width: 10px;
-}
-
-.ppp-tabela-box::-webkit-scrollbar-track {
-    background: #0d1119;
-    border-radius: 10px;
-}
-
-.ppp-tabela-box::-webkit-scrollbar-thumb {
-    background: #d4af37;
-    border-radius: 10px;
-    border: 2px solid #0d1119;
-}
-
-.ppp-tabela-box::-webkit-scrollbar-thumb:hover {
-    background: #f1c75a;
-}
-
-.ppp-tabela-box {
-    background: #121721;
-    border: 1px solid #2d3341;
-    border-radius: 12px;
-
-    max-height: calc(100vh - 180px);
+    background: #020617;
+    border-radius: 14px;
+    padding: 26px;
+    color: #e5e7eb;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
     overflow-y: auto;
-
-    box-shadow: 0 0 22px rgba(0, 0, 0, 0.4);
+    max-height: 94vh;
 }
 
-/* =========================
-   GRID DAS MEDIDAS (PESO E DIMENSÕES)
-========================= */
-
-.ppp-medidas-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-top: 10px;
-    margin-bottom: 6px;
-}
-
-/* quando quiser usar 4 campos juntos */
-.ppp-medidas-grid.quatro {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-@media (max-width: 900px) {
-    .ppp-medidas-grid.quatro {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 500px) {
-
-    .ppp-medidas-grid,
-    .ppp-medidas-grid.quatro {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* =========================
-   DESTAQUE PARA PREÇO
-========================= */
-
-.ppp-input-preco {
-    font-weight: 600;
-    color: #d4af37;
-    border-color: #3a3f52;
-}
-
-.ppp-input-preco:focus {
-    border-color: #d4af37;
-    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35);
-}
-
-/* =========================
-   SEPARADOR VISUAL ENTRE SEÇÕES
-========================= */
-
-.ppp-separador {
-    height: 1px;
-    background: linear-gradient(to right,
-            transparent,
-            rgba(212, 175, 55, 0.6),
-            transparent);
-    margin: 22px 0;
-}
-
-/* =========================
-   AJUSTE FINO DOS INPUTS NUMÉRICOS
-========================= */
-
-.ppp-form-box input[type="number"] {
-    appearance: textfield;
-}
-
-.ppp-form-box input[type="number"]::-webkit-inner-spin-button,
-.ppp-form-box input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-
-@keyframes pppFade {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.ppp-form-box input {
-    width: 90% !important;
-}
-
-.ppp-form-box textarea {
-    width: 90% !important;
-
-}
-
-/* botão voltar */
 .ppp-btn-voltar {
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    padding: 8px 14px;
-    border-radius: 6px;
+    margin-bottom: 14px;
+    background: transparent;
+    border: none;
+    color: #93c5fd;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    margin-bottom: 15px;
 }
 
-.ppp-btn-voltar:hover {
-    background: #d4af37;
-    color: #121721;
+.ppp-form-box h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 18px;
 }
 
-/* imagens do form */
+/* ======================================================
+   IMAGENS DO FORMULÁRIO
+====================================================== */
+
 .ppp-imgs-form {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    grid-template-rows: repeat(2, 120px);
+    gap: 14px;
     margin-bottom: 20px;
 }
 
-.ppp-img-slot {
-    width: 110px;
-    height: 110px;
-    position: relative;
-    border-radius: 10px;
-    border: 1px dashed #d4af37;
+/* ======================================================
+   AÇÕES DA TABELA (BOTÕES UM ABAIXO DO OUTRO)
+====================================================== */
+
+.ppp-acoes {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(212, 175, 55, 0.08);
-    cursor: pointer;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
 }
 
-.ppp-img-num {
-    font-size: 12px;
-    color: #d4af37;
-    position: absolute;
-    top: 4px;
-    left: 6px;
+
+.ppp-img-slot {
+    width: 120px;
+    height: 120px;
+    background: #020617;
+    border: 2px dashed #334155;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ppp-img-preview {
-    width: 95%;
+    width: 100%;
     height: 100%;
-    border-radius: 10px;
     object-fit: cover;
-}
-
-.ppp-img-vazia {
-    font-size: 12px;
-    text-align: center;
-    color: #d4af37;
-    padding: 6px;
-}
-
-/* inputs */
-.ppp-form-box input,
-.ppp-form-box textarea {
-    width: 95%;
-    background: #0e121a;
-    border: 1px solid #2b3240;
-    padding: 10px;
-    color: white;
-    border-radius: 6px;
-    margin-bottom: 12px;
-}
-
-/* características */
-.ppp-caracts {
-    display: flex;
-    gap: 8px;
-}
-
-.ppp-btn-add-lista {
-    background: #d4af37;
-    color: #121721;
-    padding: 10px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* lista */
-.ppp-lista-caracts {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-}
-
-.ppp-lista-caracts li {
-    background: #1a2030;
-    padding: 8px 10px;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    display: flex;
-    width: fit-content;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.ppp-caract-del {
-    background: transparent;
-    border: none;
-    color: #d4af37;
-    cursor: pointer;
-}
-
-/* salvar */
-.ppp-btn-salvar {
-    background: #d4af37;
-    color: #121721;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 95%;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-/* =========================
-   FORMULÁRIO COMPLETO
-========================= */
-.ppp-form-box {
-    background: #121721;
-    padding: 22px;
-    border-radius: 12px;
-    border: 1px solid #2d3341;
-
-    width: 95%;
-    max-width: 960px;
-
-    max-height: calc(100vh - 180px);
-    overflow-y: auto;
-
-    margin: 0 auto;
-    color: white;
-
-    box-shadow: 0 0 22px rgba(0, 0, 0, 0.4);
-    animation: pppFade .2s ease;
-}
-
-
-/* botão voltar */
-.ppp-btn-voltar {
-    background: rgba(212, 175, 55, 0.18);
-    border: 1px solid #d4af37;
-    color: #d4af37;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 16px;
-    font-size: 14px;
-    transition: .25s;
-}
-
-.ppp-btn-voltar:hover {
-    background: #d4af37;
-    color: #121721;
-}
-
-/* título do form */
-.ppp-form-box h3 {
-    font-size: 22px;
-    margin-bottom: 18px;
-    color: #d4af37;
-}
-
-/* inputs gerais */
-.ppp-form-box input,
-.ppp-form-box textarea {
-    width: 95%;
-    background: #0d1119;
-    border: 1px solid #2b3240;
-    padding: 12px;
-    color: white;
-    border-radius: 6px;
-    margin-bottom: 14px;
-    transition: border .2s;
-}
-
-.ppp-form-box input:focus,
-.ppp-form-box textarea:focus {
-    border-color: #d4af37;
-}
-
-.ppp-form-box label {
-    margin-top: 10px;
-    display: block;
-    font-size: 14px;
-    margin-bottom: 4px;
-    color: #c7c9d0;
-}
-
-/* =========================
-   BLOCO DE IMAGENS
-========================= */
-
-.ppp-imgs-form {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.ppp-img-slot {
-    width: 110px;
-    height: 110px;
-    border-radius: 10px;
-    border: 1px dashed #d4af37;
-    background: rgba(212, 175, 55, 0.08);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.ppp-img-slot:hover {
-    background: rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
 }
 
 .ppp-img-num {
@@ -471,51 +256,91 @@
     top: 6px;
     left: 8px;
     font-size: 12px;
-    color: #d4af37;
-}
-
-.ppp-img-preview {
-    width: 95%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
+    font-weight: 800;
+    color: #94a3b8;
 }
 
 .ppp-img-vazia {
-    font-size: 11px;
-    color: #d4af37;
-    text-align: center;
-    padding: 6px;
+    font-size: 12px;
+    color: #64748b;
 }
 
-/* =========================
+.ppp-img-delete {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: #7f1d1d;
+    color: #fecaca;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+/* ======================================================
+   CAMPOS DO FORMULÁRIO
+====================================================== */
+
+.ppp-form-box label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.ppp-form-box input,
+.ppp-form-box textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.ppp-form-box textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.ppp-form-box input:focus,
+.ppp-form-box textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* ======================================================
    CARACTERÍSTICAS
-========================= */
+====================================================== */
 
 .ppp-caracts {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .ppp-btn-add-lista {
-    background: #d4af37;
-    color: #121721;
-    padding: 10px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+    padding: 10px 16px;
+    background: #2563eb;
+    color: #ffffff;
     border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    cursor: pointer;
 }
 
 .ppp-lista-caracts {
+    margin-top: 12px;
     list-style: none;
     padding: 0;
-    margin-top: 10px;
 }
 
 .ppp-lista-caracts li {
-    background: #1a2030;
-    padding: 8px 12px;
+    background: #020617;
+    border: 1px solid #334155;
+    padding: 8px 10px;
     border-radius: 6px;
     margin-bottom: 6px;
     display: flex;
@@ -524,218 +349,31 @@
 }
 
 .ppp-caract-del {
-    background: transparent;
+    background: #7f1d1d;
+    color: #fecaca;
     border: none;
-    color: #d4af37;
+    border-radius: 6px;
+    padding: 2px 8px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-/* =========================
+/* ======================================================
    BOTÃO SALVAR
-========================= */
+====================================================== */
 
 .ppp-btn-salvar {
-    width: 95%;
-    background: #d4af37;
-    color: #121721;
-    padding: 12px;
-    border-radius: 6px;
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #022c22;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 900;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 16px;
-    font-weight: bold;
-    transition: .25s;
+    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.5);
 }
 
 .ppp-btn-salvar:hover {
-    background: #f1c75a;
-}
-
-.ppp-img-slot {
-    position: relative;
-}
-
-.ppp-img-delete {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    background: rgba(0, 0, 0, 0.7);
-    border: none;
-    color: white;
-    font-size: 14px;
-    padding: 4px 6px;
-    border-radius: 4px;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.ppp-img-slot:hover .ppp-img-delete {
-    opacity: 1;
-}
-
-@media (max-width: 1200px) {
-    .ppp-produtos-container {
-        width: 98%;
-        padding: 18px;
-    }
-
-    .ppp-tabela {
-        width: 100%;
-    }
-
-    .ppp-form-box {
-        max-width: 90%;
-    }
-}
-
-@media (max-width: 900px) {
-    .ppp-filtros {
-        flex-wrap: wrap;
-    }
-
-    .ppp-filtros input {
-        flex: 1 1 100%;
-    }
-
-    .ppp-btn-add {
-        width: 100%;
-        text-align: center;
-    }
-
-    .ppp-tabela-box {
-        overflow-x: auto;
-    }
-
-    .ppp-tabela {
-        min-width: 820px;
-    }
-
-    .ppp-form-box {
-        padding: 18px;
-        max-height: calc(100vh - 140px);
-    }
-
-    .ppp-imgs-form {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 700px) {
-    .ppp-titulo {
-        text-align: center;
-        font-size: 22px;
-    }
-
-    .ppp-produtos-container {
-        padding: 14px;
-    }
-
-    .ppp-tabela {
-        min-width: 760px;
-    }
-
-    .ppp-form-box {
-        width: 98%;
-        padding: 16px;
-    }
-
-    .ppp-form-box h3 {
-        text-align: center;
-    }
-
-    .ppp-btn-voltar {
-        width: 100%;
-        text-align: center;
-    }
-
-    .ppp-btn-salvar {
-        width: 100%;
-    }
-}
-
-@media (max-width: 500px) {
-    .ppp-produtos-container {
-        padding: 12px;
-    }
-
-    .ppp-titulo {
-        font-size: 20px;
-    }
-
-    .ppp-filtros {
-        gap: 10px;
-    }
-
-    .ppp-filtros input {
-        font-size: 14px;
-        padding: 9px;
-    }
-
-    .ppp-btn-add {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .ppp-img-slot {
-        width: 90px;
-        height: 90px;
-    }
-
-    .ppp-img-num {
-        font-size: 11px;
-    }
-
-    .ppp-form-box input,
-    .ppp-form-box textarea {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 380px) {
-    .ppp-titulo {
-        font-size: 18px;
-    }
-
-    .ppp-img-slot {
-        width: 82px;
-        height: 82px;
-    }
-
-    .ppp-btn-add,
-    .ppp-btn-salvar,
-    .ppp-btn-voltar {
-        font-size: 13px;
-    }
-
-    .ppp-form-box {
-        padding: 14px;
-    }
-}
-
-/* =========================
-   DATALIST COM OVERFLOW ATIVO
-========================= */
-
-/* mantém o overflow do formulário */
-.ppp-form-box {
-    overflow-y: auto;
-    position: relative;
-}
-
-/* isola o input do datalist */
-.ppp-form-box input[list] {
-    position: relative;
-    z-index: 10000;
-
-    appearance: auto;
-    -webkit-appearance: auto;
-
-    width: auto;
-    min-width: 260px;
-}
-
-/* força o navegador a renderizar o popup fora do clipping */
-.ppp-form-box input[list]::-webkit-calendar-picker-indicator {
-    opacity: 0;
+    transform: translateY(-1px);
 }
