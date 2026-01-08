@@ -396,7 +396,6 @@ export default function Produtos() {
                             +
                         </button>
                     </div>
-                    <br /><br /><br /><br /><br /><br /><br /><br />
                     <ul className="ppp-lista-caracts">
                         {form.caracteristicas.map((c, i) => (
                             <li key={i}>
@@ -411,6 +410,7 @@ export default function Produtos() {
                     <button className="ppp-btn-salvar" onClick={salvar}>
                         Salvar
                     </button>
+                    <br /><br /><br /><br /><br /><br /><br /><br />
 
                 </div>
             )}
