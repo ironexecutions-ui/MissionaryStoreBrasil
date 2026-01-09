@@ -14,7 +14,7 @@ import MaisMenos from "./botoes/maismenos";
 import Conexoes from "./botoes/conexoes";
 import Pesquisas from "./botoes/pesquisas";
 import Avaliacao from "./botoes/avalicao";
-
+import Sincronizar from "./botoes/sincronizar";
 import "./corpopainel.css";
 
 export default function CorpoPainel({ telaHeader, telaBotao }) {
@@ -39,7 +39,8 @@ export default function CorpoPainel({ telaHeader, telaBotao }) {
 
             case "avaliacao":
                 return <Avaliacao />;
-
+            case "sincronizar":
+                return <Sincronizar />;
             default:
                 break;
         }

@@ -26,6 +26,8 @@ export default function Botoes({ onSelect }) {
             </button>
             <button onClick={() => onSelect("avaliacao")}>
                 Avaliações
+            </button><button onClick={() => onSelect("sincronizar")}>
+                Sincronizar
             </button>
 
         </aside>
