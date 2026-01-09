@@ -9,7 +9,68 @@
     font-family: Arial, Helvetica, sans-serif;
     color: #0f172a;
     margin: auto auto;
+    overflow-x: auto;
     border-radius: 30px;
+}
+
+/* ===============================
+   BOTÃO CARREGAR MAIS
+=============================== */
+
+.carregar-mais {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.carregar-mais button {
+    padding: 12px 26px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.carregar-mais button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+}
+
+.carregar-mais button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.carregar-mais button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===============================
+   RESPONSIVO
+=============================== */
+
+@media (max-width: 600px) {
+    .carregar-mais button {
+        width: 100%;
+        max-width: 280px;
+        padding: 14px;
+        font-size: 15px;
+    }
 }
 
 .corpo-painell h2 {

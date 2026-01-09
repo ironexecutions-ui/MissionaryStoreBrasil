@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../config";
 import "./recusados.css";
@@ -9,6 +8,7 @@ export default function PagamentosRecusados() {
     const [erro, setErro] = useState("");
     const [loading, setLoading] = useState(true);
     const [abrindoZap, setAbrindoZap] = useState(null);
+    const [limite, setLimite] = useState(5);
 
     useEffect(() => {
         carregar();
@@ -26,7 +26,7 @@ export default function PagamentosRecusados() {
             }
 
             setLista(j);
-        } catch (e) {
+        } catch {
             setErro("Falha de conexão");
         } finally {
             setLoading(false);
@@ -86,6 +86,34 @@ Estamos aqui para te ajudar a finalizar ou esclarecer qualquer dúvida. Pode nos
         }).length;
     }
 
+    const listaOrdenada = lista.slice().reverse();
+    const listaVisivel = listaOrdenada.slice(0, limite);
+    function formatarDataMenos3Horas(dataStr) {
+        if (!dataStr) return "";
+
+        const [data, hora] = dataStr.split(" ");
+        const [dia, mes, ano] = data.split("/");
+        const [h, m] = hora.split(":");
+
+        const d = new Date(
+            Number(ano),
+            Number(mes) - 1,
+            Number(dia),
+            Number(h),
+            Number(m)
+        );
+
+        d.setHours(d.getHours() - 3);
+
+        const dd = String(d.getDate()).padStart(2, "0");
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const yyyy = d.getFullYear();
+        const hh = String(d.getHours()).padStart(2, "0");
+        const min = String(d.getMinutes()).padStart(2, "0");
+
+        return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
+    }
+
     return (
         <main className="corpo-painell">
 
@@ -105,85 +133,97 @@ Estamos aqui para te ajudar a finalizar ou esclarecer qualquer dúvida. Pode nos
             )}
 
             {!loading && (
-                <div className="tabela-container">
-                    <table className="tabela-recusa">
+                <>
+                    <div className="tabela-container">
+                        <table className="tabela-recusa">
 
-                        <thead>
-                            <tr>
-                                <th>Usuário</th>
-                                <th>Contato</th>
-                                <th>Email</th>
-                                <th>Total</th>
-                                <th>Frete</th>
-                                <th>Tipo</th>
-                                <th>Detalhe</th>
-                                <th>Data</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {[...lista].reverse().map((i) => (
-                                <tr key={i.id}>
-
-                                    <td>
-                                        {i.nome} {i.sobrenome}
-                                    </td>
-
-                                    <td>
-                                        {i.whatsapp && (
-                                            <button
-                                                className="btn-whats"
-                                                disabled={abrindoZap === i.whatsapp}
-                                                onClick={() =>
-                                                    abrirWhatsapp(
-                                                        i.whatsapp,
-                                                        i.nome
-                                                    )
-                                                }
-                                            >
-                                                {abrindoZap === i.whatsapp
-                                                    ? "Abrindo..."
-                                                    : i.whatsapp}
-                                            </button>
-                                        )}
-                                    </td>
-
-                                    <td>{i.email}</td>
-
-                                    <td>
-                                        R$ {Number(i.total || 0).toFixed(2)}
-                                    </td>
-
-                                    <td>
-                                        R$ {Number(i.frete || 0).toFixed(2)}
-                                    </td>
-
-                                    <td>
-                                        <span className="tipo">
-                                            {i.tipo}
-                                        </span>
-                                    </td>
-
-                                    <td className="detalhe">
-                                        {i.detalhe}
-                                    </td>
-
-                                    <td>{i.criado_em}</td>
-
-                                </tr>
-                            ))}
-
-                            {lista.length === 0 && (
+                            <thead>
                                 <tr>
-                                    <td colSpan="8" className="vazio">
-                                        Nenhum pagamento recusado encontrado
-                                    </td>
+                                    <th>Usuário</th>
+                                    <th>Contato</th>
+                                    <th>Email</th>
+                                    <th>Total</th>
+                                    <th>Frete</th>
+                                    <th>Tipo</th>
+                                    <th>Detalhe</th>
+                                    <th>Data</th>
                                 </tr>
-                            )}
-                        </tbody>
+                            </thead>
 
-                    </table>
-                </div>
+                            <tbody>
+                                {listaVisivel.map((i) => (
+                                    <tr key={i.id}>
+
+                                        <td>
+                                            {i.nome} {i.sobrenome}
+                                        </td>
+
+                                        <td>
+                                            {i.whatsapp && (
+                                                <button
+                                                    className="btn-whats"
+                                                    disabled={abrindoZap === i.whatsapp}
+                                                    onClick={() =>
+                                                        abrirWhatsapp(
+                                                            i.whatsapp,
+                                                            i.nome
+                                                        )
+                                                    }
+                                                >
+                                                    {abrindoZap === i.whatsapp
+                                                        ? "Abrindo..."
+                                                        : i.whatsapp}
+                                                </button>
+                                            )}
+                                        </td>
+
+                                        <td>{i.email}</td>
+
+                                        <td>
+                                            R$ {Number(i.total || 0).toFixed(2)}
+                                        </td>
+
+                                        <td>
+                                            R$ {Number(i.frete || 0).toFixed(2)}
+                                        </td>
+
+                                        <td>
+                                            <span className="tipo">
+                                                {i.tipo}
+                                            </span>
+                                        </td>
+
+                                        <td className="detalhe">
+                                            {i.detalhe}
+                                        </td>
+
+                                        <td>{formatarDataMenos3Horas(i.criado_em)}</td>
+
+                                    </tr>
+                                ))}
+
+                                {lista.length === 0 && (
+                                    <tr>
+                                        <td colSpan="8" className="vazio">
+                                            Nenhum pagamento recusado encontrado
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    {limite < listaOrdenada.length && (
+                        <div className="carregar-mais">
+                            <button
+                                onClick={() => setLimite(l => l + 10)}
+                            >
+                                Carregar mais 10
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
 
         </main>
