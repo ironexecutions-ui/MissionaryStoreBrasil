@@ -206,14 +206,30 @@ export default function Produtos() {
                     <div className="ppp-filtros">
                         <input
                             placeholder="Filtrar por nome"
+                            list="filtro-produtos"
                             value={filtroNome}
                             onChange={e => setFiltroNome(e.target.value)}
                         />
+
+                        <datalist id="filtro-produtos">
+                            {produtos.map(p => (
+                                <option key={p.id} value={p.produto} />
+                            ))}
+                        </datalist>
+
                         <input
                             placeholder="Filtrar por categoria"
+                            list="filtro-categorias"
                             value={filtroCategoria}
                             onChange={e => setFiltroCategoria(e.target.value)}
                         />
+
+                        <datalist id="filtro-categorias">
+                            {categorias.map((cat, i) => (
+                                <option key={i} value={cat} />
+                            ))}
+                        </datalist>
+
                         <button className="ppp-btn-add" onClick={abrirNovo}>
                             + Adicionar Produto
                         </button>
@@ -252,7 +268,7 @@ export default function Produtos() {
                                             <td>{p.categoria}</td>
                                             <td>{p.descricao}</td>
                                             <td>{parseCaracteristicas(p.caracteristicas).join(", ")}</td>
-                                            <td style={{ display: "flex", gap: "8px" }}>
+                                            <td className="ppp-acoes">
                                                 <button className="ppp-btn-editar" onClick={() => editar(p)}>
                                                     Editar
                                                 </button>
@@ -380,7 +396,6 @@ export default function Produtos() {
                             +
                         </button>
                     </div>
-
                     <ul className="ppp-lista-caracts">
                         {form.caracteristicas.map((c, i) => (
                             <li key={i}>
@@ -395,11 +410,10 @@ export default function Produtos() {
                     <button className="ppp-btn-salvar" onClick={salvar}>
                         Salvar
                     </button>
-                    <br /><br /><br /><br />
-                    <br />
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
                 </div>
             )}
-            <br /><br /><br /><br /><br /><br /><br /><br /><br />
         </main>
     );
 }

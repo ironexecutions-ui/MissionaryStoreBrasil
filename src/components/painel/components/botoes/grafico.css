@@ -7,11 +7,11 @@
     max-height: 100vh;
     overflow-y: auto;
     padding: 36px;
-
+    border-radius: 30px;
     background:
-        radial-gradient(circle at top, #161d2c 0%, #0c1019 55%, #070a11 100%);
+        radial-gradient(circle at top, #fcfdfd 0%, #f1f1f1 55%, #fafbff 100%);
 
-    color: #e9ecf1;
+    color: #000000;
     font-family: "Montserrat", sans-serif;
     box-sizing: border-box;
 }
@@ -21,10 +21,10 @@
 ========================= */
 
 .g-titulo {
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 700;
-    margin-bottom: 34px;
-    color: #d4af37;
+    margin-bottom: 14px;
+    color: #110d00;
     letter-spacing: 0.8px;
 
     text-shadow:
@@ -38,7 +38,7 @@
 
 .g-loading {
     font-size: 15px;
-    color: #bfc3cf;
+    color: #070707;
     margin-top: 8px;
 }
 

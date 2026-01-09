@@ -4,8 +4,7 @@
 .painel-container-pp {
     display: flex;
     flex-direction: column;
-    height: fit-content;
-    max-height: 94vh;
+    height: fit-content !important;
     margin-top: -12px !important;
     max-width: 94%;
     margin: 0 auto;
@@ -88,7 +87,7 @@
 }
 
 .corpo-painel::-webkit-scrollbar-thumb {
-    background: rgba(212, 175, 55, 0.35);
+    background: rgba(17, 17, 17, 0.945);
     border-radius: 10px;
 }
 

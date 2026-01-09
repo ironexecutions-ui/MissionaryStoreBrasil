@@ -73,7 +73,7 @@ export default function Rodape() {
 
             <div className="rodape-final">
                 <p>
-                    Feito por
+                    Desenvolvido por
                     <a href="https://ironexecutions.com.br" target="_blank" rel="noopener noreferrer">
                         {" "}Iron Executions
                     </a>

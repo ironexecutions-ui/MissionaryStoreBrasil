@@ -57,6 +57,11 @@ export default function Botoes({ onSelect }) {
                 )}
             </button>
 
+            {/* NOVO BOTÃO */}
+            <button onClick={() => onSelect("pagamentos_recusados")}>
+                Pagamentos recusados
+            </button>
+
         </aside>
     );
 }
