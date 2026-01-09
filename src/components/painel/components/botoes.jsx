@@ -46,8 +46,7 @@ export default function Botoes({ onSelect }) {
             <button onClick={() => onSelect("avaliacao")}>
                 Avaliações
             </button>
-            <button onClick={() => onSelect("recusados")}>
-                Pagementos recusados            </button>
+
             <button onClick={() => onSelect("sincronizar")}>
                 Sincroniza
                 {pendentes > 0 && (
