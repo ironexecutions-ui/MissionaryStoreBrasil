@@ -182,6 +182,16 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
                     <h2 className="categoria-titulo">Do seu interesse</h2>
 
                     <div className="categoria-lista-wrapper">
+
+                        {controleScroll["interesse"]?.esquerda && (
+                            <button
+                                className="scroll-btn esquerda"
+                                onClick={() => scroll("interesse", "esquerda")}
+                            >
+                                ‹
+                            </button>
+                        )}
+
                         <div
                             className="categoria-lista"
                             ref={el => refLista("interesse", el)}
@@ -195,7 +205,18 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
                                 />
                             ))}
                         </div>
+
+                        {controleScroll["interesse"]?.direita && (
+                            <button
+                                className="scroll-btn direita"
+                                onClick={() => scroll("interesse", "direita")}
+                            >
+                                ›
+                            </button>
+                        )}
+
                     </div>
+
                 </div>
             )}
 
@@ -205,6 +226,16 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
                     <h2 className="categoria-titulo">{cat}</h2>
 
                     <div className="categoria-lista-wrapper">
+
+                        {controleScroll[cat]?.esquerda && (
+                            <button
+                                className="scroll-btn esquerda"
+                                onClick={() => scroll(cat, "esquerda")}
+                            >
+                                ‹
+                            </button>
+                        )}
+
                         <div
                             className="categoria-lista"
                             ref={el => refLista(cat, el)}
@@ -218,7 +249,18 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
                                 />
                             ))}
                         </div>
+
+                        {controleScroll[cat]?.direita && (
+                            <button
+                                className="scroll-btn direita"
+                                onClick={() => scroll(cat, "direita")}
+                            >
+                                ›
+                            </button>
+                        )}
+
                     </div>
+
                 </div>
             ))}
 
