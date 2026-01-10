@@ -506,7 +506,9 @@ export default function ModalCarrinho({ fechar }) {
                             produto={produtoSelecionado}
                             atualizarQuantidadeLocal={atualizarQuantidadeLocal}
                             atualizarCaracteristicaLocal={atualizarCaracteristicaLocal}
+                            atualizarLista={atualizarLista}
                             fechar={() => setProdutoSelecionado(null)}
+                            largura={largura}
                         />
 
                     </div>

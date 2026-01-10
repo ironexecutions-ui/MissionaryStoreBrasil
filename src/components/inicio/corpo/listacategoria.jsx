@@ -13,15 +13,35 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
 
     const [controleScroll, setControleScroll] = useState({});
     const listasRef = useRef({});
+    const [categoriasAleatorias, setCategoriasAleatorias] = useState({});
+    const shuffleInicializado = useRef(false);
 
+    /* ===============================
+       SHUFFLE FIXO POR RENDER
+    =============================== */
+    function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    /* ===============================
+       CONTROLE DE BUSCA
+    =============================== */
     useEffect(() => {
         if (!loading) setBuscou(true);
-    }, [produtos, loading]);
+    }, [loading]);
 
     useEffect(() => {
         if (!loading) window.scrollTo({ top: 0, behavior: "instant" });
     }, [loading]);
 
+    /* ===============================
+       CARREGAR INTERESSE
+    =============================== */
     useEffect(() => {
         async function carregar() {
             if (usuario.id) {
@@ -38,8 +58,11 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
             setLoading(false);
         }
         carregar();
-    }, []);
+    }, [usuario.id]);
 
+    /* ===============================
+       FILTRAR PRODUTOS VÁLIDOS
+    =============================== */
     function produtoTemMedidas(p) {
         return [p.peso, p.altura, p.largura, p.comprimento].some(
             v => v !== null && v !== undefined && v !== "" && Number(v) > 0
@@ -50,42 +73,63 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
         p => p.apagado !== 1 && produtoTemMedidas(p)
     );
 
+    /* ===============================
+       AGRUPAR POR CATEGORIA
+    =============================== */
     const categorias = {};
     produtosVisiveis.forEach(p => {
         if (!categorias[p.categoria]) categorias[p.categoria] = [];
         categorias[p.categoria].push(p);
     });
 
-    /* ORDENAR DENTRO DE CADA CATEGORIA */
-    Object.keys(categorias).forEach(cat => {
-        categorias[cat].sort(
-            (a, b) => (b.total_usos || 0) - (a.total_usos || 0)
-        );
-    });
+    /* ===============================
+       SHUFFLE APENAS QUANDO PRODUTOS MUDAM
+    =============================== */
+    useEffect(() => {
+        // só executa quando os produtos chegarem pela primeira vez
+        if (produtos.length === 0) return;
 
-    const nenhumaCategoria =
-        interesse.length === 0 && Object.keys(categorias).length === 0;
+        setCategoriasAleatorias(prev => {
+            // se já existe, não recalcula
+            if (Object.keys(prev).length > 0) return prev;
 
-    if (loading) {
-        return (
-            <div className="categorias-loading">
-                <div className="loader-ring"></div>
-            </div>
-        );
-    }
+            const novasCategorias = {};
 
+            Object.keys(categorias).forEach(cat => {
+                novasCategorias[cat] = shuffleArray(categorias[cat]);
+            });
+
+            return novasCategorias;
+        });
+
+    }, [produtos]);
+
+
+    /* ===============================
+       INTERESSE ÚNICO (SEM DUPLICAR)
+    =============================== */
+    const interesseUnico = Object.values(
+        interesse.reduce((acc, p) => {
+            const chave = `${p.produto}-${p.preco}`;
+            if (!acc[chave] || p.id > acc[chave].id) {
+                acc[chave] = p;
+            }
+            return acc;
+        }, {})
+    );
+
+    /* ===============================
+       SCROLL
+    =============================== */
     function atualizarBotoes(cat) {
         const el = listasRef.current[cat];
         if (!el) return;
 
-        const podeEsquerda = el.scrollLeft > 0;
-        const podeDireita = el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
-
         setControleScroll(prev => ({
             ...prev,
             [cat]: {
-                esquerda: podeEsquerda,
-                direita: podeDireita
+                esquerda: el.scrollLeft > 0,
+                direita: el.scrollLeft + el.clientWidth < el.scrollWidth - 1
             }
         }));
     }
@@ -107,6 +151,21 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
         if (el) requestAnimationFrame(() => atualizarBotoes(cat));
     }
 
+    /* ===============================
+       LOADING
+    =============================== */
+    if (loading) {
+        return (
+            <div className="categorias-loading">
+                <div className="loader-ring"></div>
+            </div>
+        );
+    }
+
+    const nenhumaCategoria =
+        interesseUnico.length === 0 &&
+        Object.keys(categoriasAleatorias).length === 0;
+
     return (
         <div className="categorias-box">
 
@@ -118,87 +177,47 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
             )}
 
             {/* DO SEU INTERESSE */}
-            {interesse.length > 0 && (
+            {interesseUnico.length > 0 && (
                 <div className="categoria-grupo">
                     <h2 className="categoria-titulo">Do seu interesse</h2>
 
                     <div className="categoria-lista-wrapper">
-
-                        {controleScroll["interesse"]?.esquerda && (
-                            <button
-                                className="scroll-btn esquerda"
-                                onClick={() => scroll("interesse", "esquerda")}
-                            >
-                                ‹
-                            </button>
-                        )}
-
                         <div
                             className="categoria-lista"
                             ref={el => refLista("interesse", el)}
                             onScroll={() => atualizarBotoes("interesse")}
                         >
-                            {interesse.map(prod => (
+                            {interesseUnico.map(prod => (
                                 <ProdutoCard
-                                    key={prod.id}
+                                    key={`${prod.id}-${prod.produto}-${prod.preco}`}
                                     produto={prod}
                                     abrirModalProduto={abrirModalProduto}
                                 />
                             ))}
                         </div>
-
-                        {controleScroll["interesse"]?.direita && (
-                            <button
-                                className="scroll-btn direita"
-                                onClick={() => scroll("interesse", "direita")}
-                            >
-                                ›
-                            </button>
-                        )}
-
                     </div>
                 </div>
             )}
 
             {/* CATEGORIAS */}
-            {Object.keys(categorias).map(cat => (
+            {Object.keys(categoriasAleatorias).map(cat => (
                 <div key={cat} className="categoria-grupo">
                     <h2 className="categoria-titulo">{cat}</h2>
 
                     <div className="categoria-lista-wrapper">
-
-                        {controleScroll[cat]?.esquerda && (
-                            <button
-                                className="scroll-btn esquerda"
-                                onClick={() => scroll(cat, "esquerda")}
-                            >
-                                ‹
-                            </button>
-                        )}
-
                         <div
                             className="categoria-lista"
                             ref={el => refLista(cat, el)}
                             onScroll={() => atualizarBotoes(cat)}
                         >
-                            {categorias[cat].map(p => (
+                            {categoriasAleatorias[cat].map(p => (
                                 <ProdutoCard
-                                    key={p.id}
+                                    key={`${p.id}-${p.produto}-${p.preco}`}
                                     produto={p}
                                     abrirModalProduto={abrirModalProduto}
                                 />
                             ))}
                         </div>
-
-                        {controleScroll[cat]?.direita && (
-                            <button
-                                className="scroll-btn direita"
-                                onClick={() => scroll(cat, "direita")}
-                            >
-                                ›
-                            </button>
-                        )}
-
                     </div>
                 </div>
             ))}

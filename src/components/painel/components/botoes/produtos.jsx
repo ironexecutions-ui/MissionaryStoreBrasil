@@ -295,7 +295,12 @@ export default function Produtos() {
                     </button>
 
                     <h3>{form.id ? "Editar Produto" : "Novo Produto"}</h3>
-
+                    <div>
+                        Ao editar um produto, ele ficará disponível para sincronização.
+                        Atenção: se apenas o nome for alterado, a sincronização não criará um novo item,
+                        ela apenas copiará os dados necessários para manter as informações corretas.
+                    </div>
+                    <br />
                     <div className="ppp-imgs-form">
                         {form.imagens.map((img, i) => (
                             <div

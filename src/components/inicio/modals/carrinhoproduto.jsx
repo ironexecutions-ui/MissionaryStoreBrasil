@@ -7,9 +7,11 @@ export default function CarrinhoProduto({
     produto,
     atualizarQuantidadeLocal,
     atualizarCaracteristicaLocal,
+    atualizarLista,
     fechar,
     largura
 }) {
+
 
 
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
@@ -63,27 +65,66 @@ export default function CarrinhoProduto({
         produto.imagem_quatro
     ].filter(img => img);
 
-
     async function selecionarCaracteristica(caracteristica) {
-        await fetch(`${API_URL}/processo/caracteristica`, {
+
+        const atual = produto.carateristica?.trim() || "";
+
+        // 1️⃣ Não tem característica ainda
+        if (!atual) {
+            await fetch(`${API_URL}/processo/caracteristica`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    processo_id: produto.processo_id,
+                    usuario_id: usuario.id,
+                    produto_id: produto.produto_id,
+                    caracteristica
+                })
+            });
+
+            atualizarCaracteristicaLocal(produto.processo_id, caracteristica);
+            if (largura <= 900 && fechar) fechar();
+            return;
+        }
+
+        // 2️⃣ Clicou na mesma → remove
+        if (atual === caracteristica) {
+            await fetch(`${API_URL}/processo/caracteristica`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    processo_id: produto.processo_id,
+                    usuario_id: usuario.id,
+                    produto_id: produto.produto_id,
+                    caracteristica: ""
+                })
+            });
+
+            atualizarCaracteristicaLocal(produto.processo_id, "");
+            return;
+        }
+
+        // 3️⃣ Já tem uma e clicou em outra → novo produto no carrinho
+        await fetch(`${API_URL}/processo/carrinho`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                processo_id: produto.processo_id,
                 usuario_id: usuario.id,
                 produto_id: produto.produto_id,
                 caracteristica
             })
         });
 
-        // Atualiza localmente
-        atualizarCaracteristicaLocal(produto.processo_id, caracteristica);
-
-        // 🔥 MOBILE: fecha o modal automaticamente
-        if (largura <= 900 && fechar) {
-            fechar();
+        // 🔄 recarrega o carrinho imediatamente
+        if (atualizarLista) {
+            await atualizarLista();
         }
+
+        if (largura <= 900 && fechar) fechar();
+
     }
+
+
 
 
     return (
@@ -125,7 +166,7 @@ export default function CarrinhoProduto({
                                 <button
                                     key={i}
                                     className={
-                                        produto.caracteristica_selecionada === c
+                                        produto.carateristica === c
                                             ? "caract-btn ativa"
                                             : "caract-btn"
                                     }
