@@ -11,6 +11,7 @@ export default function Produtos() {
     const [modoForm, setModoForm] = useState(false);
     const inputFileRef = useRef(null);
     const [categorias, setCategorias] = useState([]);
+    const refs = useRef([]);
 
     const [form, setForm] = useState({
         id: null,
@@ -128,13 +129,16 @@ export default function Produtos() {
     }
 
     function adicionarCaracteristica() {
-        if (!form.novaCaracteristica.trim()) return;
+        const texto = primeiraMaiuscula(form.novaCaracteristica.trim());
+        if (!texto) return;
+
         setForm({
             ...form,
-            caracteristicas: [...form.caracteristicas, form.novaCaracteristica],
+            caracteristicas: [...form.caracteristicas, texto],
             novaCaracteristica: ""
         });
     }
+
 
     function removerCaracteristica(i) {
         const nova = [...form.caracteristicas];
@@ -195,6 +199,19 @@ export default function Produtos() {
             setModoForm(false);
         }
     }
+    // deixa sempre a primeira letra maiúscula
+    function primeiraMaiuscula(valor) {
+        if (!valor) return "";
+        return valor.charAt(0).toUpperCase() + valor.slice(1);
+    }
+    // controla Enter para ir ao próximo input
+    function irProximo(e, index) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            refs.current[index + 1]?.focus();
+        }
+    }
+
 
     return (
         <main className="ppp-produtos-container">
@@ -290,17 +307,22 @@ export default function Produtos() {
 
             {modoForm && (
                 <div className="ppp-form-box">
+
                     <button className="ppp-btn-voltar" onClick={() => setModoForm(false)}>
                         ← Voltar
                     </button>
 
                     <h3>{form.id ? "Editar Produto" : "Novo Produto"}</h3>
+
                     <div>
                         Ao editar um produto, ele ficará disponível para sincronização.
                         Atenção: se apenas o nome for alterado, a sincronização não criará um novo item,
                         ela apenas copiará os dados necessários para manter as informações corretas.
                     </div>
+
                     <br />
+
+                    {/* IMAGENS */}
                     <div className="ppp-imgs-form">
                         {form.imagens.map((img, i) => (
                             <div
@@ -314,16 +336,13 @@ export default function Produtos() {
                                 onDrop={e => {
                                     e.preventDefault();
                                     inputFileRef.current.dataset.index = i;
-
                                     const file = e.dataTransfer.files[0];
                                     if (!file) return;
-
                                     enviarImagem({ target: { files: [file] } });
                                 }}
                             >
-
-
                                 <span className="ppp-img-num">{i + 1}</span>
+
                                 {img ? (
                                     <>
                                         <img src={img} className="ppp-img-preview" />
@@ -340,8 +359,6 @@ export default function Produtos() {
                                 ) : (
                                     <div className="ppp-img-vazia">Arraste</div>
                                 )}
-
-
                             </div>
                         ))}
                     </div>
@@ -355,57 +372,130 @@ export default function Produtos() {
                         onChange={enviarImagem}
                     />
 
-
+                    {/* PRODUTO */}
+                    {/* PRODUTO */}
                     <label>Produto</label>
-                    <input value={form.produto} onChange={e => setForm({ ...form, produto: e.target.value })} />
-
-                    <label>Categoria</label>
                     <input
-                        list="lista-categorias"
-                        value={form.categoria}
-                        onChange={e => setForm({ ...form, categoria: e.target.value })}
+                        ref={el => refs.current[0] = el}
+                        value={form.produto}
+                        onChange={e =>
+                            setForm({ ...form, produto: primeiraMaiuscula(e.target.value) })
+                        }
+                        onKeyDown={e => irProximo(e, 0)}
                     />
 
-                    <datalist id="lista-categorias">
-                        {categorias.map((cat, i) => (
-                            <option key={i} value={cat} />
-                        ))}
-                    </datalist>
+                    {/* CATEGORIA */}
+                    <label>Categoria</label>
+                    <input
+                        ref={el => refs.current[1] = el}
+                        list="lista-categorias"
+                        value={form.categoria}
+                        onChange={e =>
+                            setForm({ ...form, categoria: primeiraMaiuscula(e.target.value) })
+                        }
+                        onKeyDown={e => irProximo(e, 1)}
+                    />
 
+                    {/* DESCRIÇÃO */}
                     <label>Descrição</label>
-                    <textarea value={form.descricao} onChange={e => setForm({ ...form, descricao: e.target.value })} />
+                    <textarea
+                        ref={el => refs.current[2] = el}
+                        value={form.descricao}
+                        onChange={e =>
+                            setForm({ ...form, descricao: primeiraMaiuscula(e.target.value) })
+                        }
+                        onKeyDown={e => irProximo(e, 2)}
+                    />
 
+                    {/* PESO */}
                     <label>Peso (kg)</label>
-                    <input type="number" step="0.01" value={form.peso} onChange={e => setForm({ ...form, peso: e.target.value })} />
+                    <input
+                        ref={el => refs.current[3] = el}
+                        type="number"
+                        step="0.01"
+                        value={form.peso}
+                        onChange={e => setForm({ ...form, peso: e.target.value })}
+                        onKeyDown={e => irProximo(e, 3)}
+                    />
 
+                    {/* ALTURA */}
                     <label>Altura (cm)</label>
-                    <input type="number" step="0.01" value={form.altura} onChange={e => setForm({ ...form, altura: e.target.value })} />
+                    <input
+                        ref={el => refs.current[4] = el}
+                        type="number"
+                        step="0.01"
+                        value={form.altura}
+                        onChange={e => setForm({ ...form, altura: e.target.value })}
+                        onKeyDown={e => irProximo(e, 4)}
+                    />
 
+                    {/* LARGURA */}
                     <label>Largura (cm)</label>
-                    <input type="number" step="0.01" value={form.largura} onChange={e => setForm({ ...form, largura: e.target.value })} />
+                    <input
+                        ref={el => refs.current[5] = el}
+                        type="number"
+                        step="0.01"
+                        value={form.largura}
+                        onChange={e => setForm({ ...form, largura: e.target.value })}
+                        onKeyDown={e => irProximo(e, 5)}
+                    />
 
+                    {/* COMPRIMENTO */}
                     <label>Comprimento (cm)</label>
-                    <input type="number" step="0.01" value={form.comprimento} onChange={e => setForm({ ...form, comprimento: e.target.value })} />
+                    <input
+                        ref={el => refs.current[6] = el}
+                        type="number"
+                        step="0.01"
+                        value={form.comprimento}
+                        onChange={e => setForm({ ...form, comprimento: e.target.value })}
+                        onKeyDown={e => irProximo(e, 6)}
+                    />
 
+                    {/* PREÇO */}
                     <label>Preço do produto</label>
-                    <input type="number" step="0.01" value={form.preco} onChange={e => setForm({ ...form, preco: e.target.value })} />
+                    <input
+                        ref={el => refs.current[7] = el}
+                        type="number"
+                        step="0.01"
+                        value={form.preco}
+                        onChange={e => setForm({ ...form, preco: e.target.value })}
+                        onKeyDown={e => irProximo(e, 7)}
+                    />
 
+                    {/* CARACTERÍSTICAS */}
                     <label>Características</label>
                     <div className="ppp-caracts">
                         <input
+                            ref={el => refs.current[8] = el}
                             placeholder="Digite e clique +"
                             value={form.novaCaracteristica}
-                            onChange={e => setForm({ ...form, novaCaracteristica: e.target.value })}
+                            onChange={e =>
+                                setForm({
+                                    ...form,
+                                    novaCaracteristica: primeiraMaiuscula(e.target.value)
+                                })
+                            }
+                            onKeyDown={e => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    adicionarCaracteristica();
+                                }
+                            }}
                         />
                         <button className="ppp-btn-add-lista" onClick={adicionarCaracteristica}>
                             +
                         </button>
                     </div>
+
+
                     <ul className="ppp-lista-caracts">
                         {form.caracteristicas.map((c, i) => (
                             <li key={i}>
                                 {c}
-                                <button className="ppp-caract-del" onClick={() => removerCaracteristica(i)}>
+                                <button
+                                    className="ppp-caract-del"
+                                    onClick={() => removerCaracteristica(i)}
+                                >
                                     ×
                                 </button>
                             </li>
@@ -415,10 +505,11 @@ export default function Produtos() {
                     <button className="ppp-btn-salvar" onClick={salvar}>
                         Salvar
                     </button>
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 </div>
             )}
+
         </main>
     );
 }
