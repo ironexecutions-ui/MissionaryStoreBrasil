@@ -1,0 +1,83 @@
+/* valor.css */
+
+.conversao-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.conversao-box h3 {
+    margin-bottom: 18px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+}
+
+.conversao-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.conversao-campos .campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.conversao-campos label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.conversao-campos input,
+.conversao-campos select {
+    padding: 10px 12px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.conversao-campos input:focus,
+.conversao-campos select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.conversao-resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border-left: 4px solid #3b82f6;
+}
+
+.conversao-resultado p {
+    margin: 6px 0;
+    font-size: 15px;
+    color: #333;
+}
+
+.conversao-resultado strong {
+    font-weight: 600;
+}
+
+.conversao-resultado small {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+    .conversao-campos {
+        grid-template-columns: 1fr;
+    }
+}

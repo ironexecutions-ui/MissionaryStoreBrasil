@@ -119,6 +119,29 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
         const u = localStorage.getItem("usuario");
         if (u) setUsuario(JSON.parse(u));
     }, []);
+    useEffect(() => {
+        if (!usuario) return;
+
+        const nomeVazio =
+            usuario.nome === null ||
+            usuario.nome === undefined ||
+            String(usuario.nome).trim() === "";
+
+        if (!nomeVazio) return;
+
+        const timer = setTimeout(() => {
+            // logout forçado
+            localStorage.removeItem("usuario");
+            localStorage.removeItem("token");
+
+            setUsuario(null);
+            setPainelAtivo("corpo");
+
+            window.location.reload();
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [usuario]);
 
     // --------------------------- ATUALIZAR USUÁRIO A CADA 5 MINUTOS ---------------------------
     useEffect(() => {
@@ -156,11 +179,14 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
                 </div>
 
                 <div className="header-centro">
-                    <input readOnly
+                    <input
+                        readOnly
+                        tabIndex={-1}
                         className="header-input"
                         placeholder="Buscar produtos..."
-                        onFocus={abrirFiltro}
+                        onClick={() => abrirFiltro(true)}
                     />
+
                 </div>
 
                 <div className="header-dir">
