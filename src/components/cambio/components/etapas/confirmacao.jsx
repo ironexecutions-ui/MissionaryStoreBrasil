@@ -15,12 +15,15 @@ export default function Confirmacao({ dadosPessoais, dadosPagamento }) {
         setLoading(true);
 
         try {
-            if (!dadosPessoais?.usuario_id) {
+            // 🔥 USUÁRIO VEM DA SESSÃO, NÃO DOS DADOS PESSOAIS
+            const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+
+            if (!usuario.id) {
                 throw new Error("Usuário não identificado");
             }
 
             const resp = await fetch(
-                `${API_URL}/cambio/stripe/criar-intencao/${dadosPessoais.usuario_id}`,
+                `${API_URL}/cambio/stripe/criar-intencao/${usuario.id}`,
                 { method: "POST" }
             );
 
