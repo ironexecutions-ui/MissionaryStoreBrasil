@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./corpoCambio.css";
+import "./corpocambio.css";
 
 import DadosPessoais from "./etapas/dadospessoais";
 import Pagamento from "./etapas/pagamento";
