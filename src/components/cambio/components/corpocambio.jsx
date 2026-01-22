@@ -16,13 +16,9 @@ export default function CorpoCambio() {
 
     const dadosPessoaisRef = useRef(null);
 
-    // ===============================
-    // AVANÇAR ETAPA
-    // ===============================
     async function avancarEtapa() {
         setErro("");
 
-        // ETAPA 1
         if (etapaAtual === 1) {
             const {
                 nome_missionario,
@@ -46,18 +42,9 @@ export default function CorpoCambio() {
             }
 
             setEtapaAtual(2);
-            return;
-        }
-
-        // ETAPA 3 (não avança automaticamente)
-        if (etapaAtual === 3) {
-            return;
         }
     }
 
-    // ===============================
-    // VOLTAR ETAPA
-    // ===============================
     function voltarEtapa() {
         setErro("");
         setEtapaAtual((prev) => (prev > 1 ? prev - 1 : prev));
@@ -81,11 +68,7 @@ export default function CorpoCambio() {
                 <span className={etapaAtual === 3 ? "ativa" : ""}>3</span>
             </div>
 
-            {erro && (
-                <div className="cambio-erro">
-                    {erro}
-                </div>
-            )}
+            {erro && <div className="cambio-erro">{erro}</div>}
 
             <div className="cambio-conteudo">
 
@@ -99,8 +82,8 @@ export default function CorpoCambio() {
 
                 {etapaAtual === 2 && (
                     <Pagamento
-                        onAvancar={() => setEtapaAtual(3)}
                         setDadosPagamento={setDadosPagamento}
+                        onAvancar={() => setEtapaAtual(3)}
                     />
                 )}
 

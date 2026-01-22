@@ -4,7 +4,7 @@ import ConversaoValor from "./valor";
 import StripeCard from "./stripecard";
 import "./pagamento.css";
 
-export default function Pagamento({ onAvancar }) {
+export default function Pagamento({ onAvancar, setDadosPagamento }) {
 
     const [usuarioId, setUsuarioId] = useState(null);
 
@@ -20,19 +20,11 @@ export default function Pagamento({ onAvancar }) {
     const [erro, setErro] = useState("");
     const [salvando, setSalvando] = useState(false);
 
-    // ===============================
-    // USUÁRIO
-    // ===============================
     useEffect(() => {
         const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
-        if (usuario.id) {
-            setUsuarioId(usuario.id);
-        }
+        if (usuario.id) setUsuarioId(usuario.id);
     }, []);
 
-    // ===============================
-    // CÁLCULO FINAL
-    // ===============================
     useEffect(() => {
         if (!valor || !moeda || estimativa <= 0) {
             setValorFinal(0);
@@ -42,12 +34,8 @@ export default function Pagamento({ onAvancar }) {
 
         const final = estimativa + (estimativa * taxaLoja / 100);
         setValorFinal(Number(final.toFixed(2)));
-
     }, [valor, moeda, estimativa]);
 
-    // ===============================
-    // SALVAR VALORES
-    // ===============================
     async function salvarEAvancar() {
         setErro("");
 
@@ -82,6 +70,13 @@ export default function Pagamento({ onAvancar }) {
                 })
             });
 
+            setDadosPagamento({
+                valorReais: Number(valor),
+                moeda,
+                valorMoeda: Number(estimativa),
+                valorFinal: Number(valorFinal)
+            });
+
             onAvancar();
 
         } catch {
@@ -105,21 +100,13 @@ export default function Pagamento({ onAvancar }) {
                 setEstimativa={setEstimativa}
             />
 
-            {/* CARTÃO SÓ APARECE QUANDO HÁ VALOR */}
             {estimativa > 0 && valorFinal > 0 && (
                 <StripeCard
-                    valorFinal={valorFinal}
-                    moeda={moeda}
-                    usuarioId={usuarioId}
                     onCartaoValido={setCartaoValido}
                 />
             )}
 
-            {erro && (
-                <div className="pagamento-erro">
-                    {erro}
-                </div>
-            )}
+            {erro && <div className="pagamento-erro">{erro}</div>}
 
             <button
                 className="btn-primario"
