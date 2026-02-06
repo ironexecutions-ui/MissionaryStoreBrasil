@@ -13,7 +13,7 @@ import Preloader from "./preloader";
 import TelaLoading from "./loading";
 import PublicProdutos from "../public/tabela";
 import "./app.css";
-
+import Jogos from "../jogos/jogos";
 export default function App() {
 
   const [carregando, setCarregando] = useState(true);
@@ -136,6 +136,9 @@ export default function App() {
         <Route
           path="/public"
           element={<PublicProdutos />}
+        />        <Route
+          path="/jogos"
+          element={<Jogos />}
         />
         <Route
           path="/escaneando/:codigo"

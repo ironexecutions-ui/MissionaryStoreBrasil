@@ -1,0 +1,301 @@
+/* =========================================================
+   RESET E BASE
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background: #f4f6f9;
+    color: #0f172a;
+}
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+.jogos-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background:
+        radial-gradient(circle at top, #ffffff, #eef2f7 70%);
+}
+
+/* =========================================================
+   INPUT CÓDIGO
+========================================================= */
+.jogos-input-codigo {
+    width: 420px;
+    max-width: 90%;
+    padding: 26px 24px;
+    font-size: 42px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    border-radius: 18px;
+    border: 3px solid #cbd5e1;
+    background: #ffffff;
+    color: #020617;
+    outline: none;
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.12),
+        inset 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+}
+
+.jogos-input-codigo:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 18px 36px rgba(37, 99, 235, 0.25),
+        inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.jogos-input-codigo.erro {
+    border-color: #dc2626;
+    background: #fef2f2;
+    color: #7f1d1d;
+    animation: shake 0.3s linear;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    50% {
+        transform: translateX(6px);
+    }
+
+    75% {
+        transform: translateX(-6px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* =========================================================
+   TELAS DE MENSAGEM
+========================================================= */
+.jogos-mensagem {
+    background: #ffffff;
+    padding: 48px 56px;
+    border-radius: 26px;
+    text-align: center;
+    box-shadow:
+        0 22px 48px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    animation: fadeUp 0.4s ease forwards;
+}
+
+.jogos-mensagem h2 {
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 14px;
+    color: #020617;
+}
+
+.jogos-mensagem p {
+    font-size: 20px;
+    color: #334155;
+    margin-bottom: 18px;
+}
+
+.jogos-mensagem strong {
+    font-size: 42px;
+    font-weight: 900;
+    color: #2563eb;
+}
+
+/* =========================================================
+   SELEÇÃO DE IDIOMAS
+========================================================= */
+.jogos-idiomas {
+    margin-top: 28px;
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.jogos-idiomas button {
+    width: 110px;
+    height: 80px;
+    border-radius: 18px;
+    border: 3px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: all 0.25s ease;
+}
+
+.jogos-idiomas button:hover {
+    transform: translateY(-6px) scale(1.05);
+    border-color: #2563eb;
+    box-shadow:
+        0 18px 36px rgba(37, 99, 235, 0.3);
+}
+
+.jogos-idiomas img {
+    max-width: 64px;
+}
+
+/* =========================================================
+   CARD DO JOGO
+========================================================= */
+.jogos-card {
+    width: 760px;
+    max-width: 95%;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 36px 42px 42px;
+    box-shadow:
+        0 28px 60px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    animation: fadeUp 0.35s ease forwards;
+}
+
+/* =========================================================
+   TOPO DO CARD
+========================================================= */
+.jogos-topo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.jogos-topo span {
+    background: #f1f5f9;
+    padding: 10px 18px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 18px;
+    color: #020617;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* =========================================================
+   PERGUNTA
+========================================================= */
+.jogos-card h3 {
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 26px;
+    color: #020617;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   OPÇÕES
+========================================================= */
+.jogos-opcoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.jogos-opcao {
+    padding: 22px 20px;
+    border-radius: 18px;
+    border: 3px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 18px;
+    font-weight: 700;
+    color: #020617;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.25s ease;
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.jogos-opcao:hover {
+    transform: translateY(-4px);
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.jogos-opcao.focada {
+    outline: 4px solid rgba(37, 99, 235, 0.35);
+}
+
+.jogos-opcao.correta {
+    background: #dcfce7;
+    border-color: #16a34a;
+    color: #065f46;
+}
+
+.jogos-opcao.errada {
+    background: #fee2e2;
+    border-color: #dc2626;
+    color: #7f1d1d;
+}
+
+.jogos-opcao:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+/* =========================================================
+   RESULTADO FINAL
+========================================================= */
+.jogos-resultado {
+    background: #ffffff;
+    padding: 50px 60px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow:
+        0 30px 64px rgba(0, 0, 0, 0.22);
+    animation: fadeUp 0.4s ease forwards;
+}
+
+.jogos-resultado h2 {
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 16px;
+    color: #020617;
+}
+
+.jogos-resultado strong {
+    font-size: 34px;
+    font-weight: 900;
+    color: #2563eb;
+}
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.jogos-bandeira.focada {
+    outline: 4px solid #2563eb;
+    transform: scale(1.08);
+}
