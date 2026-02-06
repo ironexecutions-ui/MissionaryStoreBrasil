@@ -14,6 +14,8 @@ import TelaLoading from "./loading";
 import PublicProdutos from "../public/tabela";
 import "./app.css";
 import Jogos from "../jogos/jogos";
+import Cambio from "./components/cambio/cambio";
+
 export default function App() {
 
   const [carregando, setCarregando] = useState(true);
@@ -143,6 +145,10 @@ export default function App() {
         <Route
           path="/escaneando/:codigo"
           element={<Escaneando />}
+        />
+        <Route
+          path="/cambio"
+          element={<Cambio />}
         />
 
         <Route

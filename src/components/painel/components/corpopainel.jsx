@@ -14,9 +14,11 @@ import MaisMenos from "./botoes/maismenos";
 import Conexoes from "./botoes/conexoes";
 import Pesquisas from "./botoes/pesquisas";
 import Avaliacao from "./botoes/avalicao";
+import Sincronizar from "./botoes/sincronizar";
 import PagamentosRecusados from "./botoes/recusados";
 
 import "./corpopainel.css";
+
 export default function CorpoPainel({ telaHeader, telaBotao }) {
 
     if (telaBotao) {
@@ -40,16 +42,16 @@ export default function CorpoPainel({ telaHeader, telaBotao }) {
             case "avaliacao":
                 return <Avaliacao />;
 
-            // NOVO CASE
             case "pagamentos_recusados":
                 return <PagamentosRecusados />;
 
+            case "sincronizar":
+                return <Sincronizar />;
+
             default:
-                break;
+                return null;
         }
     }
-
-    // restante do código continua igual
 
     switch (telaHeader) {
 
@@ -80,7 +82,7 @@ export default function CorpoPainel({ telaHeader, telaBotao }) {
         default:
             return (
                 <main className="corpo-painel">
-                    <h2 style={{ color: "white" }} >Painel Administrativo</h2>
+                    <h2 style={{ color: "white" }}>Painel Administrativo</h2>
 
                     <p>
                         Este painel foi desenvolvido para centralizar o controle e o

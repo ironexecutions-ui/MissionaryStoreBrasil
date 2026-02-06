@@ -1,0 +1,54 @@
+/* Container geral do cartão */
+.stripe-card-container {
+    margin-top: 24px;
+    padding: 20px 18px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.06),
+        0 3px 8px rgba(15, 23, 42, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Destaque quando o usuário clica dentro do cartão */
+.stripe-card-container:focus-within {
+    border-color: #6366f1;
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.15),
+        0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Estilo base do CardElement */
+.StripeElement {
+    padding: 14px 12px;
+    font-size: 16px;
+    color: #020617;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Placeholder */
+.StripeElement--empty {
+    color: #9ca3af;
+}
+
+/* Estado inválido */
+.StripeElement--invalid {
+    color: #dc2626;
+}
+
+/* Estado completo e válido */
+.StripeElement--complete {
+    color: #16a34a;
+}
+
+/* Ajustes mobile */
+@media (max-width: 480px) {
+    .stripe-card-container {
+        padding: 16px 14px;
+    }
+
+    .StripeElement {
+        font-size: 15px;
+    }
+}
