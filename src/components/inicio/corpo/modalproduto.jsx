@@ -8,6 +8,7 @@ export default function ModalProduto({ produto, fechar }) {
 
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
     const estaLogado = !!usuario.id;
+    const [imagensComErro, setImagensComErro] = React.useState(0);
 
     const [quantos, setQuantos] = React.useState(1);
     const [loadingQuantos, setLoadingQuantos] = React.useState(true);
@@ -210,14 +211,34 @@ export default function ModalProduto({ produto, fechar }) {
                 </button>
                 <br />
                 <div className="modal-imagens">
-                    {imagens.map((img, i) => (
-                        <img
-                            key={i}
-                            src={img}
-                            className="imagem-item"
-                            onClick={() => setImagemAberta(img)}
-                        />
-                    ))}
+
+                    {imagens.length > 0 && imagensComErro < imagens.length && (
+                        imagens.map((img, i) => (
+                            <img
+                                key={i}
+                                src={img}
+                                className="imagem-item"
+                                onClick={() => setImagemAberta(img)}
+                                onError={() => setImagensComErro(prev => prev + 1)}
+                                loading="lazy"
+                            />
+                        ))
+                    )}
+
+                    {imagens.length === 0 || imagensComErro >= imagens.length && (
+                        <div className="imagem-indisponivel">
+                            <h4>Conteúdo visual temporariamente indisponível</h4>
+                            <p>
+                                Estamos passando por uma instabilidade em nossos servidores de imagens.
+                            </p>
+                            <p>
+                                Pedimos desculpas pelo transtorno. O produto permanece disponível para
+                                compra normalmente.
+                            </p>
+                        </div>
+
+                    )}
+
                 </div>
 
 

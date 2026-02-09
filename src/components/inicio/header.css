@@ -1,13 +1,13 @@
 /* HEADER PRINCIPAL */
-.header-box {
-    width: 96%;
+.header-boxx {
+    width: 99%;
     background: #F09E06;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 22px;
-    margin: 12px;
+    min-height: 33px;
+    margin: 12px auto;
     border-end-start-radius: 20px !important;
 
     /* Profundidade real */
@@ -18,7 +18,6 @@
 
     position: sticky;
     top: 0;
-    height: 18px;
     z-index: 1000;
 
     /* Movimento mais físico */
@@ -65,7 +64,7 @@
 .header-esq {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     color: #121721;
     /* Pequena estabilidade visual */
     transform: translateZ(0);
@@ -81,6 +80,7 @@
     /* Evita tremida em animações */
     backface-visibility: hidden;
     transform: translateZ(0);
+    margin: 10px;
 }
 
 .header-titulo {
@@ -190,7 +190,7 @@
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.45px;
-    margin-right: 0 !important;
+    margin-right: 0;
     /* corpo físico real */
     box-shadow:
         0 2px 3px rgba(0, 0, 0, 0.35),
@@ -516,35 +516,6 @@
     }
 }
 
-/* Header padrão */
-.header-box {
-    width: 96%;
-    background: #1a1f2b;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 22px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    /* profundidade consistente */
-    box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.35),
-        0 6px 16px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-    /* transições mais físicas */
-    transition:
-        transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
-        opacity 0.35s ease,
-        box-shadow 0.35s ease;
-
-    /* estabilidade visual */
-    will-change: transform, opacity;
-    backface-visibility: hidden;
-}
 
 /* Esconde suavemente */
 .header-escondido {
@@ -777,7 +748,7 @@ RESPONSIVO APARTIR DAQUI
 =============================== */
 @media (max-width: 900px) {
 
-    .header-box {
+    .header-boxx {
         display: flex;
         flex-wrap: wrap;
         align-items: stretch;
@@ -831,7 +802,7 @@ RESPONSIVO APARTIR DAQUI
 =============================== */
 @media (max-width: 600px) {
 
-    .header-box {
+    .header-boxx {
         flex-direction: column;
         gap: 10px;
         padding: 10px 12px;

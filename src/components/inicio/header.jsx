@@ -6,6 +6,7 @@ import ModalLogin from "./modals/modallogin";
 import ModalPerfil from "./modals/modalperfil";
 import "./header.css";
 import { API_URL } from "../../config";
+import logoM from "./m.png";
 
 export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
 
@@ -171,10 +172,10 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
 
     return (
         <>
-            <header className={`header-box ${compacto ? "header-escondido" : "header-visivel"}`}>
+            <header className={`header-boxx ${compacto ? "header-escondido" : "header-visivel"}`}>
 
                 <div className="header-esq">
-                    <img style={{ borderRadius: "40%" }} src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png" alt="" className="logo-m" />
+                    <img style={{ borderRadius: "40%" }} src={logoM} alt="" className="logo-m" />
                     <h2 className="header-titulo">Missionary Store Brasil</h2>
                 </div>
 
@@ -276,7 +277,7 @@ ${comprasPendentes && painelAtivo !== "compras" ? "compras-piscando" : ""}
                         });
                     }}
                 >
-                    <img src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png" className="bolinha-logo" />
+                    <img src={logoM} className="bolinha-logo" />
                 </div>
 
             )}

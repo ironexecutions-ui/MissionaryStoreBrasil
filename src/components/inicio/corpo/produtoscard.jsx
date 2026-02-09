@@ -2,23 +2,37 @@ import React from "react";
 import "./produtoscard.css";
 
 export default function ProdutoCard({ produto, abrirModalProduto }) {
+    const precoFormatado = Number(produto.preco).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+
+    const nomeFormatado =
+        produto.produto
+            ? produto.produto.charAt(0).toUpperCase() + produto.produto.slice(1)
+            : "";
 
     return (
         <div
             className="produto-card"
             onClick={() => abrirModalProduto(produto)}
         >
-            <img
-                src={produto.imagem_um}
-                alt={produto.produto}
-                className="produto-img"
-            />
-
             <div className="produto-info">
-                <h3 className="produto-nome">{produto.produto}</h3>
+                <span className="produto-categoria">
+                    Disponível para compra
+                </span>
+
+                <h3 className="produto-nome">
+                    {nomeFormatado}
+                </h3>
+
                 <p className="produto-preco">
-                    R$ {Number(produto.preco).toFixed(2)}
+                    {precoFormatado}
                 </p>
+
+                <span className="produto-detalhes">
+                    Visualizar informações do produto
+                </span>
             </div>
         </div>
     );

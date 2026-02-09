@@ -11,6 +11,31 @@
     /* MUITO maior que o header */
 }
 
+.imagem-indisponivel {
+    width: 100%;
+    padding: 28px 24px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+    border: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.imagem-indisponivel h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #020617;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+}
+
+.imagem-indisponivel p {
+    font-size: 13px;
+    font-weight: 400;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
 
 /* Efeito de entrada no overlay */
 @keyframes overlayFade {
