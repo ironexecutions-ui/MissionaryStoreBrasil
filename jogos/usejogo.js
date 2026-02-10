@@ -1,5 +1,6 @@
 import { API_URL } from "../src/config";
 import { useState } from "react";
+import { tutorialPerguntas } from "./tutorialperguntas";
 
 export function useJogo({
     perguntas,
@@ -16,7 +17,13 @@ export function useJogo({
     fase,
     avancar
 }) {
-    async function montarJogo(q, idiomaSelecionado) {
+    async function montarJogo(q, idiomaSelecionado, tutorial) {
+        if (tutorial) {
+            setPerguntas(tutorialPerguntas[idiomaSelecionado]);
+            setIndiceAtual(0);
+            return;
+        }
+
         const total = q * 3;
         const porNivel = total / 3;
         let lista = [];
@@ -28,6 +35,7 @@ export function useJogo({
         setPerguntas(lista);
         setIndiceAtual(0);
     }
+
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
 
     async function carregarPerguntas(dificuldade, qtd, lista, idiomaSelecionado) {

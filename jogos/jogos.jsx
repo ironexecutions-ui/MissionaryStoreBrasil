@@ -14,7 +14,7 @@ import bandeiraPt from "./portugues.png";
 import bandeiraEs from "./espanhol.png";
 import bandeiraEn from "./ingles.png";
 import bandeiraFr from "./frances.png";
-
+import { API_URL } from "../src/config";
 export default function Jogos() {
     /* =====================
        STATES BÁSICOS
@@ -24,9 +24,12 @@ export default function Jogos() {
 
     const [idioma, setIdioma] = useState(null);
     const [erroCodigo, setErroCodigo] = useState(false);
+    const [tutorial, setTutorial] = useState(false);
 
     const [perguntas, setPerguntas] = useState([]);
     const [indiceAtual, setIndiceAtual] = useState(0);
+    const [alertaAtivo, setAlertaAtivo] = useState(false);
+    const [somAtivo, setSomAtivo] = useState(false);
 
     const [tempo, setTempo] = useState(15);
     const [respondido, setRespondido] = useState(false);
@@ -86,8 +89,59 @@ export default function Jogos() {
         setQuantos,
         setFase,
         setErroCodigo,
-        setPontos
+        setPontos,
+        setTutorial
     });
+
+    useEffect(() => {
+        async function buscarAlerta() {
+            try {
+                const r = await fetch(`${API_URL}/jogos/msb/alerta`);
+                const res = await r.json();
+                if (res.alerta === 1) {
+                    setAlertaAtivo(true);
+                }
+            } catch { }
+        }
+
+        buscarAlerta();
+    }, []);
+    useEffect(() => {
+        if (!alertaAtivo) return;
+
+        function dispararAlerta() {
+            setSomAtivo(true);
+        }
+
+        function onMouse() {
+            dispararAlerta();
+        }
+
+        function onKey(e) {
+            const proibidas = [
+                "Control",
+                "Alt",
+                "Shift",
+                "Tab",
+                "Meta"
+            ];
+
+            if (proibidas.includes(e.key)) {
+                e.preventDefault();
+                dispararAlerta();
+            }
+        }
+
+        window.addEventListener("mousedown", onMouse);
+        window.addEventListener("mousemove", onMouse);
+        window.addEventListener("keydown", onKey);
+
+        return () => {
+            window.removeEventListener("mousedown", onMouse);
+            window.removeEventListener("mousemove", onMouse);
+            window.removeEventListener("keydown", onKey);
+        };
+    }, [alertaAtivo]);
 
     /* =====================
        FOCO INPUT
@@ -124,8 +178,9 @@ export default function Jogos() {
         setIdioma(idiomaSelecionado);
 
         iniciarPreparacao(quantos, () =>
-            montarJogo(quantos, idiomaSelecionado)
+            montarJogo(quantos, idiomaSelecionado, tutorial)
         );
+
     }
     const idiomaFocado = useTecladoIdioma({
         fase,
@@ -173,7 +228,6 @@ export default function Jogos() {
                 <div className="jogos-mensagem">
                     <h2>{t.preparar}</h2>
                     <p>{t.preparando}</p>
-                    <strong>{contador}s</strong>
                 </div>
             )}
 
@@ -225,6 +279,23 @@ export default function Jogos() {
                     <strong>{pontos} {t.pontos}</strong>
                 </div>
             )}
+            {somAtivo && (
+                <iframe
+                    width="1"
+                    height="1"
+                    src="https://www.youtube.com/embed/_ldf3r3LSwg?autoplay=1"
+                    style={{
+                        position: "fixed",
+                        top: "-1000px",
+                        left: "-1000px",
+                        opacity: 0
+                    }}
+                    allow="autoplay"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                />
+            )}
+
+
         </div>
     );
 }

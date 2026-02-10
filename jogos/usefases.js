@@ -124,16 +124,19 @@ export function useFases({
         timerIniciadoRef.current = false;
         setFase("final");
 
-        await fetch(`${API_URL}/jogos/msb/pontos`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ codigo, pontos: pontosFinais })
-        });
+        if (codigo !== "CTM") {
+            await fetch(`${API_URL}/jogos/msb/pontos`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ codigo, pontos: pontosFinais })
+            });
+        }
 
         setTimeout(() => {
             window.location.reload();
         }, 10000);
     }
+
 
     function resetarSistema() {
         clearInterval(timerPerguntaRef.current);
