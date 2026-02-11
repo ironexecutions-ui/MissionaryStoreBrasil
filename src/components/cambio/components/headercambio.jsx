@@ -47,80 +47,84 @@ export default function HeaderCambio() {
 
     return (
         <>
-            <header className="header-box header-visivel">
+            <header className="cambioHeader__wrapper cambioHeader__wrapper--visible">
 
                 {/* ESQUERDA */}
-                <div className="header-esq">
+                <div className="cambioHeader__left">
                     <img
-                        style={{ borderRadius: "40%" }}
-                        src="https://mehkqondzeigwbgpotkr.supabase.co/storage/v1/object/public/produtos/m.png"
-                        alt=""
-                        className="logo-m"
+                        src="/m.png"
+                        alt="Logo Missionary Store Brasil"
+                        className="cambioHeader__logo"
                     />
-                    <h2 className="header-titulo">Missionary Store Brasil</h2>
+                    <h2 className="cambioHeader__title">
+                        Missionary Store Brasil
+                    </h2>
                 </div>
 
                 {/* DIREITA */}
-                <div className="header-dir">
+                <div className="cambioHeader__right">
 
                     {/* NÃO LOGADO */}
                     {!usuario && (
-                        <>
-                            <span style={{ marginRight: "15px", opacity: 0.8 }}>
+                        <div className="cambioHeader__authArea">
+                            <span className="cambioHeader__loginText">
                                 Faça login para continuar
                             </span>
 
                             <button
-                                className="header-btn"
+                                className="cambioHeader__button cambioHeader__button--primary"
                                 onClick={() => setAbrirLogin(true)}
                             >
                                 Entrar
                             </button>
-                        </>
+                        </div>
                     )}
 
                     {/* LOGADO */}
                     {usuario && (
-                        <>
-                            <div
-                                className="header-ttl-cambio"
-                                style={{ marginRight: "20px" }}
-                            >
+                        <div className="cambioHeader__userArea">
+
+                            <div className="cambioHeader__userName">
                                 {usuario.nome}
                             </div>
 
                             <button
-                                className="header-btn"
+                                className="cambioHeader__button cambioHeader__button--secondary"
                                 onClick={irParaArtigos}
                             >
                                 Ver artigos da loja online
                             </button>
 
                             <button
-                                className="header-btn"
-                                style={{ marginLeft: "10px" }}
+                                className={`cambioHeader__button cambioHeader__button--danger ${confirmarLogout ? "cambioHeader__button--confirming" : ""
+                                    }`}
                                 onClick={logout}
                             >
-                                fazer logout
+                                {confirmarLogout ? "Confirmar logout" : "Fazer logout"}
                             </button>
-                        </>
+
+                        </div>
                     )}
+
                 </div>
 
             </header>
 
             {/* MODAL LOGIN */}
             {abrirLogin && (
-                <div className="modal-area">
-                    <ModalLogin
-                        fechar={() => {
-                            setAbrirLogin(false);
-                            const u = localStorage.getItem("usuario");
-                            if (u) setUsuario(JSON.parse(u));
-                        }}
-                    />
+                <div className="cambioHeader__modalOverlay">
+                    <div className="cambioHeader__modalContent">
+                        <ModalLogin
+                            fechar={() => {
+                                setAbrirLogin(false);
+                                const u = localStorage.getItem("usuario");
+                                if (u) setUsuario(JSON.parse(u));
+                            }}
+                        />
+                    </div>
                 </div>
             )}
         </>
     );
+
 }

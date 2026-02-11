@@ -227,14 +227,7 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
 
                     <div className="categoria-lista-wrapper">
 
-                        {controleScroll[cat]?.esquerda && (
-                            <button
-                                className="scroll-btn esquerda"
-                                onClick={() => scroll(cat, "esquerda")}
-                            >
-                                ‹
-                            </button>
-                        )}
+
 
                         <div
                             className="categoria-lista"
@@ -250,14 +243,7 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
                             ))}
                         </div>
 
-                        {controleScroll[cat]?.direita && (
-                            <button
-                                className="scroll-btn direita"
-                                onClick={() => scroll(cat, "direita")}
-                            >
-                                ›
-                            </button>
-                        )}
+
 
                     </div>
 
