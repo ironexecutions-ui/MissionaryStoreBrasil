@@ -548,7 +548,7 @@
     width: 32px;
     height: 32px;
     object-fit: contain;
-
+    border-radius: 40%;
     /* nitidez e estabilidade */
     image-rendering: -webkit-optimize-contrast;
     backface-visibility: hidden;
@@ -858,6 +858,9 @@ RESPONSIVO APARTIR DAQUI
     }
 
 
+    .header-centro {
+        width: 80%;
+    }
 
     .header-input {
         font-size: 0.8rem;

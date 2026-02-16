@@ -1,23 +1,53 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ProdutoCard from "./produtoscard";
 import "./listacategoria.css";
 import { API_URL } from "../../../config";
+import MenuCategoriasVertical from "./menucategoriasvertical";
 
-export default function ListaCategorias({ produtos, abrirModalProduto }) {
+export default function ListaCategorias({
+    produtos,
+    abrirModalProduto,
+    produtosFiltrados,
+    filtroAtivo,
+    setFiltroAtivo,
+    setProdutosFiltrados
+}) {
+
 
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
     const [loading, setLoading] = useState(true);
     const [interesse, setInteresse] = useState([]);
-    const [buscou, setBuscou] = useState(false);
+    const [categoriaAtiva, setCategoriaAtiva] = useState("Do seu interesse");
+    const [isMobile, setIsMobile] = useState(false);
+    const [quantidadeVisivel, setQuantidadeVisivel] = useState(0);
+    const [categoriasOrganizadas, setCategoriasOrganizadas] = useState({});
 
-    const [controleScroll, setControleScroll] = useState({});
-    const listasRef = useRef({});
-    const [categoriasAleatorias, setCategoriasAleatorias] = useState({});
-    const shuffleInicializado = useRef(false);
+    const observerRef = useRef(null);
 
     /* ===============================
-       SHUFFLE FIXO POR RENDER
+       DETECTAR MOBILE
+    =============================== */
+    useEffect(() => {
+        function verificar() {
+            setIsMobile(window.innerWidth <= 768);
+        }
+        verificar();
+        window.addEventListener("resize", verificar);
+        return () => window.removeEventListener("resize", verificar);
+    }, []);
+
+    /* ===============================
+       DEFINIR LIMITE INICIAL
+    =============================== */
+    useEffect(() => {
+        const limiteInicial = isMobile ? 3 : 9;
+        setQuantidadeVisivel(limiteInicial);
+    }, [isMobile, categoriaAtiva, filtroAtivo]);
+
+
+    /* ===============================
+       SHUFFLE
     =============================== */
     function shuffleArray(array) {
         const arr = [...array];
@@ -27,17 +57,6 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
         }
         return arr;
     }
-
-    /* ===============================
-       CONTROLE DE BUSCA
-    =============================== */
-    useEffect(() => {
-        if (!loading) setBuscou(true);
-    }, [loading]);
-
-    useEffect(() => {
-        if (!loading) window.scrollTo({ top: 0, behavior: "instant" });
-    }, [loading]);
 
     /* ===============================
        CARREGAR INTERESSE
@@ -69,44 +88,33 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
         );
     }
 
-    const produtosVisiveis = produtos.filter(
+    const produtosValidos = produtos.filter(
         p => p.apagado !== 1 && produtoTemMedidas(p)
     );
 
     /* ===============================
        AGRUPAR POR CATEGORIA
     =============================== */
-    const categorias = {};
-    produtosVisiveis.forEach(p => {
-        if (!categorias[p.categoria]) categorias[p.categoria] = [];
-        categorias[p.categoria].push(p);
-    });
-
-    /* ===============================
-       SHUFFLE APENAS QUANDO PRODUTOS MUDAM
-    =============================== */
     useEffect(() => {
-        // só executa quando os produtos chegarem pela primeira vez
-        if (produtos.length === 0) return;
+        if (produtosValidos.length === 0) return;
 
-        setCategoriasAleatorias(prev => {
-            // se já existe, não recalcula
-            if (Object.keys(prev).length > 0) return prev;
+        const agrupadas = {};
 
-            const novasCategorias = {};
-
-            Object.keys(categorias).forEach(cat => {
-                novasCategorias[cat] = shuffleArray(categorias[cat]);
-            });
-
-            return novasCategorias;
+        produtosValidos.forEach(p => {
+            if (!agrupadas[p.categoria]) agrupadas[p.categoria] = [];
+            agrupadas[p.categoria].push(p);
         });
 
+        const embaralhadas = {};
+        Object.keys(agrupadas).forEach(cat => {
+            embaralhadas[cat] = shuffleArray(agrupadas[cat]);
+        });
+
+        setCategoriasOrganizadas(embaralhadas);
     }, [produtos]);
 
-
     /* ===============================
-       INTERESSE ÚNICO (SEM DUPLICAR)
+       INTERESSE ÚNICO
     =============================== */
     const interesseUnico = Object.values(
         interesse.reduce((acc, p) => {
@@ -119,41 +127,44 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
     );
 
     /* ===============================
-       SCROLL
+       PRODUTOS ATIVOS
     =============================== */
-    function atualizarBotoes(cat) {
-        const el = listasRef.current[cat];
-        if (!el) return;
+    let produtosCategoria = [];
 
-        setControleScroll(prev => ({
-            ...prev,
-            [cat]: {
-                esquerda: el.scrollLeft > 0,
-                direita: el.scrollLeft + el.clientWidth < el.scrollWidth - 1
-            }
-        }));
+    if (filtroAtivo && produtosFiltrados) {
+        produtosCategoria = produtosFiltrados;
+    } else if (categoriaAtiva === "Do seu interesse") {
+        produtosCategoria = interesseUnico;
+    } else {
+        produtosCategoria = categoriasOrganizadas[categoriaAtiva] || [];
     }
 
-    function scroll(cat, direcao) {
-        const el = listasRef.current[cat];
-        if (!el) return;
 
-        el.scrollBy({
-            left: direcao === "direita" ? 320 : -320,
-            behavior: "smooth"
-        });
 
-        setTimeout(() => atualizarBotoes(cat), 300);
-    }
-
-    function refLista(cat, el) {
-        listasRef.current[cat] = el;
-        if (el) requestAnimationFrame(() => atualizarBotoes(cat));
-    }
+    const produtosRenderizados = produtosCategoria.slice(0, quantidadeVisivel);
 
     /* ===============================
-       LOADING
+       LAZY LOAD
     =============================== */
+    useEffect(() => {
+        if (!observerRef.current) return;
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setQuantidadeVisivel(prev => {
+                        const incremento = isMobile ? 3 : 9;
+                        return Math.min(prev + incremento, produtosCategoria.length);
+                    });
+                }
+            });
+        }, { threshold: 1 });
+
+        observer.observe(observerRef.current);
+        return () => observer.disconnect();
+
+    }, [categoriaAtiva, filtroAtivo, isMobile, produtosCategoria.length]);
+
     if (loading) {
         return (
             <div className="categorias-loading">
@@ -162,94 +173,51 @@ export default function ListaCategorias({ produtos, abrirModalProduto }) {
         );
     }
 
-    const nenhumaCategoria =
-        interesseUnico.length === 0 &&
-        Object.keys(categoriasAleatorias).length === 0;
+    const categoriasFixas = [
+        "Do seu interesse",
+        "Geral",
+        "Papelaria",
+        "Adesivos",
+        "Vestuario",
+        "Sisteres Exclusiva",
+        "Vestidos",
+        "Chaveiros"
+    ];
 
     return (
-        <div className="categorias-box">
+        <div className="layout-categorias">
 
-            {buscou && nenhumaCategoria && (
-                <div className="categoria-vazia">
-                    <h2>Nenhum produto encontrado</h2>
-                    <p>Não encontramos produtos com os filtros selecionados.</p>
-                </div>
-            )}
+            <MenuCategoriasVertical
+                categorias={categoriasFixas}
+                categoriaAtiva={categoriaAtiva}
+                setCategoriaAtiva={setCategoriaAtiva}
+                setFiltroAtivo={setFiltroAtivo}
+                setProdutosFiltrados={setProdutosFiltrados}
+            />
 
-            {/* DO SEU INTERESSE */}
-            {interesseUnico.length > 0 && (
-                <div className="categoria-grupo">
-                    <h2 className="categoria-titulo">Do seu interesse</h2>
 
-                    <div className="categoria-lista-wrapper">
 
-                        {controleScroll["interesse"]?.esquerda && (
-                            <button
-                                className="scroll-btn esquerda"
-                                onClick={() => scroll("interesse", "esquerda")}
-                            >
-                                ‹
-                            </button>
-                        )}
+            <div className="conteudo-categoria">
 
-                        <div
-                            className="categoria-lista"
-                            ref={el => refLista("interesse", el)}
-                            onScroll={() => atualizarBotoes("interesse")}
-                        >
-                            {interesseUnico.map(prod => (
-                                <ProdutoCard
-                                    key={`${prod.id}-${prod.produto}-${prod.preco}`}
-                                    produto={prod}
-                                    abrirModalProduto={abrirModalProduto}
-                                />
-                            ))}
-                        </div>
+                <h2 className="categoria-titulo">
+                    {filtroAtivo ? filtroAtivo : categoriaAtiva}
+                </h2>
 
-                        {controleScroll["interesse"]?.direita && (
-                            <button
-                                className="scroll-btn direita"
-                                onClick={() => scroll("interesse", "direita")}
-                            >
-                                ›
-                            </button>
-                        )}
+                <div className="grid-produtos">
 
-                    </div>
+                    {produtosRenderizados.map(prod => (
+                        <ProdutoCard
+                            key={prod.id}
+                            produto={prod}
+                            abrirModalProduto={abrirModalProduto}
+                        />
+                    ))}
 
                 </div>
-            )}
 
-            {/* CATEGORIAS */}
-            {Object.keys(categoriasAleatorias).map(cat => (
-                <div key={cat} className="categoria-grupo">
-                    <h2 className="categoria-titulo">{cat}</h2>
+                <div ref={observerRef} className="lazy-trigger" />
 
-                    <div className="categoria-lista-wrapper">
-
-
-
-                        <div
-                            className="categoria-lista"
-                            ref={el => refLista(cat, el)}
-                            onScroll={() => atualizarBotoes(cat)}
-                        >
-                            {categoriasAleatorias[cat].map(p => (
-                                <ProdutoCard
-                                    key={`${p.id}-${p.produto}-${p.preco}`}
-                                    produto={p}
-                                    abrirModalProduto={abrirModalProduto}
-                                />
-                            ))}
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-            ))}
-
+            </div>
         </div>
     );
 }

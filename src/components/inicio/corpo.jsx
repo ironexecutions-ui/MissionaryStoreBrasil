@@ -9,6 +9,8 @@ export default function Corpo({ abrirFiltro, setAbrirFiltro }) {
 
     const [produtos, setProdutos] = useState([]);
     const [produtoAberto, setProdutoAberto] = useState(null);
+    const [produtosFiltrados, setProdutosFiltrados] = useState(null);
+    const [filtroAtivo, setFiltroAtivo] = useState(null);
 
     useEffect(() => {
         async function carregar() {
@@ -29,7 +31,12 @@ export default function Corpo({ abrirFiltro, setAbrirFiltro }) {
             <ListaCategorias
                 produtos={produtos}
                 abrirModalProduto={setProdutoAberto}
+                produtosFiltrados={produtosFiltrados}
+                filtroAtivo={filtroAtivo}
+                setFiltroAtivo={setFiltroAtivo}
+                setProdutosFiltrados={setProdutosFiltrados}
             />
+
 
             {produtoAberto && (
                 <ModalProduto
@@ -41,8 +48,10 @@ export default function Corpo({ abrirFiltro, setAbrirFiltro }) {
             {abrirFiltro && (
                 <ModalFiltro
                     fechar={() => setAbrirFiltro(false)}
-                    setProdutos={setProdutos}
+                    setProdutosFiltrados={setProdutosFiltrados}
+                    setFiltroAtivo={setFiltroAtivo}
                 />
+
             )}
         </div>
     );

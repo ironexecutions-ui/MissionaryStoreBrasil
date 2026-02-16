@@ -1,12 +1,12 @@
 /* Área geral do corpo da página */
 .corpo-box {
-    width: 105% !important;
+    width: 99% !important;
     padding: 28px 32px;
     box-sizing: border-box;
     background: linear-gradient(180deg,
-            #1901f1 0%,
-            #457ffc 60%,
-            #8a96ff 100%);
+            #cc9603 0%,
+            #ccec59 60%,
+            #fdff8a 100%) !important;
 
     min-height: calc(100vh - 140px);
     margin-left: 5px;

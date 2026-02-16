@@ -261,3 +261,102 @@
         font-size: 18px;
     }
 }
+
+/* ===============================
+   MOBILE FIXO
+=============================== */
+.rodape-mobile-fixo {
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    width: 42%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    padding: 0 18px;
+
+    background: linear-gradient(135deg, #11151c, #0f141a);
+
+    border-radius: 0 24px 0 0;
+
+    box-shadow:
+        0 -8px 30px rgba(0, 0, 0, 0.35),
+        0 -2px 10px rgba(0, 0, 0, 0.2);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+
+    z-index: 9999;
+
+    animation: subirBarra 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.rodape-mobile-icon {
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.rodape-mobile-icon img {
+
+    width: 13px;
+    height: 13px;
+
+    object-fit: contain;
+
+    filter: brightness(1.1);
+}
+
+.rodape-mobile-icon:hover {
+
+    transform: translateY(-4px) scale(1.08);
+
+    background: rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.rodape-mobile-icon:active {
+    transform: scale(0.96);
+}
+
+@media (min-width: 500px) {
+    .rodape-mobile-fixo {
+        display: none;
+    }
+}
+
+@keyframes subirBarra {
+    from {
+        transform: translateY(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
