@@ -201,6 +201,24 @@ export default function ModalProduto({ produto, fechar }) {
     const caracteristicas = produto.caracteristicas
         ? produto.caracteristicas.split(";").map(c => c.trim()).filter(Boolean)
         : [];
+    React.useEffect(() => {
+
+        // Empurra um estado falso para o histórico
+        window.history.pushState({ modal: true }, "");
+
+        function handlePopState(event) {
+
+            // Se o modal estiver aberto, fecha em vez de voltar
+            fechar();
+        }
+
+        window.addEventListener("popstate", handlePopState);
+
+        return () => {
+            window.removeEventListener("popstate", handlePopState);
+        };
+
+    }, []);
 
     return (
         <div className="modal-overlay" onClick={fechar}>
