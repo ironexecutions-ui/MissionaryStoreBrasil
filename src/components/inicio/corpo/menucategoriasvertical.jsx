@@ -85,7 +85,7 @@ export default function MenuCategoriasVertical({
     }, [isMobile]);
 
     /* ===============================
-       ROTACIONAR TITLES NO MOBILE
+       ROTACIONAR TITLES NO MOBILEgdfgdfgdf
     =============================== */
 
     useEffect(() => {
