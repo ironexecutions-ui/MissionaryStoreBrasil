@@ -17,7 +17,7 @@ export default function MenuCategoriasVertical({
     categoriaAtiva,
     setCategoriaAtiva,
     setFiltroAtivo,
-    setProdutosFiltrados   // 👈 adicionar isso
+    setProdutosFiltrados
 }) {
 
     const [oculto, setOculto] = useState(false);
@@ -27,13 +27,33 @@ export default function MenuCategoriasVertical({
 
     const isMobile = window.innerWidth < 768;
 
+    const usuarioLogado = JSON.parse(localStorage.getItem("usuario") || "null");
+    const estaLogado = !!usuarioLogado;
+
+    // ✅ PRIMEIRO definimos categorias visíveis
+    const categoriasVisiveis = estaLogado
+        ? categorias
+        : categorias.filter(cat => cat !== "Do seu interesse");
+
+    /* ===============================
+       GARANTIR CATEGORIA PADRÃO
+    =============================== */
+
+    useEffect(() => {
+        if (!estaLogado) {
+            if (categoriaAtiva === "Do seu interesse" || !categoriaAtiva) {
+                setCategoriaAtiva("Geral");
+            }
+        }
+    }, [estaLogado, categoriaAtiva, setCategoriaAtiva]);
+
     /* ===============================
        CONTROLE DE SCROLL
     =============================== */
 
     useEffect(() => {
 
-        if (!isMobile) return; // 👈 só roda no mobile
+        if (!isMobile) return;
 
         function handleScroll() {
 
@@ -64,18 +84,17 @@ export default function MenuCategoriasVertical({
 
     }, [isMobile]);
 
-
     /* ===============================
        ROTACIONAR TITLES NO MOBILE
     =============================== */
 
     useEffect(() => {
 
-        if (!isMobile) return;
+        if (!isMobile || categoriasVisiveis.length === 0) return;
 
         intervaloRef.current = setInterval(() => {
             setIndiceMobile(prev =>
-                prev + 1 >= categorias.length ? 0 : prev + 1
+                prev + 1 >= categoriasVisiveis.length ? 0 : prev + 1
             );
         }, 10000);
 
@@ -83,7 +102,7 @@ export default function MenuCategoriasVertical({
             if (intervaloRef.current) clearInterval(intervaloRef.current);
         };
 
-    }, [categorias, isMobile]);
+    }, [categoriasVisiveis, isMobile]);
 
     function handleClick(cat) {
 
@@ -105,11 +124,10 @@ export default function MenuCategoriasVertical({
         }
     }
 
-
     return (
         <>
             <aside className={`menu-categorias-vertical ${oculto ? "menu-oculto" : ""}`}>
-                {categorias.map((cat, index) => {
+                {categoriasVisiveis.map((cat, index) => {
 
                     const mostrarTexto = !isMobile || index === indiceMobile;
 
@@ -140,7 +158,6 @@ export default function MenuCategoriasVertical({
                     ←
                 </button>
             )}
-
         </>
     );
 }

@@ -256,6 +256,7 @@ export default function Produtos() {
                         <table className="ppp-tabela">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Imagens</th>
                                     <th>Produto</th>
                                     <th>Categoria</th>
@@ -264,14 +265,20 @@ export default function Produtos() {
                                     <th>Ações</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 {produtos
                                     .filter(p => p.produto.toLowerCase().includes(filtroNome.toLowerCase()))
                                     .filter(p => p.categoria.toLowerCase().includes(filtroCategoria.toLowerCase()))
                                     .map(p => (
                                         <tr key={p.id}>
+                                            <td className="ppp-id-coluna">
+                                                {p.id}
+                                            </td>
+
                                             <td>
                                                 <div className="ppp-imgs-mini">
+
                                                     {[p.imagem_um, p.imagem_dois, p.imagem_tres, p.imagem_quatro].map((img, i) =>
                                                         img ? (
                                                             <img key={i} src={img} className="ppp-mini" />
