@@ -25,7 +25,8 @@ export default function Produtos() {
         altura: "",
         largura: "",
         comprimento: "",
-        preco: ""
+        preco: "",
+        link_afiliado: ""
     });
 
     function parseCaracteristicas(valor) {
@@ -92,7 +93,8 @@ export default function Produtos() {
             altura: "",
             largura: "",
             comprimento: "",
-            preco: ""
+            preco: "",
+            link_afiliado: ""
         });
         setModoForm(true);
     }
@@ -110,7 +112,8 @@ export default function Produtos() {
             altura: p.altura || "",
             largura: p.largura || "",
             comprimento: p.comprimento || "",
-            preco: p.preco || ""
+            preco: p.preco || "",
+            link_afiliado: p.link_afiliado || ""
         });
         setModoForm(true);
     }
@@ -468,7 +471,11 @@ export default function Produtos() {
                         onChange={e => setForm({ ...form, preco: e.target.value })}
                         onKeyDown={e => irProximo(e, 7)}
                     />
-
+                    <label>Link Afiliado</label>
+                    <input
+                        value={form.link_afiliado}
+                        onChange={e => setForm({ ...form, link_afiliado: e.target.value })}
+                    />
                     {/* CARACTERÍSTICAS */}
                     <label>Características</label>
                     <div className="ppp-caracts">

@@ -203,10 +203,29 @@ export default function Pagos() {
 
                     <div className="pp-produtos-lista">
                         {v.produtos.map((p, i) => (
-                            <div key={i} className="pp-produto-item">
+                            <div
+                                key={i}
+                                className={`pp-produto-item ${p.link_afiliado ? "pp-produto-afiliado" : ""}`}
+                            >
                                 <img src={p.imagem} alt="" className="pp-produto-img" />
                                 <div>
+
+                                    {p.link_afiliado && (
+                                        <span className="pp-badge-afiliado">AFILIADO</span>
+                                    )}
+
                                     <p>{p.nome}</p>
+
+                                    {p.link_afiliado && (
+                                        <a
+                                            href={p.link_afiliado}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="pp-link-afiliado"
+                                        >
+                                            {p.link_afiliado}
+                                        </a>
+                                    )}
 
                                     {p.carateristica && p.carateristica.trim() !== "" && (
                                         <p className="pp-produto-caracteristica">
