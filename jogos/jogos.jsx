@@ -83,7 +83,7 @@ export default function Jogos() {
     /* =====================
        CÓDIGO
     ===================== */
-    const { handleCodigo } = useCodigo({
+    const { handleCodigo, verificarCodigo, produto } = useCodigo({
         codigo,
         setCodigo,
         setQuantos,
@@ -106,6 +106,19 @@ export default function Jogos() {
 
         buscarAlerta();
     }, []);
+    useEffect(() => {
+
+        if (fase === "produto") {
+
+            const timer = setTimeout(() => {
+                window.location.reload();
+            }, 5000);
+
+            return () => clearTimeout(timer);
+
+        }
+
+    }, [fase]);
     useEffect(() => {
         if (!alertaAtivo) return;
 
@@ -295,7 +308,21 @@ export default function Jogos() {
                 />
             )}
 
+            {fase === "produto" && produto && (
+                <div className="produto-modal">
 
+                    <div className="produto-card">
+
+                        <h2>{produto.nome}</h2>
+
+                        <p>R$ {produto.preco}</p>
+
+                        <p>USD {produto.dolar}</p>
+
+                    </div>
+
+                </div>
+            )}
         </div>
     );
 }

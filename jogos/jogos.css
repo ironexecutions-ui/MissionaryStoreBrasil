@@ -299,3 +299,142 @@ body {
     outline: 4px solid #2563eb;
     transform: scale(1.08);
 }
+
+.produto-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.92));
+
+    backdrop-filter: blur(8px);
+
+    z-index: 9999;
+
+    animation: modalEntrada .35s ease;
+}
+
+@keyframes modalEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.produto-card {
+
+    position: relative;
+
+    width: 820px;
+    max-width: 90%;
+
+    padding: 50px 40px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(135deg,
+            #ffffff,
+            #eef3ff);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        inset 0 2px 0 rgba(255, 255, 255, 0.8);
+
+    animation: cardPower .35s cubic-bezier(.2, .9, .3, 1);
+}
+
+@keyframes cardPower {
+    from {
+        transform: scale(.75) rotate(-2deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* emoji produto */
+
+.produto-card h2 {
+
+    font-size: 50px;
+    font-weight: 700;
+
+    margin-bottom: 28px;
+
+    color: #1a1f2e;
+
+}
+
+.produto-card h2::before {
+    content: "🛍️ ";
+}
+
+/* preço real */
+
+.produto-card p:nth-child(2) {
+
+    font-size: 52px;
+    font-weight: 800;
+
+    color: #00336d;
+
+    margin-bottom: 14px;
+
+}
+
+.produto-card p:nth-child(2)::before {
+    content: "💰 ";
+}
+
+/* preço dolar */
+
+.produto-card p:nth-child(3) {
+
+    font-size: 44px;
+    font-weight: 700;
+
+    color: #2d3748;
+
+}
+
+.produto-card p:nth-child(3)::before {
+    content: "💵 ";
+}
+
+/* brilho decorativo */
+
+.produto-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(rgba(10, 124, 255, 0.35),
+            transparent);
+
+    filter: blur(50px);
+
+    top: -60px;
+    left: -60px;
+
+}
