@@ -313,8 +313,13 @@ export default function Jogos() {
 
                     <div className="produto-card">
 
-                        <h2>{produto.nome}</h2>
-
+                        <h2>
+                            {
+                                produto.nome
+                                    .toLowerCase()
+                                    .replace(/\b\w/g, l => l.toUpperCase())
+                            }
+                        </h2>
                         <p>R$ {produto.preco}</p>
 
                         <p>USD {produto.dolar}</p>
