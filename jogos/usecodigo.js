@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API_URL } from "../src/config";
 
 export function useCodigo({
@@ -20,9 +20,14 @@ export function useCodigo({
             .replace(/[^A-Z0-9]/g, "");
 
         setCodigo(limpo);
+        setFase("codigo");
 
         if (limpo.length > 4) {
             buscarProduto(limpo);
+        }
+
+        if (limpo.length === 4 || limpo === "CTM") {
+            verificarCodigo(limpo);
         }
 
     }
@@ -38,19 +43,17 @@ export function useCodigo({
             const res = await r.json();
 
             if (res.existe) {
-
                 setProduto(res);
                 setFase("produto");
-
             }
 
         } catch { }
 
     }
 
-    async function verificarCodigo() {
+    async function verificarCodigo(codigoDigitado) {
 
-        if (codigo === "CTM") {
+        if (codigoDigitado === "CTM") {
 
             setTutorial(true);
             setQuantos(1);
@@ -64,7 +67,7 @@ export function useCodigo({
         try {
 
             const r = await fetch(
-                `${API_URL}/jogos/msb/verificar?codigo=${codigo}`
+                `${API_URL}/jogos/msb/verificar?codigo=${codigoDigitado}`
             );
 
             const res = await r.json();
@@ -100,6 +103,6 @@ export function useCodigo({
 
     }
 
-    return { handleCodigo, verificarCodigo, produto };
+    return { handleCodigo, produto };
 
 }
