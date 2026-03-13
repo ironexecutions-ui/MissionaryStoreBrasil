@@ -194,6 +194,9 @@ export default function Header({ abrirFiltro, painelAtivo, setPainelAtivo }) {
 
                     {!usuario && (
                         <button
+                            style={{
+                                left: "-20px"
+                            }}
                             className="header-btn"
                             onClick={() => setAbrirLogin(true)}
                         >

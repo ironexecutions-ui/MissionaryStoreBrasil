@@ -92,11 +92,9 @@
 
 /* Preço */
 .produto-preco {
-    font-size: clamp(16px, 2.5vw, 20px);
+    font-size: 20px !important;
     font-weight: 900;
-    background: linear-gradient(90deg, #041ba0, #2563eb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #041ba0 !important;
     letter-spacing: 0.3px;
 }
 

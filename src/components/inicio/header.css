@@ -874,3 +874,116 @@ RESPONSIVO APARTIR DAQUI
         font-size: 0.65rem;
     }
 }
+
+/* suavização global da renderização */
+.header-boxx,
+.header-btn,
+.header-ttl,
+.header-input,
+.header-bolinha {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.carrinho-badge {
+    animation: badgePop 0.35s ease;
+}
+
+@keyframes badgePop {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.25);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.header-input:hover {
+    background: #323a4c;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.25),
+        0 6px 14px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.header-boxx::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0.04),
+            rgba(255, 255, 255, 0.02) 30%,
+            rgba(0, 0, 0, 0.05));
+
+    opacity: 0.6;
+}
+
+.header-esq img:hover {
+    transform: scale(1.08) rotate(2deg);
+
+    filter:
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
+
+.header-ttl:hover {
+    letter-spacing: 0.6px;
+}
+
+.header-bolinha {
+    animation:
+        entrarDaDireita 0.38s cubic-bezier(0.22, 0.61, 0.36, 1),
+        flutuarSuave 3.5s ease-in-out infinite;
+}
+
+@keyframes flutuarSuave {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.aviso-endereco {
+    animation: avisoPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes avisoPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.header-btn.ativo {
+    backdrop-filter: blur(2px);
+}
+
+.header-input {
+    min-width: 180px;
+}
