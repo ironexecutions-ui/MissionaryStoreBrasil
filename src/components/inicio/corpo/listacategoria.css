@@ -492,22 +492,25 @@
 /* ===============================
    RESPONSIVO
 =============================== */
-
 @media (max-width: 768px) {
 
-    .layout-categorias {
-        flex-direction: column;
-        gap: 30px;
+    .produto-card {
+        padding: 14px;
+        border-radius: 16px;
     }
 
-    .conteudo-categoria {
-        padding-right: 0;
+    .produto-imagem-container {
+        height: 150px;
     }
 
-    .grid-produtos {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .produto-nome {
+        font-size: 14px;
     }
+
+    .produto-preco {
+        font-size: 17px !important;
+    }
+
 }
 
 /* ===============================
