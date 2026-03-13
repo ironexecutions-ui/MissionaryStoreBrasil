@@ -18,18 +18,27 @@ export default function ProdutoCard({ produto, abrirModalProduto }) {
             ? produto.produto.charAt(0).toUpperCase() + produto.produto.slice(1)
             : "";
 
-    const caminhoLocal = `Frontend/cards/${produto.id}.${extensoes[indiceExtensao]}`;
+    // CAMINHO DA IMAGEM
+    const caminhoLocal = `/cards/${produto.id}.${extensoes[indiceExtensao]}`;
+
     const imagemBanco = produto.imagem_um;
 
     function tratarErroImagem() {
+
         if (!usarImagemBanco) {
+
             if (indiceExtensao < extensoes.length - 1) {
-                setIndiceExtensao(indiceExtensao + 1);
-            } else if (imagemBanco) {
-                setUsarImagemBanco(true);
-            } else {
-                setFalhouTudo(true);
+                setIndiceExtensao(prev => prev + 1);
+                return;
             }
+
+            if (imagemBanco) {
+                setUsarImagemBanco(true);
+                return;
+            }
+
+            setFalhouTudo(true);
+
         } else {
             setFalhouTudo(true);
         }
@@ -61,6 +70,7 @@ export default function ProdutoCard({ produto, abrirModalProduto }) {
             </div>
 
             <div className="produto-info">
+
                 <span className="produto-categoria">
                     Disponível para compra
                 </span>
@@ -73,8 +83,8 @@ export default function ProdutoCard({ produto, abrirModalProduto }) {
                     {precoFormatado}
                 </p>
 
-
             </div>
+
         </div>
     );
 }
