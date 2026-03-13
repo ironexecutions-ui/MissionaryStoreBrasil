@@ -18,7 +18,7 @@ export default function ProdutoCard({ produto, abrirModalProduto }) {
             ? produto.produto.charAt(0).toUpperCase() + produto.produto.slice(1)
             : "";
 
-    const caminhoLocal = `cards/${produto.id}.${extensoes[indiceExtensao]}`;
+    const caminhoLocal = `frontend/cards/${produto.id}.${extensoes[indiceExtensao]}`;
     const imagemBanco = produto.imagem_um;
 
     function tratarErroImagem() {
