@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "./produtoscard.css";
 
+// importa todas as imagens da pasta cards
+const imagens = import.meta.glob("./cards/*.{png,jpg,webp}", {
+    eager: true,
+    import: "default"
+});
+
 export default function ProdutoCard({ produto, abrirModalProduto }) {
 
-    const extensoes = ["webp", "jpg", "png"];
-    const [indiceExtensao, setIndiceExtensao] = useState(0);
     const [usarImagemBanco, setUsarImagemBanco] = useState(false);
     const [falhouTudo, setFalhouTudo] = useState(false);
 
@@ -18,30 +22,23 @@ export default function ProdutoCard({ produto, abrirModalProduto }) {
             ? produto.produto.charAt(0).toUpperCase() + produto.produto.slice(1)
             : "";
 
-    // CAMINHO DA IMAGEM
-    const caminhoLocal = `/cards/${produto.id}.${extensoes[indiceExtensao]}`;
+    // procura automaticamente a imagem correta do produto
+    const chaveImagem = Object.keys(imagens).find((caminho) =>
+        caminho.includes(`/cards/${produto.id}.`)
+    );
+
+    const caminhoLocal = chaveImagem ? imagens[chaveImagem] : null;
 
     const imagemBanco = produto.imagem_um;
 
     function tratarErroImagem() {
 
-        if (!usarImagemBanco) {
-
-            if (indiceExtensao < extensoes.length - 1) {
-                setIndiceExtensao(prev => prev + 1);
-                return;
-            }
-
-            if (imagemBanco) {
-                setUsarImagemBanco(true);
-                return;
-            }
-
-            setFalhouTudo(true);
-
-        } else {
-            setFalhouTudo(true);
+        if (!usarImagemBanco && imagemBanco) {
+            setUsarImagemBanco(true);
+            return;
         }
+
+        setFalhouTudo(true);
     }
 
     const srcFinal = usarImagemBanco ? imagemBanco : caminhoLocal;
@@ -54,7 +51,7 @@ export default function ProdutoCard({ produto, abrirModalProduto }) {
 
             <div className="produto-imagem-container">
 
-                {!falhouTudo ? (
+                {!falhouTudo && srcFinal ? (
                     <img
                         src={srcFinal}
                         alt={nomeFormatado}
