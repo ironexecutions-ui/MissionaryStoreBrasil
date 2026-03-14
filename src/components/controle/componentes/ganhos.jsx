@@ -55,12 +55,22 @@ export default function Ganhos() {
                 }
 
             });
+
             const listaOrdenada = Object.values(agrupado).sort((a, b) => {
 
-                const dataA = new Date(a.semana.split("de ")[1].split(" até")[0]);
-                const dataB = new Date(b.semana.split("de ")[1].split(" até")[0]);
+                function pegarTimestamp(texto) {
 
-                return dataB - dataA;
+                    const inicio = texto
+                        .replace("Semana de ", "")
+                        .split(" até ")[0];
+
+                    const [dia, mes, ano] = inicio.split("/");
+
+                    return new Date(ano, mes - 1, dia).getTime();
+
+                }
+
+                return pegarTimestamp(b.semana) - pegarTimestamp(a.semana);
 
             });
 
