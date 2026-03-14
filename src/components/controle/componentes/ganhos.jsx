@@ -55,9 +55,13 @@ export default function Ganhos() {
                 }
 
             });
-
             const listaOrdenada = Object.values(agrupado).sort((a, b) => {
-                return Number(b.semana) - Number(a.semana);
+
+                const dataA = new Date(a.semana.split("de ")[1].split(" até")[0]);
+                const dataB = new Date(b.semana.split("de ")[1].split(" até")[0]);
+
+                return dataB - dataA;
+
             });
 
             setLista(listaOrdenada);
