@@ -1,7 +1,10 @@
 .compras-container {
     width: 100%;
     min-height: 100vh;
-    background: #ffffff;
+    background: linear-gradient(180deg,
+            #cc9603 0%,
+            #ccec59 60%,
+            #fdff8a 100%) !important;
     color: white;
     border-end-start-radius: 30px;
     border-top-left-radius: 30px;

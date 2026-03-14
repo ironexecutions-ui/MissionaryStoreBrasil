@@ -1,0 +1,238 @@
+/* ===== CONTAINER ===== */
+
+.financeiro-despesas-container {
+    background: linear-gradient(180deg, #d6d6d6, #bcbcbc);
+    border-radius: 34px;
+    padding: 30px;
+    margin-bottom: 28px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid #2a2a2a;
+    overflow-x: hidden;
+}
+
+/* título */
+
+.financeiro-despesas-titulo {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #0f172a;
+    letter-spacing: 0.4px;
+}
+
+/* ===== TABELA ===== */
+
+.financeiro-despesas-tabela-wrapper {
+    overflow-x: auto;
+}
+
+.financeiro-despesas-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+
+}
+
+/* header */
+
+.financeiro-despesas-head th {
+
+    background: #012d5a;
+
+    padding: 14px;
+
+    text-align: left;
+
+    font-weight: 600;
+    color: #fdfdfd;
+    padding: 14px;
+    text-align: left;
+    border-bottom: 2px solid #cfcfcf;
+}
+
+/* linhas */
+
+.financeiro-despesas-body tr {
+    transition: all 0.18s ease;
+}
+
+.financeiro-despesas-body tr:hover {
+    font-weight: bolder;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* colunas */
+
+.financeiro-despesas-coluna {
+    padding: 14px;
+    border-radius: solid 1px red;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.financeiro-despesas-colunsa {
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+
+/* faixa animada */
+
+.financeiro-despesas-colunsa::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(0, 0, 0, 0.08) 10px,
+            rgba(0, 0, 0, 0.08) 20px);
+
+    animation: moverFaixa 6s linear infinite;
+}
+
+/* animação */
+
+@keyframes moverFaixa {
+
+    0% {
+        left: -150%;
+    }
+
+    50% {
+        left: 0%;
+    }
+
+    100% {
+        left: -150%;
+    }
+
+}
+
+/* valor */
+
+.financeiro-despesas-valor {
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: 0.3px;
+}
+
+/* vazio */
+
+.financeiro-despesas-vazio {
+    padding: 25px;
+    text-align: center;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+/* ===== STATUS LINHA ===== */
+
+.financeiro-status-pago {
+    background: linear-gradient(90deg, #c6ffd2, #8df0aa);
+    border-left: 6px solid #007e00;
+    font-weight: 700;
+}
+
+.financeiro-status-andamento {
+    background: linear-gradient(90deg, #c7d7ff, #e7efff);
+    border-left: 6px solid #2563eb;
+    font-weight: 700;
+}
+
+.financeiro-status-naopago {
+    background: linear-gradient(90deg, #ffc6c6, #ff7a7a);
+    border-left: 6px solid #c40000;
+    font-weight: 700;
+}
+
+/* ===== BADGE STATUS ===== */
+
+.financeiro-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: solid 1px rgb(19, 18, 18);
+
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* pago */
+
+.financeiro-status-badge.pago {
+    background: #d9ffe4;
+    color: #065f46;
+}
+
+/* andamento */
+
+.financeiro-status-badge.andamento {
+    background: #e1ecff;
+    color: #1d4ed8;
+}
+
+/* não pago */
+
+.financeiro-status-badge.naopago {
+    background: #ffe2e2;
+    color: #991b1b;
+}
+
+/* animação */
+
+.financeiro-status-pago:hover,
+.financeiro-status-andamento:hover,
+.financeiro-status-naopago:hover {
+    filter: brightness(1.06);
+}
+
+.financeiro-menu {
+
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 9999;
+
+}
+
+.financeiro-menu button {
+
+    border: none;
+    background: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+
+}
+
+.financeiro-menu button:hover {
+
+    background: #f3f4f6;
+
+}
+
+.financeiro-menu-item {
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #1f2937;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.financeiro-menu-item:hover {
+    background: #f3f4f6;
+    color: #111827;
+}

@@ -15,7 +15,7 @@ import PublicProdutos from "../public/tabela";
 import "./app.css";
 import Jogos from "../jogos/jogos";
 import Cambio from "./components/cambio/cambio";
-
+import Controle from "./components/controle/controle";
 export default function App() {
 
   const [carregando, setCarregando] = useState(true);
@@ -138,9 +138,14 @@ export default function App() {
         <Route
           path="/public"
           element={<PublicProdutos />}
-        />        <Route
+        />
+        <Route
           path="/jogos"
           element={<Jogos />}
+        />
+        <Route
+          path="/controle"
+          element={<Controle />}
         />
         <Route
           path="/escaneando/:codigo"

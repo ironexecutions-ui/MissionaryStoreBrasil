@@ -1,0 +1,424 @@
+.financeiro-novo-container {
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    margin-bottom: 30px;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+
+    border: 1px solid #f0f0f0;
+
+}
+
+
+
+/* HEADER */
+
+.financeiro-novo-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+.financeiro-novo-titulo {
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    color: #1f2937;
+
+}
+
+
+
+/* SELECT */
+
+.financeiro-novo-select {
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    border: 1px solid #dcdcdc;
+
+    background: #fafafa;
+
+    font-size: 14px;
+
+    transition: all 0.15s ease;
+
+    cursor: pointer;
+
+}
+
+.financeiro-novo-select:hover {
+
+    border-color: #bdbdbd;
+
+}
+
+.financeiro-novo-select:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+
+}
+
+
+
+/* FORM GRID */
+
+.financeiro-novo-form {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 14px;
+
+}
+
+
+
+/* INPUT */
+
+.financeiro-input {
+
+    padding: 11px 14px;
+
+    border-radius: 8px;
+
+    border: 1px solid #e1e1e1;
+
+    background: #ffffff;
+
+    font-size: 14px;
+
+    transition: all 0.18s ease;
+
+}
+
+.financeiro-input::placeholder {
+
+    color: #9ca3af;
+
+}
+
+.financeiro-input:hover {
+
+    border-color: #cfcfcf;
+
+}
+
+.financeiro-input:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+
+}
+
+
+
+/* ACTION AREA */
+
+.financeiro-novo-acoes {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 6px;
+
+}
+
+
+
+/* BUTTON */
+
+.financeiro-botao-salvar {
+
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+
+    color: white;
+
+    padding: 11px 22px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.18s ease;
+
+}
+
+.financeiro-botao-salvar:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+
+}
+
+.financeiro-botao-salvar:active {
+
+    transform: translateY(0);
+
+}
+
+
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+
+    .financeiro-novo-form {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+.financeiro-botao-salvar:disabled {
+
+    background: #d1d5db;
+
+    color: #6b7280;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    transform: none;
+
+    opacity: 0.8;
+
+}
+
+.financeiro-botao-salvar:disabled:hover {
+
+    transform: none;
+
+    box-shadow: none;
+
+}
+
+/* ===================================== */
+/* MICRO ANIMAÇÃO DE ENTRADA */
+/* ===================================== */
+
+.financeiro-novo-container {
+    animation: financeiroFadeEntrada 0.35s ease;
+}
+
+@keyframes financeiroFadeEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ===================================== */
+/* MELHORIA DE HOVER DO CONTAINER */
+/* ===================================== */
+
+.financeiro-novo-container:hover {
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12),
+        0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ===================================== */
+/* INPUT COM PROFUNDIDADE */
+/* ===================================== */
+
+.financeiro-input {
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.financeiro-input:focus {
+    background: #ffffff;
+}
+
+
+/* ===================================== */
+/* EFEITO MODERNO NOS INPUTS */
+/* ===================================== */
+
+.financeiro-input:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, 0.15),
+        0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ===================================== */
+/* SELECT MELHORADO */
+/* ===================================== */
+
+.financeiro-novo-select {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.financeiro-novo-select:focus {
+    background: #ffffff;
+}
+
+
+/* ===================================== */
+/* BOTÃO COM MAIS PROFUNDIDADE */
+/* ===================================== */
+
+.financeiro-botao-salvar {
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+}
+
+
+/* brilho animado no hover */
+
+.financeiro-botao-salvar::before {
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent);
+    transition: 0.5s;
+
+}
+
+.financeiro-botao-salvar:hover::before {
+    left: 100%;
+}
+
+
+/* ===================================== */
+/* EFEITO CLICK */
+/* ===================================== */
+
+.financeiro-botao-salvar:active {
+
+    box-shadow:
+        inset 0 3px 6px rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* ===================================== */
+/* MELHOR DISTRIBUIÇÃO EM TELAS GRANDES */
+/* ===================================== */
+
+@media (min-width:1200px) {
+
+    .financeiro-novo-container {
+
+        max-width: 900px;
+        margin: auto;
+
+    }
+
+}
+
+
+/* ===================================== */
+/* SCROLLBAR SUAVE */
+/* ===================================== */
+
+.financeiro-novo-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.financeiro-novo-container::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 6px;
+}
+
+.financeiro-novo-container::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+
+/* ===================================== */
+/* MELHOR UX PARA INPUT NUMBER */
+/* ===================================== */
+
+.financeiro-input[type="number"]::-webkit-inner-spin-button,
+.financeiro-input[type="number"]::-webkit-outer-spin-button {
+    opacity: 0.5;
+}
+
+
+/* ===================================== */
+/* HOVER SUAVE EM CAMPOS */
+/* ===================================== */
+
+.financeiro-input:hover {
+    background: #fcfcfc;
+}
+
+
+/* ===================================== */
+/* TÍTULO MAIS ELEGANTE */
+/* ===================================== */
+
+.financeiro-novo-titulo {
+    letter-spacing: 0.2px;
+}
+
+
+/* ===================================== */
+/* GRID MAIS EQUILIBRADO */
+/* ===================================== */
+
+.financeiro-novo-form {
+    align-items: center;
+}

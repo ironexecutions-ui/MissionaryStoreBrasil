@@ -5,14 +5,23 @@ import CarrinhoProduto from "./carrinhoproduto";
 import PagamentoCheckout from "./pagamento";
 
 export default function ModalCarrinho({ fechar }) {
-
+    const imagensCards = import.meta.glob("/corpo/cards/*.{png,jpg,webp}", {
+        eager: true,
+        import: "default"
+    });
     const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
     const [localEntrega, setLocalEntrega] = useState("");
     const [dataReceber, setDataReceber] = useState("");
     const [endereco, setEndereco] = useState(null);
     const [calculandoFrete, setCalculandoFrete] = useState(false);
     const [processandoCompra, setProcessandoCompra] = useState(false);
+    function buscarImagemLocal(produtoId) {
+        const chave = Object.keys(imagensCards).find((caminho) =>
+            caminho.includes(`/cards/${produtoId}.`)
+        );
 
+        return chave ? imagensCards[chave] : null;
+    }
     const [lista, setLista] = useState([]);
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -380,8 +389,16 @@ export default function ModalCarrinho({ fechar }) {
                             className={`carrinho-item ${produtoSelecionado?.processo_id === item.processo_id ? "ativo" : ""}`}
                             onClick={() => setProdutoSelecionado(item)}
                         >
-                            <img src={item.imagem_um} className="carrinho-img" />
-
+                            <img
+                                src={item.imagem_um || buscarImagemLocal(item.produto_id)}
+                                className="carrinho-img"
+                                onError={(e) => {
+                                    const local = buscarImagemLocal(item.produto_id);
+                                    if (local && e.target.src !== local) {
+                                        e.target.src = local;
+                                    }
+                                }}
+                            />
                             <div className="carrinho-info">
                                 <p>{item.produto}</p>
 
