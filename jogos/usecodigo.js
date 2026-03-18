@@ -26,7 +26,7 @@ export function useCodigo({
             buscarProduto(limpo);
         }
 
-        if (limpo.length === 4 || limpo === "CTM") {
+        if (limpo.length >= 4 || limpo === "CTM") {
             verificarCodigo(limpo);
         }
 

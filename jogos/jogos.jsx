@@ -199,7 +199,32 @@ export default function Jogos() {
         fase,
         onSelecionar: selecionarIdiomaPorIndice
     });
+    useEffect(() => {
+        if (fase !== "codigo") return;
 
+        function manterFoco() {
+            inputCodigoRef.current?.focus();
+        }
+
+        // força foco ao clicar em qualquer lugar
+        window.addEventListener("mousedown", manterFoco);
+
+        // força foco ao apertar qualquer tecla
+        window.addEventListener("keydown", manterFoco);
+
+        // força foco contínuo (extra segurança)
+        const intervalo = setInterval(() => {
+            if (document.activeElement !== inputCodigoRef.current) {
+                inputCodigoRef.current?.focus();
+            }
+        }, 500);
+
+        return () => {
+            window.removeEventListener("mousedown", manterFoco);
+            window.removeEventListener("keydown", manterFoco);
+            clearInterval(intervalo);
+        };
+    }, [fase]);
     return (
         <div className="jogos-container">
 
@@ -210,6 +235,19 @@ export default function Jogos() {
                     placeholder="CÓDIGO"
                     value={codigo}
                     onChange={e => handleCodigo(e.target.value)}
+                    onBlur={() => inputCodigoRef.current?.focus()}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+
+                            // espera o React atualizar o state
+                            const valorAtual = inputCodigoRef.current.value;
+
+                            setTimeout(() => {
+                                verificarCodigo(valorAtual);
+                            }, 10);
+                        }
+                    }}
                 />
             )}
 
